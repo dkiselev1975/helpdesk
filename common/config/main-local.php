@@ -14,7 +14,6 @@ return [
             'viewPath' => '@common/mail',
             // send all mails to a file by default.
             'useFileTransport' => false,
-
             'transport' => [
                 'dsn' => 'sendmail://default'
                 ],

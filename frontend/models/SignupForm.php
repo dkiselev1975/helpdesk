@@ -4,7 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use common\models\SiteUser;
 
 /**
  * Signup form
@@ -49,7 +49,7 @@ class SignupForm extends Model
             return null;
         }
         
-        $user = new User();
+        $user = new SiteUser();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
@@ -61,7 +61,7 @@ class SignupForm extends Model
 
     /**
      * Sends confirmation email to user
-     * @param User $user user model to with email should be send
+     * @param SiteUser $user user model to with email should be send
      * @return bool whether the email was sent
      */
     protected function sendEmail($user)
