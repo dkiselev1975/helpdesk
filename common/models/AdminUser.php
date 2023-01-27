@@ -2,14 +2,14 @@
 
 namespace common\models;
 
-class SiteUser extends User
+class AdminUser extends User
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return '{{%site_user}}';
+        return '{{%admin_user}}';
     }
 
 }

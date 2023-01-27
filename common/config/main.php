@@ -19,4 +19,6 @@ return [
             'useFileTransport' => false,
         ],
     ],
+    'language'=>'ru-RU',
+    'name'=>'Сервис срочной дислокации'
 ];

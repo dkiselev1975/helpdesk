@@ -26,11 +26,22 @@ return [
         'log' => [
             'targets' => [
                 [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error', 'warning','trace'],
+                    'logTable' => 'yii_log'
+                ]
+            ],
+        ],
+    ],
+    /*'components' => [
+        'log' => [
+            'targets' => [
+                [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-    ],
+    ],*/
     'params' => $params,
 ];

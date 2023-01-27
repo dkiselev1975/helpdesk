@@ -9,14 +9,21 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    /*'bootstrap' => ['log'],*/
+    'bootstrap' => ['log','debug'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['172.20.1.205']
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'common\models\SiteUser',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -28,11 +35,21 @@ return [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error', 'warning','trace'],
+                    'logTable' => 'yii_log'
+                ]
+            ],
+        ],
+        /*'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
                     'class' => \yii\log\FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
+        ],*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
