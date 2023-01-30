@@ -46,6 +46,7 @@ return [
                         ],
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
+                    'validate_password'=>'Неправильное имя пользователя или пароль',/*'Incorrect username or password.'*/
                 ]
             ,
             'signup_form'=>[
@@ -70,6 +71,11 @@ return [
                         'Выслать вновь'
                     ]
                 ],
+            ],
+            'email'=>[
+                'hello'=>'Здравствуйте, уважаемый(-ая)',/*Hello*/
+                'verify_link'=>'Перейдите по ссылке для подтверждения Вашего адреса электронной почты',/*Follow the link below to verify your email*/
+                'reset_password'=>'Перейдите по ссылке для сброса Вашего пароля',/*Follow the link below to reset your password*/
             ],
         ],
 ];
