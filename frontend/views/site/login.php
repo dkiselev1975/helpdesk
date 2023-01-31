@@ -5,9 +5,6 @@ use common\models\LoginForm;
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var LoginForm $model */
 
-/*use yii\bootstrap5\Html;
-use yii\bootstrap5\ActiveForm;*/
-
-$this->title = Yii::$app->params['messages']['login_form']['title'];
+$this->title = Yii::$app->params['messages']['login']['page_title'];
 $this->params['breadcrumbs'][] = $this->title;
 LoginForm::LoginFormDraw($this->title,$model,true);

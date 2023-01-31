@@ -88,24 +88,24 @@ abstract class LoginForm extends Model
         <div class="d-flex flex-grow-1 justify-content-center">
             <div class="col-12 col-lg-6">
                 <h1><?= Html::encode($title) ?></h1>
-                <p><?=Yii::$app->params['messages']['login_form']['sub_title'];?>:</p>
+                <p><?=Yii::$app->params['messages']['login']['sub_title'];?>:</p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['login_form']['fields']['username'].":") ?>
-                <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['login_form']['fields']['password'].":") ?>
-                <?= $form->field($model, 'rememberMe')->checkbox(['label'=>Yii::$app->params['messages']['login_form']['fields']['rememberMe']]) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['login']['fields']['username'].":") ?>
+                <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['login']['fields']['password'].":") ?>
+                <?= $form->field($model, 'rememberMe')->checkbox(['label'=>Yii::$app->params['messages']['login']['fields']['rememberMe']]) ?>
                 <?php
                 if($password_resend_reset)
                     {?>
                     <div class="my-1 mx-0" style="color:#999;">
-                        <?= Yii::$app->params['messages']['login_form']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login_form']['texts']['forgot_password'][1], ['site/request-password-reset']) ?>.
+                        <?= Yii::$app->params['messages']['login']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['forgot_password'][1], ['site/request-password-reset']) ?>.
                         <br>
-                        <?= Yii::$app->params['messages']['login_form']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login_form']['texts']['resend'][1], ['site/resend-verification-email']) ?>
+                        <?= Yii::$app->params['messages']['login']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['resend'][1], ['site/resend-verification-email']) ?>
                     </div>
                     <?php
                     }
                 ?>
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::$app->params['messages']['login_form']['buttons']['signup'], ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton(Yii::$app->params['messages']['login']['buttons']['login'], ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

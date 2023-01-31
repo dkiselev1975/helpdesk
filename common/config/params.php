@@ -40,27 +40,35 @@ return [
             'errors'=>
                 [
                     'rules'=>[
-                        'username'=>['required'=>'Пожалуйста, заполните поле «Имя пользователя»'],
-                        'password'=>['required'=>'Пожалуйста, заполните поле «Пароль»'],
-                        'email'=>['required'=>'Пожалуйста, заполните поле «Email»'],
+                        'username'=>['required'=>'Пожалуйста, заполните поле «Имя пользователя»'],/**/
+                        'password'=>['required'=>'Пожалуйста, заполните поле «Пароль»'],/**/
+                        'email'=>['required'=>'Пожалуйста, заполните поле «Email»'],/**/
                         ],
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
                     'validate_password'=>'Неправильное имя пользователя или пароль',/*'Incorrect username or password.'*/
                 ]
             ,
-            'signup_form'=>[
-                'title'=>'Регистрация',
-                'fields'=>['username'=>'Имя пользователя','email'=>'Email','password'=>'Пароль'],
-                'buttons'=>['signup'=>'Зарегистрироваться'],
-                'sub_title'=>'Пожалуйста, заполните следующие поля для регистрации',
+            'signup'=>[
+                'page_title'=>'Регистрация',/*Signup*/
+                'sub_title'=>'Пожалуйста, заполните следующие поля для регистрации',/*Please fill out the following fields to signup:*/
+                'fields'=>[
+                    'username'=>'Имя пользователя',/*username*/
+                    'email'=>'Email',/*email*/
+                    'password'=>'Пароль',/*password*/
+                ],
+                'buttons'=>['signup'=>'Зарегистрироваться'],/*signup*/
             ],
 
-            'login_form'=>[
-                'title'=>'Вход в систему',
-                'fields'=>['username'=>'Имя пользователя','password'=>'Пароль','rememberMe'=>'Запомнить меня'],
-                'buttons'=>['signup'=>'Войти в систему'],
-                'sub_title'=>'Пожалуйста, заполните следующие поля для входа',
+            'login'=>[
+                'page_title'=>'Вход в систему',/*Login*/
+                'sub_title'=>'Пожалуйста, заполните следующие поля для входа',/*Please fill out the following fields to login*/
+                'fields'=>[
+                    'username'=>'Имя пользователя',/*username*/
+                    'password'=>'Пароль',/*password*/
+                    'rememberMe'=>'Запомнить меня',/*rememberMe*/
+                ],
+                'buttons'=>['login'=>'Войти в систему'],/*Login*/
                 'texts'=>[
                     'forgot_password'=>[
                         'Если Вы забыли свой пароль, Вы можете ',
@@ -72,10 +80,37 @@ return [
                     ]
                 ],
             ],
+            'request_password_reset_token'=>[
+                'page_title'=>'Запрос на сброс пароля',/*Request password reset*/
+                'sub_title'=>'Заполните, пожалуйста, адрес своей электронной почты. Вам будет выслана ссылка на сброс пароля.',/*Please fill out your email. A link to reset password will be sent there.*/
+                'fields'=>['email'=>'Ваш email'],
+                'buttons'=>[
+                    'send'=>'Отправить'/*Send*/
+                ],
+            ],
+            'resend_verification_email'=>[
+                'page_title'=>'Выслать проверочное письмо',/*Resend verification email*/
+                'sub_title'=>'Заполните, пожалуйста, адрес своей электронной почты. Вам будет выслано проверочное письмо',/*Please fill out your email. A verification email will be sent there*/
+                'fields'=>['email'=>'Ваш email'],
+                'buttons'=>[
+                    'send'=>'Отправить'/*Send*/
+                ],
+            ],
+            'reset_password'=>[
+                'page_title'=>'Сброс пароля',/*Reset password*/
+                'sub_title'=>'Пожалуйста, введите Ваш новый пароль',/*Please choose your new password*/
+                'fields'=>['password'=>'Пароль'],/*password*/
+                'buttons'=>[
+                    'save'=>'Save'/*Save*/
+                ],
+            ],
             'email'=>[
                 'hello'=>'Здравствуйте, уважаемый(-ая)',/*Hello*/
                 'verify_link'=>'Перейдите по ссылке для подтверждения Вашего адреса электронной почты',/*Follow the link below to verify your email*/
                 'reset_password'=>'Перейдите по ссылке для сброса Вашего пароля',/*Follow the link below to reset your password*/
+
             ],
+
+            'send'=>'Отправить',/*Send*/
         ],
 ];
