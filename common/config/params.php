@@ -71,12 +71,12 @@ return [
                 'buttons'=>['login'=>'Войти в систему'],/*Login*/
                 'texts'=>[
                     'forgot_password'=>[
-                        'Если Вы забыли свой пароль, Вы можете ',
-                        'сбросить его'
+                        'Если Вы забыли свой пароль, Вы можете ',/*If you forgot your password you can*/
+                        'сбросить его',/*reset it*/
                     ],
                     'resend'=>[
-                        'Требуется выслать новое проверочное письмо?',
-                        'Выслать вновь'
+                        'Требуется выслать новое проверочное письмо?',/*Need new verification email?*/
+                        'Выслать вновь',/*Resend*/
                     ]
                 ],
             ],
@@ -108,7 +108,6 @@ return [
                 'hello'=>'Здравствуйте, уважаемый(-ая)',/*Hello*/
                 'verify_link'=>'Перейдите по ссылке для подтверждения Вашего адреса электронной почты',/*Follow the link below to verify your email*/
                 'reset_password'=>'Перейдите по ссылке для сброса Вашего пароля',/*Follow the link below to reset your password*/
-
             ],
 
             'send'=>'Отправить',/*Send*/
