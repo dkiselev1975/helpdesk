@@ -35,12 +35,12 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => Yii::$app->params['messages']['navbar']['Home'], 'url' => ['/site/index']],
+        ['label' => Yii::$app->params['messages']['navbar']['About'], 'url' => ['/site/about']],
+        ['label' => Yii::$app->params['messages']['navbar']['Contact'], 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => Yii::$app->params['messages']['navbar']['Signup'], 'url' => ['/site/signup']];
     }
 
     echo Nav::widget([
@@ -52,7 +52,7 @@ AppAsset::register($this);
     } else {
         echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                Yii::$app->params['messages']['navbar']['Logout'].' (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout text-decoration-none']
             )
             . Html::endForm();
@@ -64,7 +64,7 @@ AppAsset::register($this);
 <main role="main" class="flex-grow-1 d-flex flex-column">
     <div class="container">
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => $this->params['breadcrumbs'] ?? [],
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>

@@ -47,8 +47,22 @@ return [
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
                     'validate_password'=>'Неправильное имя пользователя или пароль',/*'Incorrect username or password.'*/
+                    'error_pages'=>[
+                        'server_error'=>[
+                            'Данная ошибка возникла во время обработки Вашего запроса веб-сервером.',/*The above error occurred while the Web server was processing your request.*/
+                            ['Пожалуйста, ','свяжитесь с нами',', если Вы считаете, что это программная ошибка. Спасибо.'],/*Please contact us if you think this is a server error. Thank you.*/
+                        ],
+                    ],
                 ]
             ,
+            'navbar'=>[
+                'Home'=>'Начальная страница',/*Home*/
+                'Login'=>'Войти',/*Login*/
+                'Logout'=>'Выйти',/*Logout*/
+                'Signup'=>'Зарегистрироваться',/*Signup*/
+                'About'=>'О системе',/*About*/
+                'Contact'=>'Контакты',/*Contact*/
+                ],
             'signup'=>[
                 'page_title'=>'Регистрация',/*Signup*/
                 'sub_title'=>'Пожалуйста, заполните следующие поля для регистрации',/*Please fill out the following fields to signup:*/

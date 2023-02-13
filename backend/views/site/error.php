@@ -17,11 +17,7 @@ $this->title = $name;
         <?= nl2br(Html::encode($message)) ?>
     </div>
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+    <p><?= Yii::$app->params['messages']['errors']['error_pages']['server_error'][0]?></p>
+    <p><?= Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][0].'<a href="mailto:'.Yii::$app->params['adminEmail'].'">'.Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][1].'</a>'.Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][2]?></p>
 
 </div>
