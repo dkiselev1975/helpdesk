@@ -12,7 +12,7 @@ return [
 
     'user.passwordResetTokenExpire' => 3600,
     'user.passwordMinLength' => 8,
-    'timeZone'=>'UTC+10',
+    'timeZone'=>'Europe/Moscow',
     'regexp'=>
         [
             'date_format'=>'/^\d{2}\.\d{2}\.\d{4}\s\d{2}\:\d{2}$/',
