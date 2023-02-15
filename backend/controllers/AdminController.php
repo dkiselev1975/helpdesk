@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Codeception\Util\Debug;
 use common\models\AdminLoginForm;
+use common\models\SiteUser;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -35,11 +36,11 @@ class AdminController extends Controller
                         'actions' => [
                             'logout',
                             'index',
-                            'site-user-query-index',
-                            'site-user-query-edit-form',
-                            'site-user-query-edit-form/<id:\d+>',
-                            'site-user-query-delete/<id:\d+>',
-                            'site-user-query-update',
+                            'site-user-index',
+                            'site-user-edit-form',
+                            'site-user-edit-form/<id:\d+>',
+                            'site-user-delete/<id:\d+>',
+                            'site-user-update',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -83,10 +84,23 @@ class AdminController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+
+    public function actionLogout():Response
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * .
+     *
+     * @return string
+     */
+    public function actionSiteUserIndex():string
+    {
+        $page_title = 'Пользователи сайта';
+        $items=SiteUser::find_for_edit()->all();
+        return $this->render('SiteUserIndex',compact('items','page_title'));
     }
 }
