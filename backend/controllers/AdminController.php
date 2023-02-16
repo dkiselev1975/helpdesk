@@ -2,8 +2,6 @@
 
 namespace backend\controllers;
 
-use Codeception\Util\Debug;
-use common\models\AdminLoginForm;
 use common\models\SiteUser;
 use Yii;
 use yii\filters\VerbFilter;
@@ -38,8 +36,7 @@ class AdminController extends Controller
                             'index',
                             'site-user-index',
                             'site-user-edit-form',
-                            'site-user-edit-form/<id:\d+>',
-                            'site-user-delete/<id:\d+>',
+                            'site-user-delete',
                             'site-user-update',
                         ],
                         'allow' => true,
@@ -93,7 +90,6 @@ class AdminController extends Controller
     }
 
     /**
-     * .
      *
      * @return string
      */
@@ -102,5 +98,23 @@ class AdminController extends Controller
         $page_title = 'Пользователи сайта';
         $items=SiteUser::find_for_edit()->all();
         return $this->render('SiteUserIndex',compact('items','page_title'));
+    }
+
+    public function actionSiteUserEditForm():string
+    {
+        $page_title = 'Пользователи сайта - ФОРМА';
+        return $this->render('SiteUserEditForm',compact('page_title'));
+    }
+
+    /**
+     * @throws GoodException
+     */
+    public function actionSiteUserDelete():void
+    {
+        $id=Yii::$app->getRequest()->GET('id');
+        $model=new SiteUser();
+        if(!($item=$model->find_for_edit()->andWhere(['id'=>$id])->one())){throw new GoodException('Пользователь сайта не найден');}
+        $model->MarkAsDeleted($item);
+        $this->redirect('/site-user-index');
     }
 }
