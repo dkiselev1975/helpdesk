@@ -16,10 +16,14 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        //js переопределяющий yii.confirm
+        //'js/yii.confirm.overrides.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap5\BootstrapAsset',
+        'yii\bootstrap5\BootstrapPluginAsset',/*нужен для BootboxAsset*/
         'rmrevin\yii\fontawesome\NpmFreeAssetBundle',
+        'app\assets\BootboxAsset',/*alert, confirm, prompt, and flexible dialogs for the Bootstrap framework */
     ];
 }

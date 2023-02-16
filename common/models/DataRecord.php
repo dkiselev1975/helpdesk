@@ -74,6 +74,7 @@ trait DataRecord
      */
     public function save($runValidation = true, $attributeNames = null):bool
     {
+        Yii::warning('saving...');
         try
         {
             return parent::save($runValidation,$attributeNames);

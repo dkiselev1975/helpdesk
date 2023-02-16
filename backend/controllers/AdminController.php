@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\SiteUser;
 use Yii;
+use yii\base\ErrorException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -100,10 +101,66 @@ class AdminController extends Controller
         return $this->render('SiteUserIndex',compact('items','page_title'));
     }
 
-    public function actionSiteUserEditForm():string
+    /*public function actionSiteUserEditForm():string
     {
         $page_title = 'Пользователи сайта - ФОРМА';
         return $this->render('SiteUserEditForm',compact('page_title'));
+    }*/
+
+
+    /**
+     * Редактирование и создание пользователя сайта
+     * @return ?string
+     *
+     * @throws GoodException
+     */
+    public function actionSiteUserEditForm():?string
+    {
+        Yii::warning('actionSiteUserEditForm');
+        $item=new SiteUser();
+        try {
+            if ($id = Yii::$app->getRequest()->GET('id')) {
+                Yii::warning($id);
+                $item = SiteUser::find_for_edit()->andWhere(['id' => $id])->one();
+                if(empty($item)){throw new GoodException('Пользователь сайта не найден');}
+                if ($item->load(Yii::$app->request->post())) {
+                    Yii::warning($item->validate());
+                    if (!$item->validate()) {
+                        throw new ErrorException('Ошибка валидации', 0);
+                    }
+                    if (!$item->save()) {
+                        throw new ErrorException('Ошибка сохранения в БД', 1);
+                    }
+
+                    $this->redirect('/site-user-index');
+                    return null;
+                } else {
+                    $page_title = 'Изменение пользователя сайта';
+                    return $this->render('SiteUserEditForm', compact('item', 'page_title'));
+                }
+            } else {
+                $item['active'] = '1';
+                if ($item->load(Yii::$app->request->post())) {
+                    if (!$item->validate()) {
+                        throw new ErrorException('Ошибка валидации', 0);
+                    }
+                    if (!$item->save()) {
+                        throw new ErrorException('Ошибка сохранения в БД', 1);
+                    }
+                    $this->redirect('/site-user-index');
+                    return null;
+                } else {
+                    $page_title = 'Добавить пользователя сайта';
+                    return $this->render('SiteUserEditForm', compact('item', 'page_title'));
+                }
+            }
+        }
+        catch (ErrorException $error)
+        {
+            $page_title = $error->getMessage();
+            $errors=$item->getErrors();
+            return $this->render('SubscriberEditForm',compact('errors','page_title'));
+        }
     }
 
     /**

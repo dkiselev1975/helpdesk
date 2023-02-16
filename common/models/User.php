@@ -56,6 +56,18 @@ abstract class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+
+            ['username', 'required', 'message' => 'Пожалуйста, заполните поле «Имя»'],
+            /*['phone', 'required', 'message' => 'Пожалуйста, заполните поле «Телефон»'],*/
+            ['email', 'required', 'message' => 'Пожалуйста, заполните поле «E-mail»'],
+
+            ['username','string', 'length' => [2, 45],'tooLong'=>'Длина имени должна быть не более 45 символов','tooShort'=>'Длина имени должна быть не менее 2 символов'],
+            ['email', 'email', 'message' => 'Неверный формат e-mail'],
+            ['phone','match','pattern'=> Yii::$app->params['regexp']['phone'], 'message' => 'Неверный формат номера телефона'],
+            ['note', 'string', 'length' => [0,65535],'tooLong'=>'Длина поля «Примечание» должно быть не более 64кБ'],
+
+            [['active'],'number','min'=>'0','max'=>'1'],
+            [['username','email','phone','note'],'trim'],
         ];
     }
 
