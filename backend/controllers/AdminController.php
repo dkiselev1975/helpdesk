@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\SiteUser;
+use mysql_xdevapi\Warning;
 use Yii;
 use yii\base\ErrorException;
 use yii\filters\VerbFilter;
@@ -73,7 +74,6 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
-        //Yii::warning(Yii::$app->params['timeZone']);
         return $this->render('index');
     }
 
@@ -116,15 +116,14 @@ class AdminController extends Controller
      */
     public function actionSiteUserEditForm():?string
     {
-        Yii::warning('actionSiteUserEditForm');
         $item=new SiteUser();
         try {
             if ($id = Yii::$app->getRequest()->GET('id')) {
-                Yii::warning($id);
+
                 $item = SiteUser::find_for_edit()->andWhere(['id' => $id])->one();
                 if(empty($item)){throw new GoodException('Пользователь сайта не найден');}
+                //Yii::Warning(Yii::$app->request->post());
                 if ($item->load(Yii::$app->request->post())) {
-                    Yii::warning($item->validate());
                     if (!$item->validate()) {
                         throw new ErrorException('Ошибка валидации', 0);
                     }
@@ -159,7 +158,7 @@ class AdminController extends Controller
         {
             $page_title = $error->getMessage();
             $errors=$item->getErrors();
-            return $this->render('SubscriberEditForm',compact('errors','page_title'));
+            return $this->render('SiteUserEditForm',compact('errors','page_title'));
         }
     }
 

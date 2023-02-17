@@ -33,7 +33,7 @@ AppAsset::register($this);
                 if (Yii::$app->user->isGuest) {
                     echo Html::tag('div',Html::a(Yii::$app->params['messages']['navbar']['Login'],['/site/login'],['class' => ['btn btn-link login text-decoration-none text-nowrap']]),['class' => ['d-flex']]);
                 } else {
-                    echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+                    echo Html::beginForm(['/admin/logout'], 'post', ['class' => 'd-flex'])
                         . Html::submitButton(
                             Yii::$app->params['messages']['navbar']['Logout'].' (' . Yii::$app->user->identity->username . ')',
                             ['class' => 'btn btn-link logout text-decoration-none text-nowrap']

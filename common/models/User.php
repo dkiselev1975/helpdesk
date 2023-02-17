@@ -66,7 +66,7 @@ abstract class User extends ActiveRecord implements IdentityInterface
             ['phone','match','pattern'=> Yii::$app->params['regexp']['phone'], 'message' => 'Неверный формат номера телефона'],
             ['note', 'string', 'length' => [0,65535],'tooLong'=>'Длина поля «Примечание» должно быть не более 64кБ'],
 
-            [['active'],'number','min'=>'0','max'=>'1'],
+            /*[['active'],'number','min'=>'0','max'=>'1'],*/
             [['username','email','phone','note'],'trim'],
         ];
     }

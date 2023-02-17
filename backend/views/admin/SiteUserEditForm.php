@@ -1,6 +1,9 @@
 <?php
 
 use common\models\SiteUser;
+use common\models\User;
+use \common\models\Company;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\helpers\Url;
@@ -14,11 +17,23 @@ $this->title=$page_title;
 
 if(isset($item))
 {
+    $status_items = [
+        User::STATUS_ACTIVE => 'Активный',
+        User::STATUS_INACTIVE => 'Не подтвержден',
+        User::STATUS_DELETED=>'Удален'
+    ];
+
+    $status_params = [
+        'prompt' => 'Выберите статус...'
+    ];
+
     $form = ActiveForm::begin(['id' => 'SiteUserEditForm','options'=>['class' => 'col-lg-12']]); ?>
     <?= $form->field($item, 'username',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('Логин',['class'=>'mb-1 fw-bold']); ?>
     <?= $form->field($item, 'email',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('E-mail',['class'=>'mb-1 fw-bold']); ?>
     <?= $form->field($item, 'phone',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('Телефон',['class'=>'mb-1 fw-bold']); ?>
-    <?= $form->field($item, 'active',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->checkbox(['label'=>'Активен','class'=>'mb-1']); ?>
+    <?= $form->field($item, 'status',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList($status_items,$status_params)->label('Статус',['class'=>'mb-1']); ?>
+    <!--$form->field($$item, 'company_id')->dropDownList(ArrayHelper::map(Company::find()->all(), 'id', 'title'));-->
+
     <div class="form-group mt-4">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
     </div>

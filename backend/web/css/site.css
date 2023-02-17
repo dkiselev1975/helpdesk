@@ -6,4 +6,6 @@ main.body-content h1{font-size:2rem;border-bottom:1px solid lightgrey;padding-bo
 
 table.data-table th{text-align:center;font-weight:600;white-space:nowrap}
 table.data-table td{text-align:left;vertical-align:middle}
+table.data-table tr.inactive{background-color:Orange}
+table.data-table tr.deleted{background-color:LightSalmon}
 /*table.data-table .btn{min-width:auto}*/
