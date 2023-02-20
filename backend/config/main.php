@@ -53,11 +53,16 @@ return [
                 'admin/logout'=>'admin/logout',
                 ''=>'admin/index',
                 'index'=>'admin/index',
+
                 'site-user-index' =>'admin/site-user-index',
                 'site-user-edit-form' => 'admin/site-user-edit-form',
                 'site-user-edit-form/<id:\d+>' => 'admin/site-user-edit-form',
                 'site-user-delete/<id:\d+>' => 'admin/site-user-delete',
-                'site-user-update' => 'admin/site-user-update',
+
+                'company-index' =>'admin/company-index',
+                'company-edit-form' =>'admin/company-edit-form',
+                'company-edit-form/<id:\d+>' => 'admin/company-edit-form',
+                'company-delete/<id:\d+>' => 'admin/company-delete',
             ],
         ],
 
