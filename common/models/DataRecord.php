@@ -114,26 +114,13 @@ trait DataRecord
         }
     }
 
-    /*Выводит активные и не удаленные записи*/
-    /*$active_field - наименование поля статуса*/
-    public static function find_active(string $active_field='active',int $active_status_value=1,string $deleted_field='deleted',int $deleted_status_value=0): ActiveQuery
-    {
-        return parent::find()->where(['and',[$active_field=>$active_status_value],['or',[$deleted_field=>[$deleted_status_value,null]]]]);
-    }
-
     /*Пемечает запись как удаленную и проставляет время удаления*/
-    /*$active_field - наименование поля статуса*/
-    public function MarkAsDeleted($item,string $active_field='active',int $inactive_status_value=0,string $deleted_field='deleted',int $deleted_status_value=0):void
+    /*$status_field - наименование поля статуса*/
+    /*$deleted_status_value* - значение статуса для удаленного объекта*/
+    public function MarkAsDeleted($item,string $status_field='status',int $deleted_status_value=0):void
     {
         $item['date_of_deletion']=$this::DateTimeConvert(time(),Yii::$app->params['date_formats']['php']['MySQL_DATETIME_format']);
-        $item[$deleted_field]=$deleted_status_value;
-        $item[$active_field]=$inactive_status_value;
+        $item[$status_field]=$deleted_status_value;
         $item->save(false);
-    }
-
-    /*Выводит в админской части не удаленные записи*/
-    public static function find_for_edit(string $deleted_field='deleted',int $deleted_status_value=0): ActiveQuery
-    {
-        return parent::find()->where(['or',[$deleted_field=>[$deleted_status_value,null]]]);
     }
 }

@@ -97,7 +97,7 @@ class AdminController extends Controller
     public function actionSiteUserIndex():string
     {
         $page_title = 'Пользователи';
-        $items=SiteUser::find_for_edit()->all();
+        $items=SiteUser::find()->all();
         return $this->render('SiteUserIndex',compact('items','page_title'));
     }
 
@@ -120,7 +120,7 @@ class AdminController extends Controller
         try {
             if ($id = Yii::$app->getRequest()->GET('id')) {
 
-                $item = SiteUser::find_for_edit()->andWhere(['id' => $id])->one();
+                $item = SiteUser::find()->andWhere(['id' => $id])->one();
                 if(empty($item)){throw new GoodException('Пользователь сайта не найден');}
                 //Yii::Warning(Yii::$app->request->post());
                 if ($item->load(Yii::$app->request->post())) {
@@ -169,7 +169,7 @@ class AdminController extends Controller
     {
         $id=Yii::$app->getRequest()->GET('id');
         $model=new SiteUser();
-        if(!($item=$model->find_for_edit()->andWhere(['id'=>$id])->one())){throw new GoodException('Пользователь сайта не найден');}
+        if(!($item=$model->find()->andWhere(['id'=>$id])->one())){throw new GoodException('Пользователь сайта не найден');}
         $model->MarkAsDeleted($item);
         $this->redirect('/site-user-index');
     }

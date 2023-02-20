@@ -45,8 +45,8 @@ AppAsset::register($this);
     </header>
     <main role="main" class="flex-grow-1">
         <div class="container-xxl d-flex px-0 h-100">
-            <div class="justify-content-between col-12 row px-2 px-sm-4 m-0 flex-column flex-sm-row">
-                <div class="col-12 col-lg-4 col-xl-2 col-lg-3 text-center text-sm-start bg-light p-3">
+            <div class="justify-content-between col-12 row px-2 px-sm-4 m-0 flex-column flex-lg-row">
+                <div class="col-12 col-lg-2 col-xl-2 text-center text-sm-start bg-light p-3">
                     <nav class="list-unstyled">
                         <?php
                         foreach (\Yii::$app->params['left_menu'] as $item)
@@ -57,7 +57,7 @@ AppAsset::register($this);
                         ?>
                     </nav>
                 </div>
-                <main class="col-12 col-lg-8 col-xl-2 body-content pt-4 px-0 px-sm-3 m-0 flex-grow-1">
+                <main class="col-12 col-lg-10 col-xl-2 body-content pt-4 px-0 px-sm-3 m-0 flex-grow-1">
                     <h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1>
                     <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs'] ?? []])?>
                     <?= Alert::widget() ?>
