@@ -17,6 +17,7 @@ if(!empty($items)&&is_array($items))
         <th>Логин</th>
         <th class="p-1 p-sm-2">E-mail</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Телефон</th>
+        <th class="d-none d-lg-table-cell p-1 p-sm-2">Компания</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Активен</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Создан</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Обновлен</th>
@@ -37,6 +38,7 @@ if(!empty($items)&&is_array($items))
             <td class="p-1 p-sm-2"><?=$item['username'];?></td>
             <td class="p-1 p-sm-2"><?=$item['email'];?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['phone'];?></td>
+            <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item->company->name??'<span class="text-danger fw-bold">Не указана<span>';?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['status']==User::STATUS_ACTIVE?'Да':'Нет';?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['created_at'];?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['updated_at'];?></td>

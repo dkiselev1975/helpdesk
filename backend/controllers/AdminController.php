@@ -96,7 +96,7 @@ class AdminController extends Controller
      */
     public function actionSiteUserIndex():string
     {
-        $page_title = 'Пользователи сайта';
+        $page_title = 'Пользователи';
         $items=SiteUser::find_for_edit()->all();
         return $this->render('SiteUserIndex',compact('items','page_title'));
     }
