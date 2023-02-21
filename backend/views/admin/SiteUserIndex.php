@@ -35,8 +35,8 @@ if(!empty($items)&&is_array($items))
         ?>
         <tr<?php if($tr_class){?> class="<?= $tr_class;?>"<?php }?>>
             <td class="p-1 p-sm-2"><?=$item['username'];?></td>
-            <td class="d-none d-sm-table-cell p-1 p-sm-2"><?=$item['email'];?></td>
-            <td class="d-none d-xl-table-cell p-1 p-sm-2 text-center text-nowrap"><?=implode('<br>',[$item['phone_office'],$item['phone_mobile']]);?></td>
+            <td class="d-none d-sm-table-cell p-1 p-sm-2"><?='<a href="mailto:'.$item['email'].'">'.$item['email'].'</a>';?></td>
+            <td class="d-none d-xl-table-cell p-1 p-sm-2 text-nowrap"><?=implode('<br>',[$item['phone_office'],$item['phone_mobile']]);?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item->company->name??'<span class="text-danger fw-bold">Не указана<span>';?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['status']==User::STATUS_ACTIVE?'Да':'Нет';?></td>
             <td class="d-none d-xl-table-cell p-1 p-sm-2 text-center"><?=implode('<br>',[$item['created_at'],$item['updated_at']]);?></td>

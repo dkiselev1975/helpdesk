@@ -2,12 +2,24 @@
 
 namespace common\models;
 
+/**
+ * SiteUser model
+ *
+ * @property string $phone_office
+ * @property string $phone_mobile
+ * @property string $company_id
+ * @property string $email
+ */
+
 class SiteUser extends User
 {
-    /**
-     * {@inheritdoc}
-     */
+
+
     use DataRecord;
+
+    /**
+     * @var mixed|null
+     */
 
     public function getCompany()
         {

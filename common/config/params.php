@@ -42,17 +42,25 @@ return [
             'errors'=>
                 [
                     'rules'=>[
-                        'username'=>['required'=>'Пожалуйста, заполните поле «Имя пользователя»'],/**/
+                        'username'=>[
+                            'required'=>'Пожалуйста, заполните поле «Имя пользователя»',/**/
+                            'tooLong'=>'Длина данного поля должна быть не более 45 символов',/**/
+                            'tooShort'=>'Длина данного поля должна быть не менее 2 символов',/**/
+                        ],/**/
                         'password'=>['required'=>'Пожалуйста, заполните поле «Пароль»'],/**/
-                        'email'=>['required'=>'Пожалуйста, заполните поле «Email»'],/**/
+                        'email'=>[
+                            'required'=>'Пожалуйста, заполните поле «Email»',/**/
+                            'tooLong'=>'Длина данного поля должна быть не более 255 символов',/**/
+                            ],
+                        'phone'=>['pattern'=>'Неверный формат номера телефона'],
                         ],
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
                     'validate_password'=>'Неправильное имя пользователя или пароль',/*'Incorrect username or password.'*/
                     'error_pages'=>[
                         'server_error'=>[
-                            'Данная ошибка возникла во время обработки Вашего запроса веб-сервером.',/*The above error occurred while the Web server was processing your request.*/
-                            ['Пожалуйста, ','свяжитесь с нами',', если Вы считаете, что это программная ошибка. Спасибо.'],/*Please contact us if you think this is a server error. Thank you.*/
+                            'Данная ошибка возникла во время обработки Вашего запроса веб-сервером',/*The above error occurred while the Web server was processing your request.*/
+                            ['Пожалуйста, ','свяжитесь с нами',', если Вы считаете, что это программная ошибка. Спасибо'],/*Please contact us if you think this is a server error. Thank you.*/
                         ],
                     ],
                 ]
@@ -76,6 +84,34 @@ return [
                 'buttons'=>['signup'=>'Зарегистрироваться'],/*signup*/
             ],
 
+            /*frontend/controllers/SiteController.php*/
+            'actionContact'=>[
+                'success'=>'Благодарим Вас за обращение к нам. Мы ответим Вам как можно быстрее',/*Thank you for contacting us. We will respond to you as soon as possible*/
+                'error'=>'К сожалению, при отправке Вашего сообщения произошла ошибка',/*There was an error sending your message*/
+            ],
+            'actionSignup'=>
+                [
+                    'success'=>'Благодарим Вас за регистрацию. Пожалуйста, проверьте свою почту для получения подтверждающего электронного письма',/*Thank you for registration. Please check your inbox for verification email*/
+                ],
+            'actionRequestPasswordReset'=>[
+                'success'=>'Пожалуйста, проверьте свою почту для получения дальнейших указаний',/*Check your email for further instructions*/
+                'error'=>'К сожалению, мы не можем сбросить Ваш пароль для введенного адреса электронной почты',/*Sorry, we are unable to reset password for the provided email address*/
+            ],
+
+            'actionResetPassword'=>[
+                'success'=>'Новый пароль сохранен',/*New password saved*/
+            ],
+            'actionVerifyEmail'=>[
+                'success'=>'Ваш адрес электронной почты подтвержден',/*'Your email has been confirmed'*/
+                'error'=>'К сожалению, мы не можем подтвердить Вашу учетную запись введенным кодом',/*Sorry, we are unable to verify your account with provided token*/
+            ],
+
+            'actionResendVerificationEmail'=>[
+                'success'=>'Пожалуйста, проверьте свою почту для получения дальнейших указаний',/*Check your email for further instructions*/
+                'error'=>'К сожалению, мы не можем выслать подтверждающее письмо на введенный адрес электронной почты',/*'Sorry, we are unable to resend verification email for the provided email address*/
+            ],
+
+            /*views*/
             'login'=>[
                 'page_title'=>'Вход в систему',/*Login*/
                 'sub_title'=>'Пожалуйста, заполните следующие поля для входа',/*Please fill out the following fields to login*/
@@ -98,7 +134,7 @@ return [
             ],
             'request_password_reset_token'=>[
                 'page_title'=>'Запрос на сброс пароля',/*Request password reset*/
-                'sub_title'=>'Заполните, пожалуйста, адрес своей электронной почты. Вам будет выслана ссылка на сброс пароля.',/*Please fill out your email. A link to reset password will be sent there.*/
+                'sub_title'=>'Заполните, пожалуйста, адрес своей электронной почты. Вам будет выслана ссылка на сброс пароля',/*Please fill out your email. A link to reset password will be sent there.*/
                 'fields'=>['email'=>'Ваш email'],
                 'buttons'=>[
                     'send'=>'Отправить'/*Send*/

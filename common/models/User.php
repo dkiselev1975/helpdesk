@@ -23,16 +23,13 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
+
 abstract class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-
-    /**
-     * {@inheritdoc}
-     */
     /*public static function tableName()
     {
         return '{{%user}}';
@@ -56,19 +53,21 @@ abstract class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+
+            ['username', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['username']['required']."."],
+
+            ['email', 'required', 'message' =>  Yii::$app->params['messages']['errors']['rules']['email']['required']."."],
+            ['email', 'string', 'max' => 255,'tooLong'=>Yii::$app->params['messages']['errors']['rules']['email']['tooLong']],
+
+            ['username','string', 'length' => [2, 45],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['username']['tooLong'],'tooShort'=>Yii::$app->params['messages']['errors']['rules']['username']['tooShort']],
+
+            ['email', 'email', 'message' => 'Неверный формат e-mail'],
+            ['phone_mobile','match','pattern'=> Yii::$app->params['regexp']['phone_mobile'], 'message' => Yii::$app->params['messages']['errors']['rules']['phone']['pattern']],
+            ['phone_office','match','pattern'=> Yii::$app->params['regexp']['phone_office'], 'message' => Yii::$app->params['messages']['errors']['rules']['phone']['pattern']],
+
             ['company_id','integer'],
 
-            ['username', 'required', 'message' => 'Пожалуйста, заполните поле «Имя»'],
-            ['email', 'required', 'message' => 'Пожалуйста, заполните поле «E-mail»'],
-
-            ['username','string', 'length' => [2, 45],'tooLong'=>'Длина данного поля должна быть не более 45 символов','tooShort'=>'Длина данного поля должна быть не менее 2 символов'],
-            ['email', 'email', 'message' => 'Неверный формат e-mail'],
-            ['phone_mobile','match','pattern'=> Yii::$app->params['regexp']['phone_mobile'], 'message' => 'Неверный формат номера телефона'],
-            ['phone_office','match','pattern'=> Yii::$app->params['regexp']['phone_office'], 'message' => 'Неверный формат номера телефона'],
-
             ['note', 'string', 'length' => [0,65535],'tooLong'=>'Длина данного поля должно быть не более 64кБ'],
-
-            /*[['active'],'number','min'=>'0','max'=>'1'],*/
             [['username','email','phone_office','phone_mobile','note'],'trim'],
         ];
     }

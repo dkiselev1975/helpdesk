@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-request-password-reset">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?= Yii::$app->params['messages']['request_password_reset_token']['sub_title']?></p>
+    <p><?= Yii::$app->params['messages']['request_password_reset_token']['sub_title'].'.'?></p>
 
     <div class="row">
         <div class="col-lg-5">
