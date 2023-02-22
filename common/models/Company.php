@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 
 class Company extends ActiveRecord
@@ -18,13 +19,19 @@ class Company extends ActiveRecord
     public function rules()
     {
         return [
+            ['name', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['name']['required']],
+            ['name','string', 'length' => [2, 256],
+                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['255smb'],
+                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
+                ],
+            ['name','trim'],
+
+            ['status', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['status']['required']],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
 
-            ['name', 'required', 'message' => 'Пожалуйста, заполните поле «Название»'],
-            ['name','string', 'length' => [2, 256],'tooLong'=>'Длина данного поля должна быть не более 256 символов','tooShort'=>'Длина данного поля должна быть не менее 2 символов'],
-            ['note', 'string', 'length' => [0,65535],'tooLong'=>'Длина данного поля должно быть не более 64кБ'],
+            ['note', 'string', 'length' => [0,65535],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['64kb']],
+            ['note','trim'],
 
-            [['name','note'],'trim'],
         ];
     }
 

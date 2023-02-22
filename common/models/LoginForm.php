@@ -87,7 +87,7 @@ abstract class LoginForm extends Model
         <div class="d-flex flex-grow-1 justify-content-center">
             <div class="col-12 col-lg-6">
                 <h1><?= Html::encode($title) ?></h1>
-                <p><?=Yii::$app->params['messages']['login']['sub_title'];?>:</p>
+                <p><?=Yii::$app->params['messages']['login']['sub_title'].':';?></p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['login']['fields']['username'].":") ?>
                 <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['login']['fields']['password'].":") ?>

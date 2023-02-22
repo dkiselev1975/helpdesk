@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p><?= Yii::$app->params['messages']['resend_verification_email']['sub_title']."." ?></p>
+    <p><?= Yii::$app->params['messages']['resend_verification_email']['sub_title'].'.' ?></p>
 
     <div class="row">
         <div class="col-lg-5">

@@ -39,20 +39,33 @@ return [
         ],
     'messages'=>
         [
+            'emails'=>[
+                'robot'=>'Автоматическая рассылка',
+                ],
             'errors'=>
                 [
                     'rules'=>[
+                        'name'=>['required'=>'Пожалуйста, заполните поле «Наименование»'],
                         'username'=>[
                             'required'=>'Пожалуйста, заполните поле «Имя пользователя»',/**/
-                            'tooLong'=>'Длина данного поля должна быть не более 45 символов',/**/
-                            'tooShort'=>'Длина данного поля должна быть не менее 2 символов',/**/
                         ],/**/
                         'password'=>['required'=>'Пожалуйста, заполните поле «Пароль»'],/**/
                         'email'=>[
                             'required'=>'Пожалуйста, заполните поле «Email»',/**/
-                            'tooLong'=>'Длина данного поля должна быть не более 255 символов',/**/
+                            'no_user'=>'Пользователя с данным адресом электронной почты не существует',/*'There is no user with this email address'*/
                             ],
-                        'phone'=>['pattern'=>'Неверный формат номера телефона'],
+                        'status'=>['required'=>'Пожалуйста, заполните поле "Статус"'],
+                        'company_id'=>['required'=>'Пожалуйста, заполните поле "Компания"'],
+                        'sizes'=>[
+                            'tooLong'=>
+                                [
+                                    '64kb'=>'Длина данного поля должно быть не более 64кБ',
+                                    '45smb'=>'Длина данного поля должна быть не более 45 символов',
+                                    '255smb'=>'Длина данного поля должна быть не более 255 символов',
+                                ],
+                            'tooShort'=>['2smb'=>'Длина данного поля должна быть не менее 2 символов'],
+                            ],
+                        'format'=>'Неверный формат поля',
                         ],
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
@@ -80,6 +93,8 @@ return [
                     'username'=>'Имя пользователя',/*username*/
                     'email'=>'Email',/*email*/
                     'password'=>'Пароль',/*password*/
+                    'phone_office'=>'Телефон раб.',
+                    'phone_mobile'=>'Телефон моб.',
                 ],
                 'buttons'=>['signup'=>'Зарегистрироваться'],/*signup*/
             ],
@@ -109,6 +124,37 @@ return [
             'actionResendVerificationEmail'=>[
                 'success'=>'Пожалуйста, проверьте свою почту для получения дальнейших указаний',/*Check your email for further instructions*/
                 'error'=>'К сожалению, мы не можем выслать подтверждающее письмо на введенный адрес электронной почты',/*'Sorry, we are unable to resend verification email for the provided email address*/
+            ],
+
+            /*frontend/models*/
+            /*frontend/models/ContactForm.php*/
+            'ContactForm'=>['verifyCode'=>'Код подтверждения'],/*Verification Code*/
+
+            /*frontend/models/PasswordResetRequestForm.php*/
+            'PasswordResetRequestForm'=>[
+                'password_reset_for'=>'Сброс пароля для',/*Password reset for*/
+            ],
+
+            /*frontend/models/ResendVerificationEmailForm.php*/
+            'ResendVerificationEmailForm'=>[
+                'account_registration_at'=>'Учетная запись зарегистрирована для',/*Account registration at*/
+            ],
+
+            /*frontend/models/ResetPasswordForm.php*/
+            'ResetPasswordForm'=>[
+                'blank_token'=>'Код сброса пароля не может быть пустым',/*Password reset token cannot be blank*/
+                'wrong_token'=>'Неверный код сброса пароля',/*Wrong password reset token*/
+            ],
+
+            /*frontend/models/SignupForm.php*/
+            'SignupForm'=>[
+                'account_registration_at'=>'Учетная запись зарегистрирована для',/*Account registration at*/
+            ],
+
+            /*frontend/models/VerifyEmailForm.php*/
+            'VerifyEmailForm'=>[
+                'blank_token'=>'Код в проверочном письме не может быть пустым',/*Verify email token cannot be blank*/
+                'wrong_token'=>'Неверный код проверочного письма',/*Wrong verify email token*/
             ],
 
             /*views*/

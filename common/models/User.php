@@ -51,24 +51,32 @@ abstract class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            ['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
 
             ['username', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['username']['required']."."],
+            ['username','string', 'length' => [2, 45],
+                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
+                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['45smb']
+                ],
+            ['username','trim'],
 
             ['email', 'required', 'message' =>  Yii::$app->params['messages']['errors']['rules']['email']['required']."."],
-            ['email', 'string', 'max' => 255,'tooLong'=>Yii::$app->params['messages']['errors']['rules']['email']['tooLong']],
+            ['email', 'string', 'max' => 255,'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['255smb']],
+            ['email', 'email', 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
+            ['email','trim'],
 
-            ['username','string', 'length' => [2, 45],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['username']['tooLong'],'tooShort'=>Yii::$app->params['messages']['errors']['rules']['username']['tooShort']],
-
-            ['email', 'email', 'message' => 'Неверный формат e-mail'],
-            ['phone_mobile','match','pattern'=> Yii::$app->params['regexp']['phone_mobile'], 'message' => Yii::$app->params['messages']['errors']['rules']['phone']['pattern']],
-            ['phone_office','match','pattern'=> Yii::$app->params['regexp']['phone_office'], 'message' => Yii::$app->params['messages']['errors']['rules']['phone']['pattern']],
+            ['phone_mobile','match','pattern'=> Yii::$app->params['regexp']['phone_mobile'], 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
+            ['phone_mobile','trim'],
+            ['phone_office','match','pattern'=> Yii::$app->params['regexp']['phone_office'], 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
+            ['phone_office','trim'],
 
             ['company_id','integer'],
+            ['company_id','required','message'=>Yii::$app->params['messages']['errors']['rules']['company_id']['required']],
 
-            ['note', 'string', 'length' => [0,65535],'tooLong'=>'Длина данного поля должно быть не более 64кБ'],
-            [['username','email','phone_office','phone_mobile','note'],'trim'],
+            ['note', 'string', 'length' => [0,65535],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['64kb']],
+            ['note','trim'],
         ];
     }
 
