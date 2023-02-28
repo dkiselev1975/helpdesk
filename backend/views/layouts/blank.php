@@ -7,6 +7,7 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use common\widgets\Alert;
 
+Yii::$app->view->params['show_h1']=Yii::$app->view->params['show_h1']??true;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -24,7 +25,11 @@ AppAsset::register($this);
 
 <main role="main" class="flex-grow-1 d-flex flex-column body-content">
     <div class="container flex-grow-1 d-flex flex-column justify-content-center pt-0">
-        <h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1>
+        <?php
+        if(Yii::$app->view->params['show_h1']){
+            ?><h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1><?php
+            }
+        ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>

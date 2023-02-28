@@ -85,8 +85,9 @@ class LoginForm extends Model
     ?>
     <div class="site-login align-items-center d-flex pb-5">
         <div class="d-flex flex-grow-1 justify-content-center">
-            <div class="col-12 col-lg-6">
-                <h1><?= Html::encode($title) ?></h1>
+            <div class="col-12 col-lg-5">
+                <h1 class="text-center pb-4"><?= Yii::$app->params['app_name']['frontend'] ?></h1>
+                <h2 class="text-center mb-4 border-bottom pb-4 fs-4"><?= Html::encode($title) ?></h2>
                 <p><?=Yii::$app->params['messages']['login']['sub_title'].':';?></p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['login']['fields']['username'].":") ?>
@@ -99,17 +100,18 @@ class LoginForm extends Model
                         <?= Yii::$app->params['messages']['login']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['forgot_password'][1], ['site/request-password-reset']) ?>.
                         <br>
                         <?= Yii::$app->params['messages']['login']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['resend'][1], ['site/resend-verification-email']) ?>
-                        <?php
-                        if($signup){
-                        ?><br>
-                        <?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['site/signup']) ?>
-                        <?php }?>
                     </div>
                     <?php
                     }
                 ?>
-                <div class="form-group">
-                    <?= Html::submitButton(Yii::$app->params['messages']['login']['buttons']['login'], ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <div class="d-flex justify-content-around mt-3">
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::$app->params['messages']['login']['buttons']['login'], ['name' => 'login-button', 'class' => 'btn btn-primary m-2 px-4']) ?>
+                    </div>
+                    <?php
+                    if($signup){
+                        ?><?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['/controller/action'], ['class'=>'btn btn-secondary m-2 px-4']) ?>
+                    <?php }?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

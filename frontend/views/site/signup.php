@@ -11,12 +11,8 @@ use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
 
 $this->title = Yii::$app->params['messages']['signup']['page_title'];
-
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
-   <!-- <h1><?/*= Html::encode($this->title) */?></h1>-->
-
     <p><?= Yii::$app->params['messages']['signup']['sub_title'].':' ?></p>
 
     <div class="row">

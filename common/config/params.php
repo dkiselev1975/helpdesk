@@ -137,7 +137,7 @@ return [
 
             /*frontend/models/ResendVerificationEmailForm.php*/
             'ResendVerificationEmailForm'=>[
-                'account_registration_at'=>'Ваша учетная запись зарегистрирована',/*Account registration at*/
+                'account_registration_at'=>'Ваша учетная запись',/*Account registration at*/
             ],
 
             /*frontend/models/ResetPasswordForm.php*/
@@ -190,7 +190,7 @@ return [
                 ],
             ],
             'resend_verification_email'=>[
-                'page_title'=>'Выслать проверочное письмо',/*Resend verification email*/
+                'page_title'=>'Повторная отправка проверочного письма',/*Resend verification email*/
                 'sub_title'=>'Заполните, пожалуйста, адрес своей электронной почты. Вам будет выслано проверочное письмо',/*Please fill out your email. A verification email will be sent there*/
                 'fields'=>['email'=>'Ваш email'],
                 'buttons'=>[

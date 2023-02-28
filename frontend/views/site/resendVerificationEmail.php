@@ -9,11 +9,8 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
 $this->title = Yii::$app->params['messages']['resend_verification_email']['page_title'];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-resend-verification-email">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p><?= Yii::$app->params['messages']['resend_verification_email']['sub_title'].'.' ?></p>
 
     <div class="row">

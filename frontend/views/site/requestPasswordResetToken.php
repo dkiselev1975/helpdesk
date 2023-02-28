@@ -9,11 +9,8 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
 $this->title = Yii::$app->params['messages']['request_password_reset_token']['page_title'];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-request-password-reset">
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p><?= Yii::$app->params['messages']['request_password_reset_token']['sub_title'].'.'?></p>
 
     <div class="row">
