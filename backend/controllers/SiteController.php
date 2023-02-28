@@ -30,12 +30,12 @@ class SiteController extends Controller
                     ],
                 ],
             ],
-            'verbs' => [
+            /*'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -50,16 +50,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    /*public function actionIndex()
-    {
-        return $this->render('index');
-    }*/
 
     /**
      * Login action.
@@ -85,15 +75,4 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-    /*public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }*/
 }

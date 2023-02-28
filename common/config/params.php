@@ -40,7 +40,7 @@ return [
     'messages'=>
         [
             'emails'=>[
-                'robot'=>'Автоматическая рассылка',
+                'robot'=>'(автоматическая рассылка)',
                 ],
             'errors'=>
                 [
@@ -137,7 +137,7 @@ return [
 
             /*frontend/models/ResendVerificationEmailForm.php*/
             'ResendVerificationEmailForm'=>[
-                'account_registration_at'=>'Учетная запись зарегистрирована для',/*Account registration at*/
+                'account_registration_at'=>'Ваша учетная запись зарегистрирована',/*Account registration at*/
             ],
 
             /*frontend/models/ResetPasswordForm.php*/
@@ -175,7 +175,10 @@ return [
                     'resend'=>[
                         'Требуется выслать новое проверочное письмо?',/*Need new verification email?*/
                         'Выслать вновь',/*Resend*/
-                    ]
+                    ],
+                    'signup'=>[
+                        'Зарегистрироваться',/*Signup*/
+                    ],
                 ],
             ],
             'request_password_reset_token'=>[

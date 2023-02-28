@@ -51,7 +51,7 @@ abstract class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
+            //['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
 

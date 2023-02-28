@@ -7,4 +7,4 @@ use common\models\LoginForm;
 
 $this->title = Yii::$app->params['messages']['login']['page_title'];
 $this->params['breadcrumbs'][] = $this->title;
-LoginForm::LoginFormDraw($this->title,$model,true);
+LoginForm::LoginFormDraw($this->title,$model,password_resend_reset: true,signup:true);

@@ -5,6 +5,7 @@
 
 use backend\assets\AppAsset;
 use yii\helpers\Html;
+use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -21,8 +22,10 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<main role="main" class="flex-grow-1 d-flex flex-column">
+<main role="main" class="flex-grow-1 d-flex flex-column body-content">
     <div class="container flex-grow-1 d-flex flex-column justify-content-center pt-0">
+        <h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1>
+        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </main>

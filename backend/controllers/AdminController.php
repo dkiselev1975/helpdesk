@@ -13,7 +13,7 @@ use yii\web\Controller;
 use yii\web\Response;
 
 /**
- * AdminController
+ * Admin controller
  */
 class AdminController extends Controller
 {

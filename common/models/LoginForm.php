@@ -10,7 +10,7 @@ use yii\bootstrap5\Html;
 /**
  * Login form
  */
-abstract class LoginForm extends Model
+class LoginForm extends Model
 {
     public $username;
     public $password;
@@ -80,7 +80,7 @@ abstract class LoginForm extends Model
         return $this->_user;
     }*/
 
-    public static function LoginFormDraw($title,$model,bool $password_resend_reset=false)
+    public static function LoginFormDraw($title,$model,bool $password_resend_reset=false, bool $signup=false)
     {
     ?>
     <div class="site-login align-items-center d-flex pb-5">
@@ -99,6 +99,11 @@ abstract class LoginForm extends Model
                         <?= Yii::$app->params['messages']['login']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['forgot_password'][1], ['site/request-password-reset']) ?>.
                         <br>
                         <?= Yii::$app->params['messages']['login']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['resend'][1], ['site/resend-verification-email']) ?>
+                        <?php
+                        if($signup){
+                        ?><br>
+                        <?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['site/signup']) ?>
+                        <?php }?>
                     </div>
                     <?php
                     }

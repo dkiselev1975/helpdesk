@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\models;
-use frontend\controllers\GoodException;
+use backend\controllers\GoodException;
 use ErrorException;
 use Yii;
 use common\models\SiteUser;
@@ -56,7 +56,7 @@ class SignupForm extends Model
      * @return bool whether the creating new account was successful and email was sent
      * @throws GoodException
      */
-    public function signup()
+    public function signup(): ?bool
     {
         if (!$this->validate()) {
             return null;
@@ -77,22 +77,18 @@ class SignupForm extends Model
         try {
             if(!$user->validate()){
                 $errors=$user->getErrors();
-                $errors=
-                    [
-                        'f1' => [0 => 'Пожалуйста, заполните поле "Статус f1"'],
-                        'f2' => [
-                            0 => 'Пожалуйста, заполните поле "Статус f2"',
-                            1 => 'Пожалуйста, заполните поле "Статус f2"'
-                        ]
-                    ];
-                $m=[];
-                foreach ($errors as $field_errors){$m[]=implode("\n",$field_errors);}
-                Yii::debug($errors);
-                Yii::debug($m);
-                throw new GoodException('Ошибка валидации',implode("\n",$m));
+                /*Yii::warning($errors);*/
+                $errors_messages=array();
+                array_walk_recursive($errors,function ($item) use (&$errors_messages){$errors_messages[]=$item;});
+                throw new GoodException(
+                    name:'Ошибка валидации',
+                    message:implode(";\n",$errors_messages).".",
+                    buttons: array(['href'=>Yii::$app->request->referrer,'title'=>'Вернуться']),
+                    layout:'blank');
                 }
-            if(!$user->save()){throw new GoodException('Ошибка сохранения в БД');};
-            if(!$this->sendEmail($user)){throw new GoodException('Ошибка отправки письма для подтверждения');};
+            if(!$user->save()){throw new GoodException('Ошибка сохранения в БД',layout:'blank');};
+            if(!$this->sendEmail($user)){throw new GoodException('Ошибка отправки письма для подтверждения',layout:'blank');};
+            Yii::debug('Registered....');
             return true;
             }
         catch (ErrorException $exception)

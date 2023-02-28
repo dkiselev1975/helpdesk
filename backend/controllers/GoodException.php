@@ -6,7 +6,7 @@ use yii\base\ExitException;
 
 class GoodException extends ExitException
 {
-    const view='@app/views/admin/GoodException.php';
+    const view='@app/../backend/views/admin/GoodException.php';
     /**
      * Конструктор
      * @param string $name Название (выведем в качестве названия страницы)
@@ -16,7 +16,7 @@ class GoodException extends ExitException
      * @param Exception|null $previous Предыдущее исключение
      */
 
-    public function __construct($name, $message = null, $code = 0, $status = 500, Exception $previous = null)
+    public function __construct($name, $message = null, $code = 0, $status = 500, Exception $previous = null, array $buttons=array(),string $layout=null)
     {
         # Генерируем ответ
         $view = yii::$app->getView();
@@ -24,6 +24,8 @@ class GoodException extends ExitException
         $response->data = $view->renderFile(self::view, [
             'name' => $name,
             'message' => $message,
+            'buttons' => $buttons,
+            'layout' => $layout,
         ]);
 
         # Возвратим нужный статус (по-умолчанию отдадим 500-й)

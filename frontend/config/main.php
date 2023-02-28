@@ -18,6 +18,11 @@ return [
             'allowedIPs' => ['172.20.1.205']
         ],
     ],
+    /*'controllerMap' =>
+        [
+            'site' => 'frontend\controllers\SiteController',
+            'frontend' => 'frontend\controllers\FrontendController',
+        ],*/
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -53,14 +58,25 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'site/login'=>'site/login',
+                'site/signup'=>'site/signup',
+                'site/request-password-reset'=>'site/request-password-reset',
+                'site/resend-verification-email'=>'site/resend-verification-email',
+                'site/reset-password'=>'site/reset-password',
+                'site/verify-email'=>'site/verify-email',
+
+                ''=>'frontend/index',
+                'admin/logout'=>'frontend/logout',
+                'frontend/logout'=>'frontend/logout',
+                'index'=>'frontend/index',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
