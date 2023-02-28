@@ -110,7 +110,7 @@ class LoginForm extends Model
                     </div>
                     <?php
                     if($signup){
-                        ?><?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['/controller/action'], ['class'=>'btn btn-secondary m-2 px-4']) ?>
+                        ?><?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['/site/signup'], ['class'=>'btn btn-secondary m-2 px-4']) ?>
                     <?php }?>
                 </div>
                 <?php ActiveForm::end(); ?>
