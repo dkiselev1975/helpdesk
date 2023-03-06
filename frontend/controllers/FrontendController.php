@@ -5,6 +5,7 @@ use backend\controllers\GoodException;
 use frontend\models\ContactForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+use SoapClient;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -33,7 +34,7 @@ class FrontendController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['logout','index'],
+                        'actions' => ['logout','index','request'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -107,6 +108,50 @@ class FrontendController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @throws \SoapFault
+     */
+    public function actionRequest():string
+    {
+        $client = new SoapClient("http://185.200.240.207/solid/ws/ws1.1cws?wsdl",
+            [
+                'login'=>'solid-tr.ru',
+                'password'=>'solid',
+           ]);
+
+        $functions=$client->__getFunctions();
+        $types=$client->__getTypes();
+
+        $response=$client->ArmingDismountingOfWagonsThreeParameters
+            (
+                [
+                    'Authentication'=>
+                    [
+                        'Login'=>'solid-tr.ru',
+                        'Password'=>'solid'
+                    ],
+                    'DataArmingDisarmingThreeParameters'=>
+                        [
+                            'Status'=>'Постановка','WagonNumber'=>'73124232','TrackingType'=>'Срочный'
+                        ]
+                ]
+        );
+
+        /*
+       2 => 'struct ArmingDismountingOfWagonsThreeParameters {
+         string Status;
+         string WagonNumber;
+         string TrackingType;
+        }'
+       */
+
+        Yii::debug($functions);
+        Yii::debug($types);
+        Yii::debug($response);
+
+        return $this->render('Request');
     }
 
 }

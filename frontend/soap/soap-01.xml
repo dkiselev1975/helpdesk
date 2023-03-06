@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+             xmlns:tns="http://localhost/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+             name="SmsWsdl"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <types>
+        <xs:schema xmlns:tns="http://schemas.xmlsoap.org/wsdl/"
+                   xmlns="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   elementFormDefault="qualified"
+                   targetNamespace="http://localhost/">
+            <complexType name="Message">
+                <sequence>
+                    <element name="phone" type="string" minOccurs="1" maxOccurs="1" />
+                    <element name="text" type="string" minOccurs="1" maxOccurs="1" />
+                    <element name="date" type="dateTime" minOccurs="1" maxOccurs="1" />
+                    <element name="type" type="decimal" minOccurs="1" maxOccurs="1" />
+                </sequence>
+            </complexType>
+            <complexType name="MessageList">
+                <sequence>
+                <element minOccurs="1" maxOccurs="unbounded" name="message" type="Message"/>
+                </sequence>
+            </complexType>
+            <element name="Request">
+                <element name="messageList" type="MessageList" />
+            </element>
+            <element name="Response">
+                <complexType>
+                    <sequence>
+                        <element name="status" type="boolean" />
+                    </sequence>
+                </complexType>
+            </element>
+        </xs:schema>
+    </types>
+    <!-- Сообщения процедуры sendSms -->
+    <message name="sendSmsRequest">
+        <part name="Request" element="tns:Request" />
+    </message>
+    <message name="sendSmsResponse">
+        <part name="Response" element="tns:Response" />
+    </message>
+    <!-- Привязка процедуры к сообщениям -->
+    <portType name="SmsServicePortType">
+        <operation name="sendSms">
+            <input message="tns:sendSmsRequest" />
+            <output message="tns:sendSmsResponse" />
+        </operation>
+    </portType>
+    <!-- Формат процедур веб-сервиса -->
+    <binding name="SmsServiceBinding" type="tns:SmsServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="sendSms">
+            <soap:operation soapAction="" />
+            <input>
+                <soap:body use="literal" />
+            </input>
+            <output>
+                <soap:body use="literal" />
+            </output>
+        </operation>
+    </binding>
+    <!-- Определение сервиса -->
+    <service name="SmsService">
+        <port name="SmsServicePort" binding="tns:SmsServiceBinding">
+            <soap:address location="http://localhost:80/smsservice.php" />
+        </port>
+    </service>
+</definitions>

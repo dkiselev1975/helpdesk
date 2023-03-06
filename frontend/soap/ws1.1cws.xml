@@ -1,0 +1,2022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.atk-expert.ru" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.atk-expert.ru" name="Dislocation_work" targetNamespace="http://www.atk-expert.ru">
+	<types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xs1="http://www.atk-expert.ru" targetNamespace="http://www.atk-expert.ru" attributeFormDefault="unqualified" elementFormDefault="qualified">
+			<xs:complexType name="Authentication">
+				<xs:sequence>
+					<xs:element name="Login" type="xs:string"/>
+					<xs:element name="Password" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="DataArmingDisarmingThreeParameters">
+				<xs:sequence>
+					<xs:element name="Status" type="xs:string"/>
+					<xs:element name="WagonNumber" type="xs:string"/>
+					<xs:element name="TrackingType" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="DataArmingRemovalThreeParameters">
+				<xs:sequence>
+					<xs:element name="Status" type="xs:string"/>
+					<xs:element name="WagonNumber" type="xs:string"/>
+					<xs:element name="TrackingType" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="WagonNumber">
+				<xs:sequence>
+					<xs:element name="WagonNumber" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Аутентификация">
+				<xs:sequence>
+					<xs:element name="Логин" type="xs:string"/>
+					<xs:element name="Пароль" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеЗапросаСправки21">
+				<xs:sequence>
+					<xs:element name="ДорогаОтправления" type="xs:string" nillable="true"/>
+					<xs:element name="СтанцияОтправления" type="xs:string" nillable="true"/>
+					<xs:element name="НомерСостава" type="xs:string" nillable="true"/>
+					<xs:element name="СтанцияНазначения" type="xs:string" nillable="true"/>
+					<xs:element name="ИДЗапроса" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеЗапросаСправкиПоНомеруВагона">
+				<xs:sequence>
+					<xs:element name="НомерВагона" type="xs:string"/>
+					<xs:element name="ИДЗапроса" type="xs:string"/>
+					<xs:element name="ТипСправки" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеПолученияСправки">
+				<xs:sequence>
+					<xs:element name="ИДЗапроса" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеПостановкаСнятие">
+				<xs:sequence>
+					<xs:element name="Статус" type="xs:string"/>
+					<xs:element name="НомерВагона" type="xs:string"/>
+					<xs:element name="ТипСлежения" type="xs:string"/>
+					<xs:element name="Территория" type="xs:string" nillable="true"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеПостановкаСнятиеТриПараметра">
+				<xs:sequence>
+					<xs:element name="Статус" type="xs:string"/>
+					<xs:element name="НомерВагона" type="xs:string"/>
+					<xs:element name="ТипСлежения" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеСлежения">
+				<xs:sequence>
+					<xs:element name="ДанныеВагонов" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Период" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="НомерВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="Группа" type="xs:string" minOccurs="0"/>
+								<xs:element name="ИДВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="СтоитНаСлежении" type="xs:string" minOccurs="0"/>
+								<xs:element name="Статус" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВесГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВидСледующегоРемонта" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Груженый" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоподъемность" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДислокации" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокацииUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДобавления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаОтправления" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоДеповскогоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаСледующегоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоКапитальногоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПостройки" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДнейДоКонцаМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДнейМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДниБезДвижения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДГруппы" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДОперации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИндексПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодДорогиНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодДорогиОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодЕТСНГ" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Модель" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаПостоянномСлежении" type="xs:boolean" minOccurs="0"/>
+								<xs:element name="НомерПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОриентировочнаяДатаПрибытия" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="Прибыл" type="xs:string" minOccurs="0"/>
+								<xs:element name="РасстояниеОсталось" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Сломан" type="xs:string" minOccurs="0"/>
+								<xs:element name="Состояние" type="xs:string" minOccurs="0"/>
+								<xs:element name="Тара" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Тип" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ТипСлежения" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДнейМаршрутаВсегоОсталось" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерНакладной" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеСлеженияВариант1">
+				<xs:sequence>
+					<xs:element name="ДанныеВагонов" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Период" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="НомерВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="Группа" type="xs:string" minOccurs="0"/>
+								<xs:element name="ИДВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="СтоитНаСлежении" type="xs:string" minOccurs="0"/>
+								<xs:element name="Статус" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВесГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВидСледующегоРемонта" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Груженый" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоподъемность" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДислокации" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокацииUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДобавления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаОтправления" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоДеповскогоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаСледующегоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоКапитальногоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПостройки" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДнейДоКонцаМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДнейМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДниБезДвижения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДГруппы" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДОперации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИндексПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодДорогиНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодДорогиОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодЕТСНГ" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Модель" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаПостоянномСлежении" type="xs:boolean" minOccurs="0"/>
+								<xs:element name="НомерПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОриентировочнаяДатаПрибытия" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="Прибыл" type="xs:string" minOccurs="0"/>
+								<xs:element name="РасстояниеОсталось" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Сломан" type="xs:string" minOccurs="0"/>
+								<xs:element name="Состояние" type="xs:string" minOccurs="0"/>
+								<xs:element name="Тара" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Тип" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерНакладной" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаНакладной" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ОКПОГрузополучателя" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОКПОГрузоотправителя" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоотправитель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОтправленияПоДаннымЖД" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузополучатель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОтправкиСоВременем" type="xs:time" minOccurs="0"/>
+								<xs:element name="ДатаПокиданияСтОтправкиUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначенияUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначения" type="xs:time" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ДанныеСрочногоЗапроса">
+				<xs:sequence>
+					<xs:element name="НомерВагонаКонтейнера" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Массив">
+				<xs:sequence>
+					<xs:element name="Элементы" type="tns:Структура" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="МассивСтанций">
+				<xs:sequence>
+					<xs:element name="КодСтанции" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="МоделиВагонов">
+				<xs:sequence>
+					<xs:element name="МодельВагона" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ВагонРод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ВагонТипКод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ВагонТипПолн" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВагонТипСокр" type="xs:string" minOccurs="0"/>
+								<xs:element name="МодельНомер" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="МодельШифр" type="xs:string" minOccurs="0"/>
+								<xs:element name="МодельРод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="МодельХарак" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="УчСпециализ" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="МатерКузова" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ВагонЗавод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Грузопод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ТараМин" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ТараМакс" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДлинаПоОсям" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ОсностьВагона" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ОсеваяНагрузка" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ПереходПлощ" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ОбъемКузова" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ГодНачВыпуска" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ГодСнятСПроиз" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Код" type="xs:string" minOccurs="0"/>
+								<xs:element name="Наименование" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ОтветСервера">
+				<xs:sequence>
+					<xs:element name="Ответ" type="xs:string"/>
+					<xs:element name="Успешно" type="xs:boolean"/>
+					<xs:element name="ИДВагона" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Период">
+				<xs:sequence>
+					<xs:element name="Дата" type="xs:dateTime" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ПолучитьДислокацию">
+				<xs:sequence>
+					<xs:element name="Дислокация" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Период" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="НомерВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="Группа" type="xs:string" minOccurs="0"/>
+								<xs:element name="ИДВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="СтоитНаСлежении" type="xs:string" minOccurs="0"/>
+								<xs:element name="Статус" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВесГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВидСледующегоРемонта" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Груженый" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоподъемность" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДислокации" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокацииUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДобавления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаОтправления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоДеповскогоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаСледующегоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоКапитальногоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПостройки" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДнейДоКонцаМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДнейМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДниБезДвижения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДГруппы" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДОперации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИндексПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодЕТСНГ" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="Модель" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаПостоянномСлежении" type="xs:boolean" minOccurs="0"/>
+								<xs:element name="НомерПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОриентировочнаяДатаПрибытия" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="Прибыл" type="xs:string" minOccurs="0"/>
+								<xs:element name="РасстояниеОсталось" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Сломан" type="xs:string" minOccurs="0"/>
+								<xs:element name="Состояние" type="xs:string" minOccurs="0"/>
+								<xs:element name="Тара" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Тип" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерНакладной" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОКПОГрузополучателя" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОКПОГрузоотправителя" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоотправитель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОтправленияПоДаннымЖД" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДепоПоступленияВРемонт" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеДепоПоступленияВРемонт" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДепоВыходаИзРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеДепоВыходаИзРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодНеисправности" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеНеисправности" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаПокиданияСтОтправкиUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначенияUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначения" type="xs:time" minOccurs="0"/>
+								<xs:element name="ДатаОтправкиСоВременем" type="xs:time" minOccurs="0"/>
+								<xs:element name="Грузополучатель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ТарифСумма" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ТарифВалюта" type="xs:string" minOccurs="0"/>
+								<xs:element name="СобственникНаим" type="xs:string" minOccurs="0"/>
+								<xs:element name="АрендаторНаим" type="xs:string" minOccurs="0"/>
+								<xs:element name="ТипСлежения" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерПлатформы" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОконСлужбы" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаРегистрации" type="xs:date" minOccurs="0"/>
+								<xs:element name="ОбъемКузова" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ВагонТипПолн" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВагонРод" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДепоПоследнегоДеповскогоРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДепоПоследнегоКапитальногоРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="ГУ12" type="xs:string" minOccurs="0"/>
+								<xs:element name="ПробегТекКм" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ПробегТекДата" type="xs:date" minOccurs="0"/>
+								<xs:element name="ПробегОстКм" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ПробегОстДата" type="xs:date" minOccurs="0"/>
+								<xs:element name="КонтрольРемонтаПоПробегу" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВагонТипСокр" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерКонтейнера" type="xs:string" minOccurs="0"/>
+								<xs:element name="ТипКонтейнера" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ПолучитьДислокациюСрочные">
+				<xs:sequence>
+					<xs:element name="ДислокацияСрочные" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Период" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="НомерВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОтправления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДобавления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокации" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокацииUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДОперации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="НаименованиеОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="ИндексПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="Состояние" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВесГруза" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодЕТСНГ" type="xs:string" minOccurs="0"/>
+								<xs:element name="РасстояниеОсталось" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Груженый" type="xs:boolean" minOccurs="0"/>
+								<xs:element name="НомерНакладной" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ПолучитьСправку21">
+				<xs:sequence>
+					<xs:element name="Справка21" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Период" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="НомерВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="Группа" type="xs:string" minOccurs="0"/>
+								<xs:element name="ИДВагона" type="xs:string" minOccurs="0"/>
+								<xs:element name="СтоитНаСлежении" type="xs:string" minOccurs="0"/>
+								<xs:element name="Статус" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВесГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="ВидСледующегоРемонта" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Груженый" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоподъемность" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДислокации" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаДислокацииUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаДобавления" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="ДатаОтправления" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоДеповскогоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаСледующегоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПоследнегоКапитальногоРемонта" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДатаПостройки" type="xs:date" minOccurs="0"/>
+								<xs:element name="ДнейДоКонцаМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДнейМаршрута" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДниБезДвижения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДолготаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДГруппы" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИДОперации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ИндексПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДорогиОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодЕТСНГ" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="Модель" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииДислокации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииНазначения" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеСтанцииОтправления" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаПостоянномСлежении" type="xs:boolean" minOccurs="0"/>
+								<xs:element name="НомерПоезда" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОриентировочнаяДатаПрибытия" type="xs:dateTime" minOccurs="0"/>
+								<xs:element name="Прибыл" type="xs:string" minOccurs="0"/>
+								<xs:element name="РасстояниеОсталось" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Сломан" type="xs:string" minOccurs="0"/>
+								<xs:element name="Состояние" type="xs:string" minOccurs="0"/>
+								<xs:element name="Тара" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="Тип" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииДислокации" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииНазначения" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ШиротаСтанцииОтправления" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="КодОперации" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеГруза" type="xs:string" minOccurs="0"/>
+								<xs:element name="НомерНакладной" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОКПОГрузополучателя" type="xs:string" minOccurs="0"/>
+								<xs:element name="ОКПОГрузоотправителя" type="xs:string" minOccurs="0"/>
+								<xs:element name="Грузоотправитель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаОтправленияПоДаннымЖД" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДепоПоступленияВРемонт" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеДепоПоступленияВРемонт" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодДепоВыходаИзРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеДепоВыходаИзРемонта" type="xs:string" minOccurs="0"/>
+								<xs:element name="КодНеисправности" type="xs:string" minOccurs="0"/>
+								<xs:element name="НаименованиеНеисправности" type="xs:string" minOccurs="0"/>
+								<xs:element name="ДатаПокиданияСтОтправкиUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначенияUNIX" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ДатаФактическогПрибытияНаСтНазначения" type="xs:time" minOccurs="0"/>
+								<xs:element name="ДатаОтправкиСоВременем" type="xs:time" minOccurs="0"/>
+								<xs:element name="Грузополучатель" type="xs:string" minOccurs="0"/>
+								<xs:element name="ТарифСумма" type="xs:decimal" minOccurs="0"/>
+								<xs:element name="ТарифВалюта" type="xs:string" minOccurs="0"/>
+								<xs:element name="СобственникНаим" type="xs:string" minOccurs="0"/>
+								<xs:element name="АрендаторНаим" type="xs:string" minOccurs="0"/>
+								<xs:element name="ТипСлежения" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ПостановкаСнятиеСписком">
+				<xs:sequence>
+					<xs:element name="СписокВагонов" nillable="true" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="НомерВагонаКонтейнера" type="xs:string"/>
+								<xs:element name="ТипПостановки" type="xs:string"/>
+								<xs:element name="ТипСлежения" type="xs:string"/>
+								<xs:element name="Территория" type="xs:string"/>
+								<xs:element name="ВремяПостановкиСнятия" type="xs:dateTime" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="РемонтыВагонов">
+				<xs:sequence>
+					<xs:element name="Дороги" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="УникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="ПометкаУдаления" type="xs:string"/>
+								<xs:element name="Код" type="xs:string"/>
+								<xs:element name="Наименование" type="xs:string"/>
+								<xs:element name="НаименованиеСокр" type="xs:string" nillable="true" minOccurs="0"/>
+								<xs:element name="СтранаМира" type="xs:string" nillable="true" minOccurs="0"/>
+								<xs:element name="НаименованиеАнг" type="xs:string" nillable="true" minOccurs="0"/>
+								<xs:element name="НаименованиеСокрАнг" type="xs:string" nillable="true" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="РемРаботы" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="УникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="Код" type="xs:string" nillable="true"/>
+								<xs:element name="Наименование" type="xs:string"/>
+								<xs:element name="НаименованиеПолное" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="РемНеисправности" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="РодительУникальныйИдентификатор" type="xs:string" nillable="true"/>
+								<xs:element name="РодительКод" type="xs:string" nillable="true"/>
+								<xs:element name="РодительЭтоГруппа" type="xs:string" nillable="true"/>
+								<xs:element name="РодительНаименование" type="xs:string" nillable="true"/>
+								<xs:element name="УникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="Код" type="xs:string" nillable="true"/>
+								<xs:element name="ЭтоГруппа" type="xs:string"/>
+								<xs:element name="Наименование" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="РемМодернизации" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="УникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="Код" type="xs:string" nillable="true"/>
+								<xs:element name="Наименование" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="РемДепо" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="УникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="Код" type="xs:string"/>
+								<xs:element name="Наименование" type="xs:string"/>
+								<xs:element name="ДорогаУникальныйИдентификатор" type="xs:string"/>
+								<xs:element name="НаименованиеПолное" type="xs:string"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="РемонтыВагонов" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Структура">
+				<xs:sequence>
+					<xs:element name="НомерВагона" type="xs:string"/>
+					<xs:element name="Контрагент" type="xs:string"/>
+					<xs:element name="ТипПС" type="xs:string"/>
+					<xs:element name="ДатаПостановки" type="xs:string"/>
+					<xs:element name="ДатаСнятия" type="xs:string"/>
+					<xs:element name="Территория" type="xs:string"/>
+					<xs:element name="ТипСлежения" type="xs:string"/>
+					<xs:element name="ЦенаПокупателя" type="xs:decimal"/>
+					<xs:element name="КоличествоДней" type="xs:int"/>
+					<xs:element name="КоличествоВагонов" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ПостановкаСнятиеВагонов">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеПостановкаСнятие" type="tns:ДанныеПостановкаСнятие"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПостановкаСнятиеВагоновResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьБаланс">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьБалансResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:decimal"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеПоВагонам">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеПоВагонамResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ДанныеСлежения" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПостановкаСнятиеВагоновТриПараметра">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеПостановкаСнятиеТриПараметра" type="tns:ДанныеПостановкаСнятиеТриПараметра"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПостановкаСнятиеВагоновТриПараметраResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеПоВагонамВариант1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеПоВагонамВариант1Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ДанныеСлежения" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеДислокации">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеДислокацииResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокацию" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеДислокацииСрочные">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьДанныеДислокацииСрочныеResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокациюСрочные" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПостановкаСнятиеСписком">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеПостановкаСписок" type="tns:ПостановкаСнятиеСписком"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПостановкаСнятиеСпискомResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПостановкаСнятиеСписком"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьДанныеСправки21">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеЗапросаСправки21" type="tns:ДанныеЗапросаСправки21"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьДанныеСправки21Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСправку21">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеЗапросаСправки21" type="tns:ДанныеЗапросаСправки21"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСправку21Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьСправкуПоВагону">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеВагона" type="tns:ДанныеЗапросаСправкиПоНомеруВагона"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьСправкуПоВагонуResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСправку">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеПолученияСправки" type="tns:ДанныеПолученияСправки"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСправкуResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьДанныеСправки92">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеЗапросаСправки21" type="tns:ДанныеЗапросаСправки21"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ЗапроситьДанныеСправки92Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьТестовыйМассив">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="Интервал" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьТестовыйМассивResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:Массив"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьИсториюДислокацииНовая">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="Период" type="tns:Период"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьИсториюДислокацииНоваяResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокацию" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataGroupXML">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="WagonNumber" type="tns:WagonNumber"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataGroupXMLResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокацию" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DistanceBetweenStations">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationCode1" type="xs:string"/>
+						<xs:element name="StationCode2" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DistanceBetweenStationsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:decimal"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="StationsInRadius">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationCode" type="xs:string"/>
+						<xs:element name="Radius" type="xs:decimal"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="StationsInRadiusResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Report_8_2">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Report_8_2Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьМоделиВагонов">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьМоделиВагоновResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:МоделиВагонов" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRepairs">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="НаименованиеУзла" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetRepairsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:РемонтыВагонов" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ClearExchangeRegistrationData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="НаименованиеУзла" type="xs:string"/>
+						<xs:element name="Данные" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ClearExchangeRegistrationDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetReferenceRepairWagon">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="Данные" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetReferenceRepairWagonResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСрочныйЗапрос">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ДанныеСрочногоЗапроса" type="tns:ДанныеСрочногоЗапроса"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ПолучитьСрочныйЗапросResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDislocationHistory">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ВидОтчета" type="xs:int"/>
+						<xs:element name="НачалоПериода" type="xs:date"/>
+						<xs:element name="КонецПериода" type="xs:date"/>
+						<xs:element name="КодСтанцииДислокации" type="xs:string"/>
+						<xs:element name="ВидСравненияВеса" type="xs:string" nillable="true"/>
+						<xs:element name="Вес" type="xs:double" nillable="true"/>
+						<xs:element name="НеИспользоватьОтборПоКонтрагенту" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDislocationHistoryResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetWagonDowntime">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+						<xs:element name="ВидОтчета" type="xs:int"/>
+						<xs:element name="НачалоПериода" type="xs:date"/>
+						<xs:element name="КонецПериода" type="xs:date"/>
+						<xs:element name="КодСтанцииДислокации" type="xs:string"/>
+						<xs:element name="ВидСравненияВеса" type="xs:string" nillable="true"/>
+						<xs:element name="Вес" type="xs:double" nillable="true"/>
+						<xs:element name="ТЗ_ВагоныИНакладные" type="xs:string" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetWagonDowntimeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ArmingDismountingOfWagonsThreeParameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+						<xs:element name="DataArmingDisarmingThreeParameters" type="tns:DataArmingDisarmingThreeParameters"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ArmingDismountingOfWagonsThreeParametersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataByWagonsOption1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataByWagonsOption1Response">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ДанныеСлежения" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ОбновитьДанныеДислокации">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Аутентификация" type="tns:Аутентификация"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ОбновитьДанныеДислокацииResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocationUrgent">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocationUrgentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокациюСрочные" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocationXML">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocationXMLResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокациюСрочные" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDataDislocationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ПолучитьДислокацию" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ArmingRemovingOfWagonsThreeParameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Authentication" type="tns:Authentication"/>
+						<xs:element name="DataArmingRemovalThreeParameters" type="tns:DataArmingRemovalThreeParameters"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ArmingRemovingOfWagonsThreeParametersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:ОтветСервера"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</types>
+	<message name="ПостановкаСнятиеВагоновRequestMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеВагонов"/>
+	</message>
+	<message name="ПостановкаСнятиеВагоновResponseMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеВагоновResponse"/>
+	</message>
+	<message name="ПолучитьБалансRequestMessage">
+		<part name="parameters" element="tns:ПолучитьБаланс"/>
+	</message>
+	<message name="ПолучитьБалансResponseMessage">
+		<part name="parameters" element="tns:ПолучитьБалансResponse"/>
+	</message>
+	<message name="ПолучитьДанныеПоВагонамRequestMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеПоВагонам"/>
+	</message>
+	<message name="ПолучитьДанныеПоВагонамResponseMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеПоВагонамResponse"/>
+	</message>
+	<message name="ПостановкаСнятиеВагоновТриПараметраRequestMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеВагоновТриПараметра"/>
+	</message>
+	<message name="ПостановкаСнятиеВагоновТриПараметраResponseMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеВагоновТриПараметраResponse"/>
+	</message>
+	<message name="ПолучитьДанныеПоВагонамВариант1RequestMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеПоВагонамВариант1"/>
+	</message>
+	<message name="ПолучитьДанныеПоВагонамВариант1ResponseMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеПоВагонамВариант1Response"/>
+	</message>
+	<message name="ПолучитьДанныеДислокацииRequestMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеДислокации"/>
+	</message>
+	<message name="ПолучитьДанныеДислокацииResponseMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеДислокацииResponse"/>
+	</message>
+	<message name="ПолучитьДанныеДислокацииСрочныеRequestMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеДислокацииСрочные"/>
+	</message>
+	<message name="ПолучитьДанныеДислокацииСрочныеResponseMessage">
+		<part name="parameters" element="tns:ПолучитьДанныеДислокацииСрочныеResponse"/>
+	</message>
+	<message name="ПостановкаСнятиеСпискомRequestMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеСписком"/>
+	</message>
+	<message name="ПостановкаСнятиеСпискомResponseMessage">
+		<part name="parameters" element="tns:ПостановкаСнятиеСпискомResponse"/>
+	</message>
+	<message name="ЗапроситьДанныеСправки21RequestMessage">
+		<part name="parameters" element="tns:ЗапроситьДанныеСправки21"/>
+	</message>
+	<message name="ЗапроситьДанныеСправки21ResponseMessage">
+		<part name="parameters" element="tns:ЗапроситьДанныеСправки21Response"/>
+	</message>
+	<message name="ПолучитьСправку21RequestMessage">
+		<part name="parameters" element="tns:ПолучитьСправку21"/>
+	</message>
+	<message name="ПолучитьСправку21ResponseMessage">
+		<part name="parameters" element="tns:ПолучитьСправку21Response"/>
+	</message>
+	<message name="ЗапроситьСправкуПоВагонуRequestMessage">
+		<part name="parameters" element="tns:ЗапроситьСправкуПоВагону"/>
+	</message>
+	<message name="ЗапроситьСправкуПоВагонуResponseMessage">
+		<part name="parameters" element="tns:ЗапроситьСправкуПоВагонуResponse"/>
+	</message>
+	<message name="ПолучитьСправкуRequestMessage">
+		<part name="parameters" element="tns:ПолучитьСправку"/>
+	</message>
+	<message name="ПолучитьСправкуResponseMessage">
+		<part name="parameters" element="tns:ПолучитьСправкуResponse"/>
+	</message>
+	<message name="ЗапроситьДанныеСправки92RequestMessage">
+		<part name="parameters" element="tns:ЗапроситьДанныеСправки92"/>
+	</message>
+	<message name="ЗапроситьДанныеСправки92ResponseMessage">
+		<part name="parameters" element="tns:ЗапроситьДанныеСправки92Response"/>
+	</message>
+	<message name="ПолучитьТестовыйМассивRequestMessage">
+		<part name="parameters" element="tns:ПолучитьТестовыйМассив"/>
+	</message>
+	<message name="ПолучитьТестовыйМассивResponseMessage">
+		<part name="parameters" element="tns:ПолучитьТестовыйМассивResponse"/>
+	</message>
+	<message name="ПолучитьИсториюДислокацииНоваяRequestMessage">
+		<part name="parameters" element="tns:ПолучитьИсториюДислокацииНовая"/>
+	</message>
+	<message name="ПолучитьИсториюДислокацииНоваяResponseMessage">
+		<part name="parameters" element="tns:ПолучитьИсториюДислокацииНоваяResponse"/>
+	</message>
+	<message name="GetDataGroupXMLRequestMessage">
+		<part name="parameters" element="tns:GetDataGroupXML"/>
+	</message>
+	<message name="GetDataGroupXMLResponseMessage">
+		<part name="parameters" element="tns:GetDataGroupXMLResponse"/>
+	</message>
+	<message name="DistanceBetweenStationsRequestMessage">
+		<part name="parameters" element="tns:DistanceBetweenStations"/>
+	</message>
+	<message name="DistanceBetweenStationsResponseMessage">
+		<part name="parameters" element="tns:DistanceBetweenStationsResponse"/>
+	</message>
+	<message name="StationsInRadiusRequestMessage">
+		<part name="parameters" element="tns:StationsInRadius"/>
+	</message>
+	<message name="StationsInRadiusResponseMessage">
+		<part name="parameters" element="tns:StationsInRadiusResponse"/>
+	</message>
+	<message name="Report_8_2RequestMessage">
+		<part name="parameters" element="tns:Report_8_2"/>
+	</message>
+	<message name="Report_8_2ResponseMessage">
+		<part name="parameters" element="tns:Report_8_2Response"/>
+	</message>
+	<message name="ПолучитьМоделиВагоновRequestMessage">
+		<part name="parameters" element="tns:ПолучитьМоделиВагонов"/>
+	</message>
+	<message name="ПолучитьМоделиВагоновResponseMessage">
+		<part name="parameters" element="tns:ПолучитьМоделиВагоновResponse"/>
+	</message>
+	<message name="GetRepairsRequestMessage">
+		<part name="parameters" element="tns:GetRepairs"/>
+	</message>
+	<message name="GetRepairsResponseMessage">
+		<part name="parameters" element="tns:GetRepairsResponse"/>
+	</message>
+	<message name="ClearExchangeRegistrationDataRequestMessage">
+		<part name="parameters" element="tns:ClearExchangeRegistrationData"/>
+	</message>
+	<message name="ClearExchangeRegistrationDataResponseMessage">
+		<part name="parameters" element="tns:ClearExchangeRegistrationDataResponse"/>
+	</message>
+	<message name="GetReferenceRepairWagonRequestMessage">
+		<part name="parameters" element="tns:GetReferenceRepairWagon"/>
+	</message>
+	<message name="GetReferenceRepairWagonResponseMessage">
+		<part name="parameters" element="tns:GetReferenceRepairWagonResponse"/>
+	</message>
+	<message name="ПолучитьСрочныйЗапросRequestMessage">
+		<part name="parameters" element="tns:ПолучитьСрочныйЗапрос"/>
+	</message>
+	<message name="ПолучитьСрочныйЗапросResponseMessage">
+		<part name="parameters" element="tns:ПолучитьСрочныйЗапросResponse"/>
+	</message>
+	<message name="GetDislocationHistoryRequestMessage">
+		<part name="parameters" element="tns:GetDislocationHistory"/>
+	</message>
+	<message name="GetDislocationHistoryResponseMessage">
+		<part name="parameters" element="tns:GetDislocationHistoryResponse"/>
+	</message>
+	<message name="GetWagonDowntimeRequestMessage">
+		<part name="parameters" element="tns:GetWagonDowntime"/>
+	</message>
+	<message name="GetWagonDowntimeResponseMessage">
+		<part name="parameters" element="tns:GetWagonDowntimeResponse"/>
+	</message>
+	<message name="ArmingDismountingOfWagonsThreeParametersRequestMessage">
+		<part name="parameters" element="tns:ArmingDismountingOfWagonsThreeParameters"/>
+	</message>
+	<message name="ArmingDismountingOfWagonsThreeParametersResponseMessage">
+		<part name="parameters" element="tns:ArmingDismountingOfWagonsThreeParametersResponse"/>
+	</message>
+	<message name="GetDataByWagonsOption1RequestMessage">
+		<part name="parameters" element="tns:GetDataByWagonsOption1"/>
+	</message>
+	<message name="GetDataByWagonsOption1ResponseMessage">
+		<part name="parameters" element="tns:GetDataByWagonsOption1Response"/>
+	</message>
+	<message name="ОбновитьДанныеДислокацииRequestMessage">
+		<part name="parameters" element="tns:ОбновитьДанныеДислокации"/>
+	</message>
+	<message name="ОбновитьДанныеДислокацииResponseMessage">
+		<part name="parameters" element="tns:ОбновитьДанныеДислокацииResponse"/>
+	</message>
+	<message name="GetDataDislocationUrgentRequestMessage">
+		<part name="parameters" element="tns:GetDataDislocationUrgent"/>
+	</message>
+	<message name="GetDataDislocationUrgentResponseMessage">
+		<part name="parameters" element="tns:GetDataDislocationUrgentResponse"/>
+	</message>
+	<message name="GetDataDislocationXMLRequestMessage">
+		<part name="parameters" element="tns:GetDataDislocationXML"/>
+	</message>
+	<message name="GetDataDislocationXMLResponseMessage">
+		<part name="parameters" element="tns:GetDataDislocationXMLResponse"/>
+	</message>
+	<message name="GetDataDislocationRequestMessage">
+		<part name="parameters" element="tns:GetDataDislocation"/>
+	</message>
+	<message name="GetDataDislocationResponseMessage">
+		<part name="parameters" element="tns:GetDataDislocationResponse"/>
+	</message>
+	<message name="ArmingRemovingOfWagonsThreeParametersRequestMessage">
+		<part name="parameters" element="tns:ArmingRemovingOfWagonsThreeParameters"/>
+	</message>
+	<message name="ArmingRemovingOfWagonsThreeParametersResponseMessage">
+		<part name="parameters" element="tns:ArmingRemovingOfWagonsThreeParametersResponse"/>
+	</message>
+	<portType name="Dislocation_workPortType">
+		<operation name="ПостановкаСнятиеВагонов">
+			<input message="tns:ПостановкаСнятиеВагоновRequestMessage"/>
+			<output message="tns:ПостановкаСнятиеВагоновResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьБаланс">
+			<input message="tns:ПолучитьБалансRequestMessage"/>
+			<output message="tns:ПолучитьБалансResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонам">
+			<input message="tns:ПолучитьДанныеПоВагонамRequestMessage"/>
+			<output message="tns:ПолучитьДанныеПоВагонамResponseMessage"/>
+		</operation>
+		<operation name="ПостановкаСнятиеВагоновТриПараметра">
+			<input message="tns:ПостановкаСнятиеВагоновТриПараметраRequestMessage"/>
+			<output message="tns:ПостановкаСнятиеВагоновТриПараметраResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонамВариант1">
+			<input message="tns:ПолучитьДанныеПоВагонамВариант1RequestMessage"/>
+			<output message="tns:ПолучитьДанныеПоВагонамВариант1ResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьДанныеДислокации">
+			<input message="tns:ПолучитьДанныеДислокацииRequestMessage"/>
+			<output message="tns:ПолучитьДанныеДислокацииResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьДанныеДислокацииСрочные">
+			<input message="tns:ПолучитьДанныеДислокацииСрочныеRequestMessage"/>
+			<output message="tns:ПолучитьДанныеДислокацииСрочныеResponseMessage"/>
+		</operation>
+		<operation name="ПостановкаСнятиеСписком">
+			<input message="tns:ПостановкаСнятиеСпискомRequestMessage"/>
+			<output message="tns:ПостановкаСнятиеСпискомResponseMessage"/>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки21">
+			<input message="tns:ЗапроситьДанныеСправки21RequestMessage"/>
+			<output message="tns:ЗапроситьДанныеСправки21ResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьСправку21">
+			<input message="tns:ПолучитьСправку21RequestMessage"/>
+			<output message="tns:ПолучитьСправку21ResponseMessage"/>
+		</operation>
+		<operation name="ЗапроситьСправкуПоВагону">
+			<input message="tns:ЗапроситьСправкуПоВагонуRequestMessage"/>
+			<output message="tns:ЗапроситьСправкуПоВагонуResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьСправку">
+			<input message="tns:ПолучитьСправкуRequestMessage"/>
+			<output message="tns:ПолучитьСправкуResponseMessage"/>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки92">
+			<input message="tns:ЗапроситьДанныеСправки92RequestMessage"/>
+			<output message="tns:ЗапроситьДанныеСправки92ResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьТестовыйМассив">
+			<input message="tns:ПолучитьТестовыйМассивRequestMessage"/>
+			<output message="tns:ПолучитьТестовыйМассивResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьИсториюДислокацииНовая">
+			<input message="tns:ПолучитьИсториюДислокацииНоваяRequestMessage"/>
+			<output message="tns:ПолучитьИсториюДислокацииНоваяResponseMessage"/>
+		</operation>
+		<operation name="GetDataGroupXML">
+			<input message="tns:GetDataGroupXMLRequestMessage"/>
+			<output message="tns:GetDataGroupXMLResponseMessage"/>
+		</operation>
+		<operation name="DistanceBetweenStations">
+			<input message="tns:DistanceBetweenStationsRequestMessage"/>
+			<output message="tns:DistanceBetweenStationsResponseMessage"/>
+		</operation>
+		<operation name="StationsInRadius">
+			<input message="tns:StationsInRadiusRequestMessage"/>
+			<output message="tns:StationsInRadiusResponseMessage"/>
+		</operation>
+		<operation name="Report_8_2">
+			<input message="tns:Report_8_2RequestMessage"/>
+			<output message="tns:Report_8_2ResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьМоделиВагонов">
+			<input message="tns:ПолучитьМоделиВагоновRequestMessage"/>
+			<output message="tns:ПолучитьМоделиВагоновResponseMessage"/>
+		</operation>
+		<operation name="GetRepairs">
+			<input message="tns:GetRepairsRequestMessage"/>
+			<output message="tns:GetRepairsResponseMessage"/>
+		</operation>
+		<operation name="ClearExchangeRegistrationData">
+			<input message="tns:ClearExchangeRegistrationDataRequestMessage"/>
+			<output message="tns:ClearExchangeRegistrationDataResponseMessage"/>
+		</operation>
+		<operation name="GetReferenceRepairWagon">
+			<input message="tns:GetReferenceRepairWagonRequestMessage"/>
+			<output message="tns:GetReferenceRepairWagonResponseMessage"/>
+		</operation>
+		<operation name="ПолучитьСрочныйЗапрос">
+			<input message="tns:ПолучитьСрочныйЗапросRequestMessage"/>
+			<output message="tns:ПолучитьСрочныйЗапросResponseMessage"/>
+		</operation>
+		<operation name="GetDislocationHistory">
+			<input message="tns:GetDislocationHistoryRequestMessage"/>
+			<output message="tns:GetDislocationHistoryResponseMessage"/>
+		</operation>
+		<operation name="GetWagonDowntime">
+			<input message="tns:GetWagonDowntimeRequestMessage"/>
+			<output message="tns:GetWagonDowntimeResponseMessage"/>
+		</operation>
+		<operation name="ArmingDismountingOfWagonsThreeParameters">
+			<input message="tns:ArmingDismountingOfWagonsThreeParametersRequestMessage"/>
+			<output message="tns:ArmingDismountingOfWagonsThreeParametersResponseMessage"/>
+		</operation>
+		<operation name="GetDataByWagonsOption1">
+			<input message="tns:GetDataByWagonsOption1RequestMessage"/>
+			<output message="tns:GetDataByWagonsOption1ResponseMessage"/>
+		</operation>
+		<operation name="ОбновитьДанныеДислокации">
+			<input message="tns:ОбновитьДанныеДислокацииRequestMessage"/>
+			<output message="tns:ОбновитьДанныеДислокацииResponseMessage"/>
+		</operation>
+		<operation name="GetDataDislocationUrgent">
+			<input message="tns:GetDataDislocationUrgentRequestMessage"/>
+			<output message="tns:GetDataDislocationUrgentResponseMessage"/>
+		</operation>
+		<operation name="GetDataDislocationXML">
+			<input message="tns:GetDataDislocationXMLRequestMessage"/>
+			<output message="tns:GetDataDislocationXMLResponseMessage"/>
+		</operation>
+		<operation name="GetDataDislocation">
+			<input message="tns:GetDataDislocationRequestMessage"/>
+			<output message="tns:GetDataDislocationResponseMessage"/>
+		</operation>
+		<operation name="ArmingRemovingOfWagonsThreeParameters">
+			<input message="tns:ArmingRemovingOfWagonsThreeParametersRequestMessage"/>
+			<output message="tns:ArmingRemovingOfWagonsThreeParametersResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="Dislocation_workSoapBinding" type="tns:Dislocation_workPortType">
+		<soapbind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ПостановкаСнятиеВагонов">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеВагонов"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьБаланс">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьБаланс"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонам">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеПоВагонам"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПостановкаСнятиеВагоновТриПараметра">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеВагоновТриПараметра"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонамВариант1">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеПоВагонамВариант1"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеДислокации">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеДислокации"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеДислокацииСрочные">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеДислокацииСрочные"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПостановкаСнятиеСписком">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеСписком"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки21">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьДанныеСправки21"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСправку21">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСправку21"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьСправкуПоВагону">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьСправкуПоВагону"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСправку">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСправку"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки92">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьДанныеСправки92"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьТестовыйМассив">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьТестовыйМассив"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьИсториюДислокацииНовая">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьИсториюДислокацииНовая"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataGroupXML">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataGroupXML"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DistanceBetweenStations">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:DistanceBetweenStations"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="StationsInRadius">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:StationsInRadius"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="Report_8_2">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:Report_8_2"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьМоделиВагонов">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьМоделиВагонов"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetRepairs">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetRepairs"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ClearExchangeRegistrationData">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ClearExchangeRegistrationData"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetReferenceRepairWagon">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetReferenceRepairWagon"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСрочныйЗапрос">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСрочныйЗапрос"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDislocationHistory">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDislocationHistory"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetWagonDowntime">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetWagonDowntime"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ArmingDismountingOfWagonsThreeParameters">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ArmingDismountingOfWagonsThreeParameters"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataByWagonsOption1">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataByWagonsOption1"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ОбновитьДанныеДислокации">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ОбновитьДанныеДислокации"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocationUrgent">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocationUrgent"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocationXML">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocationXML"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocation">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocation"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ArmingRemovingOfWagonsThreeParameters">
+			<soapbind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ArmingRemovingOfWagonsThreeParameters"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="Dislocation_workSoap12Binding" type="tns:Dislocation_workPortType">
+		<soap12bind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ПостановкаСнятиеВагонов">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеВагонов"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьБаланс">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьБаланс"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонам">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеПоВагонам"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПостановкаСнятиеВагоновТриПараметра">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеВагоновТриПараметра"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеПоВагонамВариант1">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеПоВагонамВариант1"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеДислокации">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеДислокации"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьДанныеДислокацииСрочные">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьДанныеДислокацииСрочные"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПостановкаСнятиеСписком">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПостановкаСнятиеСписком"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки21">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьДанныеСправки21"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСправку21">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСправку21"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьСправкуПоВагону">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьСправкуПоВагону"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСправку">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСправку"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ЗапроситьДанныеСправки92">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ЗапроситьДанныеСправки92"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьТестовыйМассив">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьТестовыйМассив"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьИсториюДислокацииНовая">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьИсториюДислокацииНовая"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataGroupXML">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataGroupXML"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DistanceBetweenStations">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:DistanceBetweenStations"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="StationsInRadius">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:StationsInRadius"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="Report_8_2">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:Report_8_2"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьМоделиВагонов">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьМоделиВагонов"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetRepairs">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetRepairs"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ClearExchangeRegistrationData">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ClearExchangeRegistrationData"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetReferenceRepairWagon">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetReferenceRepairWagon"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ПолучитьСрочныйЗапрос">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ПолучитьСрочныйЗапрос"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDislocationHistory">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDislocationHistory"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetWagonDowntime">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetWagonDowntime"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ArmingDismountingOfWagonsThreeParameters">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ArmingDismountingOfWagonsThreeParameters"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataByWagonsOption1">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataByWagonsOption1"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ОбновитьДанныеДислокации">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ОбновитьДанныеДислокации"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocationUrgent">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocationUrgent"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocationXML">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocationXML"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetDataDislocation">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:GetDataDislocation"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="ArmingRemovingOfWagonsThreeParameters">
+			<soap12bind:operation style="document" soapAction="http://www.atk-expert.ru#Dislocation_work:ArmingRemovingOfWagonsThreeParameters"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="Dislocation_work">
+		<port name="Dislocation_workSoap" binding="tns:Dislocation_workSoapBinding">
+			<documentation> 
+				<wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+			<soapbind:address location="http://185.200.240.207/solid/ws/ws1.1cws"/>
+		</port>
+		<port name="Dislocation_workSoap12" binding="tns:Dislocation_workSoap12Binding">
+			<soap12bind:address location="http://185.200.240.207/solid/ws/ws1.1cws"/>
+		</port>
+	</service>
+</definitions>

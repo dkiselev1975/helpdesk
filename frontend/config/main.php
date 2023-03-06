@@ -74,6 +74,7 @@ return [
                 'admin/logout'=>'frontend/logout',
                 'frontend/logout'=>'frontend/logout',
                 'index'=>'frontend/index',
+                'request'=>'frontend/request'
             ],
         ],
 

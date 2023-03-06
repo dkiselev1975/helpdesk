@@ -1,0 +1,16 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:atk="http://www.atk-expert.ru">
+   <soap:Header/>
+   <soap:Body>
+      <atk:ArmingDismountingOfWagonsThreeParameters>
+         <atk:Authentication>
+            <atk:Login>solid-tr.ru</atk:Login>
+            <atk:Password>solid</atk:Password>
+         </atk:Authentication>
+         <atk:DataArmingDisarmingThreeParameters>
+            <atk:Status>Постановка</atk:Status>
+            <atk:WagonNumber>51326098</atk:WagonNumber>
+            <atk:TrackingType>Срочный</atk:TrackingType>
+         </atk:DataArmingDisarmingThreeParameters>
+      </atk:ArmingDismountingOfWagonsThreeParameters>
+   </soap:Body>
+</soap:Envelope>

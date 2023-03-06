@@ -5,7 +5,6 @@ return [
             ['label' => 'Начальная', 'url' => 'index', 'class' =>'fw-bold mb-2'],
             ['label' => 'Пользователи', 'url' => 'site-user-index', 'class' =>'fw-bold mb-2'],
             /*['label' => 'Добавить', 'url' => 'site-user-edit-form', 'class' =>'mb-2'],*/
-
             ['label' => 'Компании', 'url' => 'company-index', 'class' =>'fw-bold'],
             ['label' => 'Добавить', 'url' => 'company-edit-form', 'class' =>'mb-2'],
         ],
