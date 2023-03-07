@@ -130,6 +130,18 @@ return [
             /*frontend/models/ContactForm.php*/
             'ContactForm'=>['verifyCode'=>'Код подтверждения'],/*Verification Code*/
 
+            /*frontend/models/DislocationRequestFrom.php*/
+            'DislocationRequestFrom'=>[
+                'rules'=>['WagonNumber'=>[
+                    'required'=>'Пожалуйста, заполните номер вагона',
+                    'integer'=>'Номер вагона должен быть целым числом',
+                    'format'=>'Номер вагона должен состоять из восьми цифр',
+                    ]
+                ],
+                'fields'=>['WagonNumber'=>'Номер вагона'],
+                'buttons'=>['submit'=>'Отправить запрос']
+            ],
+
             /*frontend/models/PasswordResetRequestForm.php*/
             'PasswordResetRequestForm'=>[
                 'password_reset_for'=>'Сброс пароля для',/*Password reset for*/

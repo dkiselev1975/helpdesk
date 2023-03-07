@@ -134,7 +134,6 @@ class AdminController extends Controller
         $item=new SiteUser();
         try {
             if ($id = Yii::$app->getRequest()->GET('id')) {
-
                 $item = SiteUser::find()->andWhere(['id' => $id])->one();
                 if(empty($item)){throw new GoodException('Пользователь сайта не найден');}
                 //Yii::Warning(Yii::$app->request->post());

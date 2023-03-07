@@ -80,7 +80,7 @@ class LoginForm extends Model
         return $this->_user;
     }*/
 
-    public static function LoginFormDraw($title,$model,bool $password_resend_reset=false, bool $signup=false)
+    public static function LoginFormDraw($title,$model,bool $password_resend_reset=false, bool $signup=false):void
     {
     ?>
     <div class="site-login align-items-center d-flex pb-5">

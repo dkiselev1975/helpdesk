@@ -2,11 +2,14 @@
 
 namespace frontend\controllers;
 use backend\controllers\GoodException;
+use common\models\SiteUser;
 use frontend\models\ContactForm;
+use frontend\models\DislocationRequestFrom;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use SoapClient;
 use Yii;
+use yii\base\ExitException;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -112,19 +115,20 @@ class FrontendController extends Controller
 
     /**
      * @throws \SoapFault
+     * @throws \backend\controllers\GoodException
      */
     public function actionRequest():string
     {
-        $client = new SoapClient("http://185.200.240.207/solid/ws/ws1.1cws?wsdl",
+        /*$client = new SoapClient("http://185.200.240.207/solid/ws/ws1.1cws?wsdl",
             [
                 'login'=>'solid-tr.ru',
                 'password'=>'solid',
            ]);
 
         $functions=$client->__getFunctions();
-        $types=$client->__getTypes();
+        $types=$client->__getTypes();*/
 
-        $response=$client->ArmingDismountingOfWagonsThreeParameters
+        /*$response=$client->ArmingDismountingOfWagonsThreeParameters
             (
                 [
                     'Authentication'=>
@@ -137,7 +141,7 @@ class FrontendController extends Controller
                             'Status'=>'Постановка','WagonNumber'=>'73124232','TrackingType'=>'Срочный'
                         ]
                 ]
-        );
+        );*/
 
         /*
        2 => 'struct ArmingDismountingOfWagonsThreeParameters {
@@ -147,11 +151,49 @@ class FrontendController extends Controller
         }'
        */
 
-        Yii::debug($functions);
+        /*Yii::debug($functions);
         Yii::debug($types);
-        Yii::debug($response);
+        Yii::debug($response);*/
 
-        return $this->render('Request');
+        $request=new DislocationRequestFrom();
+
+        if ($request->load(Yii::$app->request->post()))
+            {
+                if(!$request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}
+                $client = new SoapClient("http://185.200.240.207/solid/ws/ws1.1cws?wsdl",
+                    [
+                        'login'=>'solid-tr.ru',
+                        'password'=>'solid',
+                    ]);
+
+                $response=$client->ArmingDismountingOfWagonsThreeParameters
+                (
+                    [
+                        'Authentication'=>
+                            [
+                                'Login'=>'solid-tr.ru',
+                                'Password'=>'solid'
+                            ],
+                        'DataArmingDisarmingThreeParameters'=>
+                            [
+                                'Status'=>'Постановка','WagonNumber'=>$request->WagonNumber,'TrackingType'=>'Срочный'
+                            ]
+                    ]
+                );
+
+                //Yii::debug($response->return->Успешно);
+                if(!$response->return->Успешно){throw new GoodException('Ошибка постановки запроса на дислокацию',"Ответ сервера дислокации: ".$response->return->Ответ);}
+                $user=SiteUser::findOne(['id'=>Yii::$app->user->id]);
+                $page_title="SOAP запрос";
+                $message=implode("\n",['Ваш запрос срочной дислокации вагона <strong>№'.$request->WagonNumber.'</strong> успешно отправлен.','Пожалуйста, ожидайте результат по адресу Вашей электронной почты ('.$user->email.').']);
+                return $this->render('RequestResult',compact('page_title','message'));
+            }
+        else
+            {
+                $page_title="Запрос срочной дислокации вагона";
+                return $this->render('Request',compact('request','page_title'));
+            }
+
     }
 
 }
