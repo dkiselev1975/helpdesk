@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Company;
+use common\models\Request;
 use common\models\SiteUser;
 use Yii;
 use yii\base\BaseObject;
@@ -43,6 +44,7 @@ class AdminController extends Controller
                             'company-index',
                             'company-edit-form',
                             'company-delete',
+                            'request-index',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -102,6 +104,17 @@ class AdminController extends Controller
         $page_title = 'Пользователи';
         $items=SiteUser::find()->all();
         return $this->render('SiteUserIndex',compact('items','page_title'));
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function actionRequestIndex():string
+    {
+        $page_title = 'Запросы';
+        $items=Request::find()->all();
+        return $this->render('RequestIndex',compact('items','page_title'));
     }
 
     /**

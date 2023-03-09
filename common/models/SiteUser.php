@@ -13,20 +13,14 @@ namespace common\models;
 
 class SiteUser extends User
 {
-
-
     use DataRecord;
 
-    /**
-     * @var mixed|null
-     */
-
-    public function getCompany()
-        {
+    public function getCompany(): \yii\db\ActiveQuery
+    {
             return $this->hasOne(Company::class,['id'=>'company_id']);
         }
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%site_user}}';
     }

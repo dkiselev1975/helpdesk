@@ -10,14 +10,10 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="site-error">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
     </div>
 
     <p><?= Yii::$app->params['messages']['errors']['error_pages']['server_error'][0]?></p>
     <p><?= Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][0].'<a href="mailto:'.Yii::$app->params['adminEmail'].'">'.Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][1].'</a>'.Yii::$app->params['messages']['errors']['error_pages']['server_error'][1][2].'.'?></p>
-
 </div>

@@ -63,6 +63,7 @@ return [
                 'company-edit-form' =>'admin/company-edit-form',
                 'company-edit-form/<id:\d+>' => 'admin/company-edit-form',
                 'company-delete/<id:\d+>' => 'admin/company-delete',
+                'request-index'=>'admin/request-index',
             ],
         ],
 
