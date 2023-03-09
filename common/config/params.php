@@ -37,6 +37,10 @@ return [
                 'unix_timestamp'=>'php:U',
             ]
         ],
+    'defaultGoodExceptionLayout'=>'main',
+    'DislocationSOAP'=>[
+        'url'=>'http://185.200.240.207/solid/ws/ws1.1cws?wsdl',
+    ],
     'messages'=>
         [
             'emails'=>[
