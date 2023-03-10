@@ -31,13 +31,9 @@ class AdminController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['error'],
-                        'allow' => true,
-                    ],
-                    [
                         'actions' => [
-                            'logout',
                             'index',
+                            'logout',
                             'site-user-index',
                             'site-user-edit-form',
                             'site-user-delete',

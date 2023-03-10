@@ -78,6 +78,7 @@ return [
                         'server_error'=>[
                             'Данная ошибка возникла во время обработки Вашего запроса веб-сервером',/*The above error occurred while the Web server was processing your request.*/
                             ['Пожалуйста, ','свяжитесь с нами',', если Вы считаете, что это программная ошибка. Спасибо'],/*Please contact us if you think this is a server error. Thank you.*/
+                            'Перейти на начальную страницу',
                         ],
                     ],
                 ]

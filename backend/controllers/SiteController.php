@@ -24,18 +24,21 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
+                    /*см. 'errorHandler' в ./config/main.php*/
+                    /*адрес 'site/error'*/
                     [
-                        'actions' => ['login', 'error'],
+                        'actions'=>['error'],
+                        'allow' => true,/*роль не указывать*/
+                    ],
+                    [
+                        'actions' => [
+                            'login'
+                        ],
                         'allow' => true,
+                        'roles'=> ['?']
                     ],
                 ],
             ],
-            /*'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],*/
         ];
     }
 
@@ -47,6 +50,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
+                'view'=>'@app/../backend/views/site/error.php',
             ],
         ];
     }

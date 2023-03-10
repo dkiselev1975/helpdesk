@@ -24,7 +24,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <main role="main" class="flex-grow-1 d-flex flex-column body-content">
-    <div class="container flex-grow-1 d-flex flex-column justify-content-center pt-0">
+    <div class="container container-sm flex-grow-1 d-flex flex-column justify-content-center pt-0">
         <?php
         if(Yii::$app->view->params['show_h1']){
             ?><h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1><?php

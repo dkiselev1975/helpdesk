@@ -55,6 +55,8 @@ return [
                 ],
             ],
         ],*/
+
+        /*При возникновении ошибки сайта будет вызван адрес:*/
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -62,18 +64,19 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
                 'site/login'=>'site/login',
+                'admin/logout'=>'frontend/logout','frontend/logout'=>'frontend/logout',
+                ''=>'frontend/index',
+                'index'=>'frontend/index',
+
                 'site/signup'=>'site/signup',
                 'site/request-password-reset'=>'site/request-password-reset',
                 'site/resend-verification-email'=>'site/resend-verification-email',
                 'site/reset-password'=>'site/reset-password',
                 'site/verify-email'=>'site/verify-email',
 
-                ''=>'frontend/index',
-                'admin/logout'=>'frontend/logout',
-                'frontend/logout'=>'frontend/logout',
-                'index'=>'frontend/index',
                 'request'=>'frontend/request'
             ],
         ],

@@ -43,7 +43,11 @@ class FrontendController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['logout','index','request'],
+                        'actions' => [
+                            'index',
+                            'logout',
+                            'request'
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -120,7 +124,6 @@ class FrontendController extends Controller
     }
 
     /**
-     * @throws \SoapFault
      * @throws \backend\controllers\GoodException
      */
     public function actionRequest():string

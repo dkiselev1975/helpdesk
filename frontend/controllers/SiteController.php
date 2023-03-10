@@ -32,6 +32,12 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
+                    /*см. 'errorHandler' в ./config/main.php*/
+                    /*адрес 'site/error'*/
+                    [
+                        'actions'=>['error'],
+                        'allow' => true,/*роль не указывать*/
+                    ],
                     [
                         'actions' => [
                             'login',
@@ -40,17 +46,10 @@ class SiteController extends Controller
                             'resend-verification-email',
                             'reset-password',
                             'verify-email',
-                            'error',
                         ],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -64,6 +63,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
+                'view'=>'@app/../backend/views/site/error.php',
             ],
         ];
     }
