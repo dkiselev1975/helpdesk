@@ -141,7 +141,14 @@ class FrontendController extends Controller
 
                 if(!$soap_request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}
                 if(YII_DEBUG){
-                    $soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
+                    //$soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
+                    $soap_response=(object)array('return'=>(object)
+                        [
+                            'Ответ'=>'',
+                            'Успешно'=>true,
+                            'ИДВагона'=>'a5c768dd-f1e2-44d7-8885-65be6b5ca834'
+                        ],
+                    );
                     }
                 else
                     {
@@ -167,6 +174,7 @@ class FrontendController extends Controller
                         );
                     }
                 }
+            /*Сервер не отвечает*/
             catch (SoapFault $error)
                     {
                     $errors[]=$error->getMessage();
@@ -182,6 +190,7 @@ class FrontendController extends Controller
                     throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";\n",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
                     }
 
+            /*Обработка ответа сервера*/
             if(YII_DEBUG){Yii::debug($soap_response);}
             if(!$soap_response->return->Успешно){
                 $message=match ($soap_response->return->Ответ)
@@ -222,7 +231,7 @@ class FrontendController extends Controller
         else
             {
             $page_title="Запрос срочной дислокации вагона";
-            return $this->render('Request',compact('soap_request','page_title'));
+            return $this->render('RequestForm',compact('page_title','soap_request'));
             }
     }
 

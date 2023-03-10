@@ -51,8 +51,17 @@ return [
                     'rules'=>[
                         'name'=>['required'=>'Пожалуйста, заполните поле «Наименование»'],
                         'username'=>[
+                            'required'=>'Пожалуйста, заполните поле «Логин»',/**/
+                        ],/**/
+
+                        'person_name'=>[
                             'required'=>'Пожалуйста, заполните поле «Имя пользователя»',/**/
                         ],/**/
+
+                        'person_surname'=>[
+                            'required'=>'Пожалуйста, заполните поле «Фамилия»',/**/
+                        ],/**/
+
                         'password'=>['required'=>'Пожалуйста, заполните поле «Пароль»'],/**/
                         'email'=>[
                             'required'=>'Пожалуйста, заполните поле «Email»',/**/
@@ -95,11 +104,16 @@ return [
                 'page_title'=>'Регистрация',/*Signup*/
                 'sub_title'=>'Пожалуйста, заполните следующие поля для регистрации',/*Please fill out the following fields to signup:*/
                 'fields'=>[
-                    'username'=>'Имя пользователя',/*username*/
+                    'username'=>'Логин',/*username*/
+                    'person_name'=>'Имя',
+                    'person_patronymic'=>'Отчество',
+                    'person_surname'=>'Фамилия',
                     'email'=>'Email',/*email*/
                     'password'=>'Пароль',/*password*/
                     'phone_office'=>'Телефон раб.',
                     'phone_mobile'=>'Телефон моб.',
+                    'company_id'=>['prompt'=>'Выберите компанию','label'=>'Компания'],
+                    'status'=>['prompt'=>'Выберите статус','label'=>'Статус'],
                 ],
                 'buttons'=>['signup'=>'Зарегистрироваться'],/*signup*/
             ],
@@ -179,8 +193,6 @@ return [
                 'page_title'=>'Вход в систему',/*Login*/
                 'sub_title'=>'Пожалуйста, заполните следующие поля для входа',/*Please fill out the following fields to login*/
                 'fields'=>[
-                    'username'=>'Имя пользователя',/*username*/
-                    'password'=>'Пароль',/*password*/
                     'rememberMe'=>'Запомнить меня',/*rememberMe*/
                 ],
                 'buttons'=>['login'=>'Войти в систему'],/*Login*/

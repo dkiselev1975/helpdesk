@@ -90,8 +90,8 @@ class LoginForm extends Model
                 <h2 class="text-center mb-4 border-bottom pb-4 fs-4"><?= Html::encode($title) ?></h2>
                 <p><?=Yii::$app->params['messages']['login']['sub_title'].':';?></p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['login']['fields']['username'].":") ?>
-                <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['login']['fields']['password'].":") ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(Yii::$app->params['messages']['signup']['fields']['username'].":") ?>
+                <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['signup']['fields']['password'].":") ?>
                 <?= $form->field($model, 'rememberMe')->checkbox(['label'=>Yii::$app->params['messages']['login']['fields']['rememberMe']]) ?>
                 <?php
                 if($password_resend_reset)

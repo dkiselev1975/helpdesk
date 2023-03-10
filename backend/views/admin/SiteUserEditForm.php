@@ -25,11 +25,16 @@ if(isset($item))
 
     $form = ActiveForm::begin(['id' => 'SiteUserEditForm','options'=>['class' => 'col-lg-12']]); ?>
     <?= $form->field($item, 'username',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['username'].":",['class'=>'mb-1 fw-bold']); ?>
+    <!---->
+    <?= $form->field($item, 'person_name',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['person_name'].":",['class'=>'mb-1 fw-bold']); ?>
+    <?= $form->field($item, 'person_patronymic',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['person_patronymic'].":",['class'=>'mb-1 fw-bold']); ?>
+    <?= $form->field($item, 'person_surname',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['person_surname'].":",['class'=>'mb-1 fw-bold']); ?>
+    <!---->
     <?= $form->field($item, 'email',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['email'].":",['class'=>'mb-1 fw-bold']); ?>
-    <?= $form->field($item, 'phone_office',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('Телефон раб.:',['class'=>'mb-1 fw-bold']); ?>
-    <?= $form->field($item, 'phone_mobile',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('Телефон моб.:',['class'=>'mb-1 fw-bold']); ?>
-    <?= $form->field($item, 'company_id',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList(arrayHelper::map(Company::find()->all(),'id','name'),['prompt'=>'Выберите компанию…'])->label('Компания:',['class'=>'mb-1']); ?>
-    <?= $form->field($item, 'status',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList($status_items,['prompt' => 'Выберите статус…'])->label('Статус:',['class'=>'mb-1']); ?>
+    <?= $form->field($item, 'phone_office',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['phone_office'].':',['class'=>'mb-1 fw-bold']); ?>
+    <?= $form->field($item, 'phone_mobile',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['signup']['fields']['phone_mobile'].':',['class'=>'mb-1 fw-bold']); ?>
+    <?= $form->field($item, 'company_id',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList(arrayHelper::map(Company::find()->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['signup']['fields']['company_id']['prompt'].'…'])->label(Yii::$app->params['messages']['signup']['fields']['company_id']['label'].':',['class'=>'mb-1']); ?>
+    <?= $form->field($item, 'status',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList($status_items,['prompt' => Yii::$app->params['messages']['signup']['fields']['status']['prompt'].'…'])->label(Yii::$app->params['messages']['signup']['fields']['status']['label'].':',['class'=>'mb-1']); ?>
     <div class="form-group mt-4">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
     </div>
