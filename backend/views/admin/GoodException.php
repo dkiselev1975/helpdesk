@@ -6,8 +6,6 @@
 /* @var $buttons array */
 /* @var $exception Exception */
 /* @var $layout string */
-/* @var $parse_html boolean */
-
 
 use yii\helpers\Html;
 $buttons_class='btn btn-lg btn-primary col-12 col-sm-auto m-2';
@@ -24,7 +22,7 @@ if(isset($message))
     ?>
     <div class="site-error">
         <div class="alert alert-danger">
-            <?= $parse_html?nl2br(Html::encode($message)):$message;?>
+            <?= nl2br($message);?>
         </div>
     </div>
     <?php

@@ -99,7 +99,9 @@ trait DataRecord
     {
         try
         {
-            return parent::save($runValidation,$attributeNames);
+            $saving_result=parent::save($runValidation,$attributeNames);
+            if(!$saving_result){throw new ErrorException('Ошибка валидации при записи', 1);}
+            return $saving_result;
         }
         catch(Exception $error)
         {

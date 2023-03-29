@@ -231,7 +231,7 @@ return [
                 'sub_title'=>'Пожалуйста, введите Ваш новый пароль',/*Please choose your new password*/
                 'fields'=>['password'=>'Пароль'],/*password*/
                 'buttons'=>[
-                    'save'=>'Save'/*Save*/
+                    'save'=>'Сохранить'/*Save*/
                 ],
             ],
             'email'=>[

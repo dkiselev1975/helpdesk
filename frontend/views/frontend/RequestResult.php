@@ -1,9 +1,15 @@
 <?php
 /** @var string $page_title */
 /** @var string $message */
-
+/** @var string $error */
 use yii\base\BaseObject;
 
 $this->title = $page_title;
-?><p><?= nl2br($message);?></p><?php
+?><?= nl2br($message);?><?php
+if(!empty($error)){
+    ?>
+    <hr class="mt-5">
+    <?= nl2br($error);?><?php
+    }
 ?>
+

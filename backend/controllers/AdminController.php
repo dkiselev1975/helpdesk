@@ -109,7 +109,7 @@ class AdminController extends Controller
     public function actionRequestIndex():string
     {
         $page_title = 'Запросы';
-        $items=Request::find()->all();
+        $items=Request::find()->orderBy(['updated_at'=>SORT_DESC])->all();
         return $this->render('RequestIndex',compact('items','page_title'));
     }
 

@@ -17,9 +17,10 @@ class DislocationRequestFrom extends Model
     public function rules()
     {
         return [
-            ['WagonNumber', 'required', 'message' => Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['required']],
-            [['WagonNumber'],'integer','message' => Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['integer']],
-            [['WagonNumber'],'match','pattern'=>'/^\d{8,8}$/','message' =>Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['format']],
+            ['WagonNumber','required', 'message' => Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['required']],
+            ['WagonNumber','integer','message' => Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['integer']],
+            ['WagonNumber','match','pattern'=>'/^\d{8,8}$/','message' =>Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['format']],
+            ['WagonNumber','trim'],
         ];
     }
 

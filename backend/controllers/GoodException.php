@@ -16,7 +16,7 @@ class GoodException extends ExitException
      * @param Exception|null $previous Предыдущее исключение
      */
 
-    public function __construct($name, $message = null, $code = 0, $status = 500, Exception $previous = null, array $buttons=array(),string $layout=null,$parse_html=true)
+    public function __construct($name, $message = null, $code = 0, $status = 500, Exception $previous = null, array $buttons=array(),string $layout=null)
     {
         # Генерируем ответ
         $view = yii::$app->getView();
@@ -26,7 +26,6 @@ class GoodException extends ExitException
             'message' => $message,
             'buttons' => $buttons,
             'layout' => $layout,
-            'parse_html' => $parse_html,
         ]);
 
         # Возвратим нужный статус (по-умолчанию отдадим 500-й)

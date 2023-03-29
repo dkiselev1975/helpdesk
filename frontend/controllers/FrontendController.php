@@ -5,26 +5,15 @@ use backend\controllers\GoodException;
 use common\models\Request;
 use common\models\SiteUser;
 use ErrorException;
-use Exception;
 use frontend\models\ContactForm;
 use frontend\models\DislocationRequestFrom;
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
 use SoapClient;
 use SoapFault;
-use stdClass;
 use Yii;
-use yii\base\BaseObject;
-use yii\base\ExitException;
-use yii\base\InvalidArgumentException;
-use yii\web\BadRequestHttpException;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\SiteLoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
 use yii\web\Response;
 
 /**
@@ -128,105 +117,109 @@ class FrontendController extends Controller
      */
     public function actionRequest():string
     {
+        define('send_request',true) ;
+        $user=SiteUser::findOne(['id'=>Yii::$app->user->id]);
         $soap_request=new DislocationRequestFrom();
         if ($soap_request->load(Yii::$app->request->post()))
             {
             try
                 {
                 $request=new Request();
-                $request['status']=0;
-                $request['response']='SOAP запрос не выполнялся';
                 $request['user_id']=Yii::$app->user->id;
                 $request['wagon_number']=$soap_request->WagonNumber;
-
+                $request['user_email']=$user->email;/*email получателя результатов дислокации*/
+                $request['debug_flag']=(int)(!send_request);
                 if(!$soap_request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}
-                if(YII_DEBUG){
-                    //$soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
-                    $soap_response=(object)array('return'=>(object)
-                        [
-                            'Ответ'=>'',
-                            'Успешно'=>true,
-                            'ИДВагона'=>'a5c768dd-f1e2-44d7-8885-65be6b5ca834'
-                        ],
-                    );
-                    }
-                else
+                if(send_request)
                     {
                     $client = new SoapClient(Yii::$app->params['DislocationSOAP']['url'],
                         [
-                            'login'=>'solid-tr.ru',
-                            'password'=>'solid',
+                            'login' => 'solid-tr.ru',
+                            'password' => 'solid',
                         ]);
 
-                    $soap_response=$client->ArmingDismountingOfWagonsThreeParameters
-                        (
+                    $soap_response=$client->ArmingDismountingOfWagonsThreeParameters(
                             [
-                            'Authentication'=>
-                                [
-                                    'Login'=>'solid-tr.ru',
-                                    'Password'=>'solid'
-                                ],
-                            'DataArmingDisarmingThreeParameters'=>
-                                [
-                                    'Status'=>'Постановка','WagonNumber'=>$soap_request->WagonNumber,'TrackingType'=>'Срочный'
-                                ]
+                                'Authentication' =>
+                                    [
+                                        'Login' => 'solid-tr.ru',
+                                        'Password' => 'solid'
+                                    ],
+                                'DataArmingDisarmingThreeParameters' =>
+                                    [
+                                        'Status' => 'Постановка', 'WagonNumber' => $soap_request->WagonNumber, 'TrackingType' => 'Срочный', 'Mail' => $user->email
+                                    ]
                             ]
-                        );
+                            );
+                        }
+                else
+                    {
+                    $soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
+                    //$soap_response = (object)array('return' => (object)['Ответ' => 'Тестовый ответ','Успешно' => true,'ИДВагона' => 'a5c768dd-f1e2-44d7-8885-65be6b5ca834'],);
                     }
                 }
             /*Сервер не отвечает*/
             catch (SoapFault $error)
                     {
-                    $errors[]=$error->getMessage();
-                    $request['response']=$error->getMessage();
+                    $errors[]='<strong>SoapFault: </strong>'.Html::encode($error->getMessage());
+                    $request['repeated_flag']=null;
+                    $request['response_success']=0;
+                    $request['response_answer']=$error->getMessage();
                     try
                         {
+                        //$request['response_success']='test';
                         $request->save();
                         }
                     catch (ErrorException $error)
                         {
-                        $errors[]='Ошибка записи информации о запросе';
+                        $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
+                        Yii::error(strip_tags($log_message));
                         }
                     throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";\n",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
                     }
 
             /*Обработка ответа сервера*/
-            if(YII_DEBUG){Yii::debug($soap_response);}
-            if(!$soap_response->return->Успешно){
-                $message=match ($soap_response->return->Ответ)
-                    {
-                    'this carriage/container is already added'=>implode(' ',['Вагон',$soap_request->WagonNumber,'уже был поставлен на дислокацию']),
-                    default=>$soap_response->return->Ответ,
-                    };
+            $request['repeated_flag']=match ($soap_response->return->Ответ)
+            {
+                'this carriage/container is already added','Вагон уже стоит на слежении!'=>true,
+                default=>false,
+            };
 
-                $errors[]=trim('<strong>'."Ответ сервера дислокации: ".'</strong>'.$message,'.');
-                $request['response']=$message;
+            if((!$soap_response->return->Успешно)||$request['repeated_flag']){
+                $message=($request['repeated_flag'])?implode(' ',['Вагон',$soap_request->WagonNumber,'уже был поставлен на дислокацию']):$soap_response->return->Ответ;
+                $errors[]=trim('<strong>'."Ответ сервера дислокации: ".'</strong>'.$message,'.!');
+                $request['response_success']=(int)$soap_response->return->Успешно;
+                $request['response_answer']=$soap_response->return->Ответ;
                 try
-                {
-                    $request->validate();
-                }
+                    {
+                    //$request['response_success']='test';
+                    $request->save();
+                    }
                 catch (ErrorException $error)
-                {
-                    $errors[]='Ошибка записи информации о запросе';
+                    {
+                    $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
+                    Yii::error(strip_tags($log_message));
+                    }
+                throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";<br>",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
                 }
-                throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";\n",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]],parse_html:false);
-                }
-
-            $user=SiteUser::findOne(['id'=>Yii::$app->user->id]);
             $page_title="SOAP запрос";
-            $messages[]=implode("\n",['Ваш запрос срочной дислокации вагона <strong>№'.$soap_request->WagonNumber.'</strong> успешно отправлен.','Пожалуйста, ожидайте результат по адресу Вашей электронной почты ('.$user->email.').']);
-            $request['status']=1;
+            $result=implode("\n",['Ваш запрос срочной дислокации вагона <strong>№'.$soap_request->WagonNumber.'</strong> успешно отправлен.','Пожалуйста, ожидайте результат по адресу Вашей электронной почты ('.$user->email.').']);
+            $messages[]=$result;
+            $request['response_success']=(int)$soap_response->return->Успешно;
+            $request['response_answer']=$soap_response->return->Ответ;
             try
-            {
+                {
+                //$request['response_success']='test';
                 $request->save();
-            }
-            catch (ErrorException)
-            {
-                $messages[]='Ошибка записи информации о запросе';
-            }
-
+                }
+            catch (ErrorException $error)
+                {
+                $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
+                Yii::error(strip_tags($log_message));
+                }
             $message="<p>".implode("</p>\n<p>",$messages)."</p>";
-            return $this->render('RequestResult',compact('page_title','message'));
+            $error=(!empty($errors))?'<p class="text-danger">'.implode('\n',$errors).'.</p>':null;
+            return $this->render('RequestResult',compact('page_title','message','error'));
             }
         else
             {
