@@ -100,18 +100,18 @@ trait DataRecord
         try
         {
             $saving_result=parent::save($runValidation,$attributeNames);
-            if(!$saving_result){throw new ErrorException('Ошибка валидации при записи', 1);}
+            if(!$saving_result){throw new ErrorException('Ошибка валидации при записи', 0);}
             return $saving_result;
         }
         catch(Exception $error)
         {
             if(str_contains($error->getMessage(), 'Duplicate entry'))
             {
-                throw new ErrorException('Такая запись уже существует', 2);
+                throw new ErrorException('Такая запись уже существует', -1);
             }
             else
             {
-                throw new ErrorException('Ошибка записи в БД'.$error->getMessage(), 2);
+                throw new ErrorException('Ошибка записи в БД: '.$error->getMessage(), -2);
             }
         }
     }

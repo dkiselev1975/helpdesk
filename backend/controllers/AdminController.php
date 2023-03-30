@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Company;
+use common\models\Country;
 use common\models\Request;
 use common\models\SiteUser;
 use Yii;
@@ -40,6 +41,11 @@ class AdminController extends Controller
                             'company-index',
                             'company-edit-form',
                             'company-delete',
+
+                            'country-index',
+                            'country-edit-form',
+                            'country-delete',
+
                             'request-index',
                         ],
                         'allow' => true,
@@ -113,6 +119,18 @@ class AdminController extends Controller
         $empty_list_phrase='Список компаний пуст';
         $items=Company::find()->all();
         return $this->render('CompanyIndex',compact('items','page_title','empty_list_phrase'));
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function actionCountryIndex():string
+    {
+        $page_title = 'Страны и тарифы';
+        $empty_list_phrase='Список стран пуст';
+        $items=Country::find()->orderBy('name')->all();
+        return $this->render('CountryIndex',compact('items','page_title','empty_list_phrase'));
     }
 
     /**
@@ -243,6 +261,60 @@ class AdminController extends Controller
     }
 
     /**
+     * Редактирование и создание компании
+     * @return ?string
+     *
+     * @throws GoodException
+     */
+    public function actionCountryEditForm():?string
+    {
+        $redirect_url='/country-index';
+        $item=new Country();
+        try {
+            if ($id = Yii::$app->getRequest()->GET('id')) {
+
+                $item = Country::find()->andWhere(['id' => $id])->one();
+                if(empty($item)){throw new GoodException('Страна не найдена');}
+                //Yii::Warning(Yii::$app->request->post());
+                if ($item->load(Yii::$app->request->post())) {
+                    if (!$item->validate()) {
+                        throw new ErrorException('Ошибка валидации', 0);
+                    }
+                    if (!$item->save()) {
+                        throw new ErrorException('Ошибка сохранения в БД', 1);
+                    }
+
+                    $this->redirect($redirect_url);
+                    return null;
+                } else {
+                    $page_title = 'Изменение компании';
+                    return $this->render('CountryEditForm', compact('item', 'page_title'));
+                }
+            } else {
+                $item['status'] =Country::STATUS_ACTIVE;
+                if ($item->load(Yii::$app->request->post())) {
+                    if (!$item->validate()) {
+                        throw new ErrorException('Ошибка валидации', 0);
+                    }
+                    if (!$item->save()) {
+                        throw new ErrorException('Ошибка сохранения в БД', 1);
+                    }
+                    $this->redirect($redirect_url);
+                    return null;
+                } else {
+                    $page_title = 'Добавить страну и тариф';
+                    return $this->render('CountryEditForm', compact('item', 'page_title'));
+                }
+            }
+        }
+        catch (ErrorException $error)
+        {
+            $page_title = $error->getMessage();
+            $errors=$item->getErrors();
+            return $this->render('CountryEditForm',compact('errors','page_title'));
+        }
+    }
+    /**
      * @throws GoodException
      * Удаление пользователя сайта
      */
@@ -266,6 +338,20 @@ class AdminController extends Controller
         $id=Yii::$app->getRequest()->GET('id');
         $model=new Company();
         if(!($item=$model->find()->andWhere(['id'=>$id])->one())){throw new GoodException('Компания не найдена');}
+        $model->MarkAsDeleted($item);
+        $this->redirect($redirect_url);
+    }
+
+    /**
+     * @throws GoodException
+     * Удаление страны
+     */
+    public function actionCountryDelete():void
+    {
+        $redirect_url='/country-index';
+        $id=Yii::$app->getRequest()->GET('id');
+        $model=new Country();
+        if(!($item=$model->find()->andWhere(['id'=>$id])->one())){throw new GoodException('Страна не найдена');}
         $model->MarkAsDeleted($item);
         $this->redirect($redirect_url);
     }
