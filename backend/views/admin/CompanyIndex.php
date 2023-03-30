@@ -5,12 +5,12 @@ use yii\bootstrap5\Html;
 /** @var yii\web\View $this */
 /** @var array $news_list */
 /** @var string $page_title */
+/** @var string $empty_list_phrase; */
 
 $this->title=$page_title;
-?>
-<?php
+
 if(!empty($items)&&is_array($items))
-{
+    {
     ?><table class="table table-bordered table-striped data-table">
     <tr>
         <th class="p-1 p-sm-2 w-100">Наименование</th>
@@ -33,5 +33,9 @@ if(!empty($items)&&is_array($items))
         <?php
     }
     ?></table><?php
-}
+    }
+else
+    {
+    ?><strong><?=$empty_list_phrase;?></strong><?php
+    }
 ?>

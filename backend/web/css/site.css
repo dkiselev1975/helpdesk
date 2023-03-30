@@ -10,3 +10,6 @@ table.data-table tr.inactive{background-color:Orange}
 table.data-table tr.deleted{background-color:LightSalmon}
 
 form .help-block{margin-top:5px;color:#CC0000}
+
+.cursor-pointer{cursor:pointer}
+.cursor-default{cursor:default}

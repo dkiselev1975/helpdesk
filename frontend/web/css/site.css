@@ -1,15 +1,1 @@
-main > .container, main > .container-flow, main > .container-xl,  main > .container-xxl {
-    padding: 70px 15px 20px;
-}
-
-main.body-content h1{font-size:2rem;border-bottom:1px solid lightgrey;padding-bottom:10px;margin-bottom:20px}
-
-table.data-table th{text-align:center;font-weight:600;white-space:nowrap}
-table.data-table td{text-align:left;vertical-align:middle}
-table.data-table tr.inactive{background-color:Orange}
-table.data-table tr.deleted{background-color:LightSalmon}
-
-form .help-block{margin-top:5px;color:#CC0000}
-
-/*div[class*='field-dislocationrequestfrom-number']{display: flex;align-items:center}
-div[class*='field-dislocationrequestfrom-number']::after {margin-left:10px;padding: 1px 10px 4px;content:"+";border:1px solid darkgreen;background-color:green;color:white;border-radius: 5px;cursor:pointer}*/
+../../../backend/web/css/site.css

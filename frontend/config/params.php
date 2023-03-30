@@ -8,5 +8,6 @@ return [
         [
             ['label' => 'Начальная', 'url' => 'index', 'class' =>'fw-bold mb-2'],
             ['label' => 'Запрос', 'url' => 'request', 'class' =>'fw-bold mb-2'],
+            ['label' => 'Мои запросы', 'url' => 'request_index', 'class' =>'fw-bold mb-2'],
         ],
 ];

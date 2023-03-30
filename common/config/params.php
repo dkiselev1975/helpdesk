@@ -163,7 +163,7 @@ return [
 
             /*frontend/models/PasswordResetRequestForm.php*/
             'PasswordResetRequestForm'=>[
-                'password_reset_for'=>'Сброс пароля для',/*Password reset for*/
+                'password_reset_for'=>'Сброс пароля для ресурса',/*Password reset for*/
             ],
 
             /*frontend/models/ResendVerificationEmailForm.php*/

@@ -28,7 +28,7 @@ $this->title = Yii::$app->params['messages']['signup']['page_title'];
                 <?= $form->field($model, 'password')->passwordInput()->label(Yii::$app->params['messages']['signup']['fields']['password'].':') ?>
                 <?= $form->field($model, 'phone_office')->textInput()->label(Yii::$app->params['messages']['signup']['fields']['phone_office'].':',['class'=>'mb-1']); ?>
                 <?= $form->field($model, 'phone_mobile')->textInput()->label(Yii::$app->params['messages']['signup']['fields']['phone_mobile'].':',['class'=>'mb-1']); ?>
-                <?= $form->field($model, 'company_id')->dropDownList(arrayHelper::map(Company::find()->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['signup']['fields']['company_id']['prompt'].'…'])->label(Yii::$app->params['messages']['signup']['fields']['company_id']['label'].':',['class'=>'mb-1']); ?>
+                <?= $form->field($model, 'company_id')->dropDownList(arrayHelper::map(Company::find()->where(['status'=>10])->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['signup']['fields']['company_id']['prompt'].'…'])->label(Yii::$app->params['messages']['signup']['fields']['company_id']['label'].':',['class'=>'mb-1']); ?>
                 <div class="form-group">
                     <?= Html::submitButton(Yii::$app->params['messages']['signup']['buttons']['signup'], ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>

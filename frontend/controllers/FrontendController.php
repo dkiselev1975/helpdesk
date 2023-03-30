@@ -35,7 +35,8 @@ class FrontendController extends Controller
                         'actions' => [
                             'index',
                             'logout',
-                            'request'
+                            'request',
+                            'request-index',
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -161,7 +162,7 @@ class FrontendController extends Controller
             /*Сервер не отвечает*/
             catch (SoapFault $error)
                     {
-                    $errors[]='<strong>SoapFault: </strong>'.Html::encode($error->getMessage());
+                    $errors[]='<strong>SoapFault: </strong>'.Html::encode(trim($error->getMessage()));
                     $request['repeated_flag']=null;
                     $request['response_success']=0;
                     $request['response_answer']=$error->getMessage();
@@ -228,4 +229,13 @@ class FrontendController extends Controller
             }
     }
 
+    public function actionRequestIndex():string
+    {
+        $page_title='Мои запросы';
+        $empty_list_phrase='Список запросов пуст';
+        //$user=SiteUser::findOne(Yii::$app->user->id);
+        /*$items=$user->getCompany()->orderBy(['id'=>SORT_DESC])->all();*/
+        $items=Request::find()->where(['user_id'=>Yii::$app->user->id])->orderBy(['updated_at'=>SORT_DESC])->all();;
+        return $this->render('RequestIndex',compact('page_title','empty_list_phrase','items'));
+    }
 }

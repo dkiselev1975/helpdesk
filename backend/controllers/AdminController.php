@@ -98,19 +98,9 @@ class AdminController extends Controller
     public function actionSiteUserIndex():string
     {
         $page_title = 'Пользователи';
+        $empty_list_phrase='Список пользователей пуст';
         $items=SiteUser::find()->all();
-        return $this->render('SiteUserIndex',compact('items','page_title'));
-    }
-
-    /**
-     *
-     * @return string
-     */
-    public function actionRequestIndex():string
-    {
-        $page_title = 'Запросы';
-        $items=Request::find()->orderBy(['updated_at'=>SORT_DESC])->all();
-        return $this->render('RequestIndex',compact('items','page_title'));
+        return $this->render('SiteUserIndex',compact('items','page_title','empty_list_phrase'));
     }
 
     /**
@@ -120,8 +110,21 @@ class AdminController extends Controller
     public function actionCompanyIndex():string
     {
         $page_title = 'Компании';
+        $empty_list_phrase='Список компаний пуст';
         $items=Company::find()->all();
-        return $this->render('CompanyIndex',compact('items','page_title'));
+        return $this->render('CompanyIndex',compact('items','page_title','empty_list_phrase'));
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function actionRequestIndex():string
+    {
+        $page_title = 'Запросы';
+        $empty_list_phrase='Список запросов пуст';
+        $items=Request::find()->orderBy(['updated_at'=>SORT_DESC])->all();
+        return $this->render('RequestIndex',compact('items','page_title','empty_list_phrase'));
     }
 
     /*public function actionSiteUserEditForm():string
@@ -129,7 +132,6 @@ class AdminController extends Controller
         $page_title = 'Пользователи сайта - ФОРМА';
         return $this->render('SiteUserEditForm',compact('page_title'));
     }*/
-
 
     /**
      * Редактирование и создание пользователя сайта

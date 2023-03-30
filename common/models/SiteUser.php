@@ -15,10 +15,18 @@ class SiteUser extends User
 {
     use DataRecord;
 
+    /**
+     * @var mixed|null
+     */
     public function getCompany(): \yii\db\ActiveQuery
     {
-            return $this->hasOne(Company::class,['id'=>'company_id']);
-        }
+        return $this->hasOne(Company::class,['id'=>'company_id']);
+    }
+
+    public function getRequest()
+    {
+        return $this->hasMany(Request::class,['user_id'=>'id'])->orderBy(['updated_at'=>SORT_DESC])->all();
+    }
 
     public static function tableName(): string
     {
