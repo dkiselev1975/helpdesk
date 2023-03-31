@@ -21,6 +21,7 @@ if(isset($item))
 
     $form = ActiveForm::begin(['id' => 'CountryEditForm','options'=>['class' => 'col-lg-12']]); ?>
     <?= $form->field($item, 'name',['options'=>['class'=>'mb-2 fw-bold']])->textInput()->label('Наименование:',['class'=>'mb-1 fw-bold']); ?>
+    <?= $form->field($item, 'price_of_request',['options'=>['class'=>'mb-2 fw-bold col-12 col-sm-4']])->textInput()->label('Тариф:',['class'=>'mb-1 fw-bold']); ?>
     <?= $form->field($item, 'status',['options'=>['class'=>'mt-3 mb-2 fw-bold']])->dropDownList($status_items,['prompt' => 'Выберите статус…'])->label('Статус:',['class'=>'mb-1']); ?>
     <div class="form-group mt-4">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>

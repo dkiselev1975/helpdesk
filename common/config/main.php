@@ -8,7 +8,10 @@ return [
     'components' => [
         'formatter' => [
             'defaultTimeZone' => 'Europe/Moscow',
-            'timeZone' => 'Europe/Moscow'
+            'timeZone' => 'Europe/Moscow',
+            'currencyCode' => 'RUR',
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ' ',
         ],
         'cache' => [
             'class' => \yii\caching\FileCache::class,
