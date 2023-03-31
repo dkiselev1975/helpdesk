@@ -126,8 +126,9 @@ class FrontendController extends Controller
             try
                 {
                 $request=new Request();
-                $request['user_id']=Yii::$app->user->id;
                 $request['wagon_number']=$soap_request->WagonNumber;
+                $request['user_id']=Yii::$app->user->id;
+                $request['country_id']=$soap_request->country_id;
                 $request['user_email']=$user->email;/*email получателя результатов дислокации*/
                 $request['debug_flag']=(int)(!send_request);
                 if(!$soap_request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}

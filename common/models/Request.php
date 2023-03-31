@@ -57,6 +57,11 @@ class Request extends ActiveRecord
         return $this->hasOne(SiteUser::class,['id'=>'user_id']);
     }
 
+    public function getCountry()
+    {
+        return $this->hasOne(Country::class,['id'=>'country_id']);
+    }
+
     public static function tableName()
     {
         return '{{%request}}';

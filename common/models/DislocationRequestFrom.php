@@ -32,7 +32,7 @@ class DislocationRequestFrom extends Model
         ?>
         <?php $form = ActiveForm::begin(['id' => 'request-form']); ?>
         <?= $form->field($model, 'WagonNumber',['options'=>['class'=>'col-12 col-sm-4 mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['WagonNumber'].":") ?>
-        <?= $form->field($model, 'country_id',['options'=>['class'=>'col-12 col-sm-4 mb-4 fw-bold']])->dropDownList(arrayHelper::map(Country::find()->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['prompt'].'…'])->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['label'].':',['class'=>'mb-1']); ?>
+        <?= $form->field($model, 'country_id',['options'=>['class'=>'col-12 col-sm-4 mb-4 fw-bold']])->dropDownList(arrayHelper::map(Country::find()->orderBy(['sorting'=>SORT_ASC,'name'=>SORT_ASC])->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['prompt'].'…'])->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['label'].':',['class'=>'mb-1']); ?>
         <?= Html::submitButton(Yii::$app->params['messages']['DislocationRequestFrom']['buttons']['submit'], ['class' => 'btn btn-primary px-4']) ?>
         <?php ActiveForm::end(); ?>
         <?php
