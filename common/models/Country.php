@@ -28,6 +28,7 @@ class Country extends ActiveRecord
 
             ['price_of_request','number'],
             ['price_of_request','match','pattern'=> Yii::$app->params['regexp']['price_of_request'], 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
+            ['price_of_request','trim'],
 
             ['status', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['status']['required']],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],

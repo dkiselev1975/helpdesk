@@ -1,15 +1,15 @@
 <?php
-namespace frontend\models;
-
+namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\helpers\ArrayHelper;
 
 class DislocationRequestFrom extends Model
 {
     public $WagonNumber;
-
+    public $country_id;
     /**
      * {@inheritdoc}
      */
@@ -21,6 +21,9 @@ class DislocationRequestFrom extends Model
             ['WagonNumber','integer','message' => Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['integer']],
             ['WagonNumber','match','pattern'=>'/^\d{8,8}$/','message' =>Yii::$app->params['messages']['DislocationRequestFrom']['rules']['WagonNumber']['format']],
             ['WagonNumber','trim'],
+
+            ['country_id','required','message'=>Yii::$app->params['messages']['errors']['rules']['country_id']['required']],
+            ['country_id','integer'],
         ];
     }
 
@@ -28,7 +31,8 @@ class DislocationRequestFrom extends Model
     {
         ?>
         <?php $form = ActiveForm::begin(['id' => 'request-form']); ?>
-        <?= $form->field($model, 'WagonNumber')->textInput(['class'=>'col-12 col-sm-6 col-md-4 ms-sm-2'])->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['WagonNumber'].":") ?>
+        <?= $form->field($model, 'WagonNumber',['options'=>['class'=>'col-12 col-sm-4 mb-2 fw-bold']])->textInput()->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['WagonNumber'].":") ?>
+        <?= $form->field($model, 'country_id',['options'=>['class'=>'col-12 col-sm-4 mb-4 fw-bold']])->dropDownList(arrayHelper::map(Country::find()->all(),'id','name'),['prompt'=>Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['prompt'].'…'])->label(Yii::$app->params['messages']['DislocationRequestFrom']['fields']['country_id']['label'].':',['class'=>'mb-1']); ?>
         <?= Html::submitButton(Yii::$app->params['messages']['DislocationRequestFrom']['buttons']['submit'], ['class' => 'btn btn-primary px-4']) ?>
         <?php ActiveForm::end(); ?>
         <?php
