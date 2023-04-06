@@ -23,9 +23,9 @@ class SiteUser extends User
         return $this->hasOne(Company::class,['id'=>'company_id']);
     }
 
-    public function getRequest()
+    public function getRequest(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Request::class,['user_id'=>'id'])->orderBy(['updated_at'=>SORT_DESC])->all();
+        return $this->hasMany(Request::class,['user_id'=>'id']);
     }
 
     public static function tableName(): string

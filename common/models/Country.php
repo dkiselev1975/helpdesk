@@ -24,6 +24,7 @@ class Country extends ActiveRecord
                 'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['255smb'],
                 'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
                 ],
+            ['name', 'unique', 'targetClass' => self::class, 'message' => Yii::$app->params['messages']['errors']['unique_name']."."],
             ['name','trim'],
 
             ['price_of_request','number'],

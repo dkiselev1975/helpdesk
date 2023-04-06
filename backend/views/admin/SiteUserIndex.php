@@ -14,9 +14,7 @@ if(!empty($items)&&is_array($items))
     {
     ?><table class="table table-bordered table-striped data-table">
     <tr>
-        <th>Логин, Ф.И.О</th>
-        <th class="d-none d-sm-table-cell p-1 p-sm-2">E-mail</th>
-        <th class="d-none d-xl-table-cell p-1 p-sm-2">Телефоны</th>
+        <th class="p-1 p-sm-2 col-3">Логин, Ф.И.О</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Компания</th>
         <th class="d-none d-lg-table-cell p-1 p-sm-2">Активен</th>
         <th class="d-none d-xl-table-cell p-1 p-sm-2">Создан / Обновлен</th>
@@ -34,9 +32,7 @@ if(!empty($items)&&is_array($items))
         $item=SiteUser::DateTimeConvert($item,Yii::$app->params['date_formats']['php']['date_time_format']);
         ?>
         <tr<?php if($tr_class){?> class="<?= $tr_class;?>"<?php }?>>
-            <td class="p-1 p-sm-2"><?=nl2br(implode("\n",["<strong>".$item['username']."</strong>",implode(' ',[$item['person_name'],$item['person_patronymic'],$item['person_surname']])]));?></td>
-            <td class="d-none d-sm-table-cell p-1 p-sm-2"><?='<a href="mailto:'.$item['email'].'">'.$item['email'].'</a>';?></td>
-            <td class="d-none d-xl-table-cell p-1 p-sm-2 text-nowrap"><?=implode('<br>',[$item['phone_office'],$item['phone_mobile']]);?></td>
+            <td class="p-1 p-sm-2"><?=nl2br(implode("\n",["<strong>".$item['username']."</strong>",implode(' ',[$item['person_name'],$item['person_patronymic'],$item['person_surname']]),implode("\n",[$item['phone_office'],$item['phone_mobile']]),'<a href="mailto:'.$item['email'].'">'.$item['email'].'</a>']));?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item->company->name??'<span class="text-danger fw-bold">Не указана<span>';?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['status']==User::STATUS_ACTIVE?'Да':'Нет';?></td>
             <td class="d-none d-xl-table-cell p-1 p-sm-2 text-center"><?=implode('<br>',[$item['created_at'],$item['updated_at']]);?></td>

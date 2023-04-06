@@ -13,6 +13,7 @@ return [
             'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
         ],
+
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],

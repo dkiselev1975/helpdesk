@@ -10,12 +10,12 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     /*'bootstrap' => ['log'],*/
-    'bootstrap' => ['log','debug'],
+   /* 'bootstrap' => ['log','debug'],*/
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['172.20.1.205']
+            /*'allowedIPs' => ['172.20.1.205']*/
         ],
     ],
     /*'controllerMap' =>

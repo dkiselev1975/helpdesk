@@ -81,7 +81,34 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $items=Yii::$app->db->createCommand("
+select
+if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%Y'))=1,'Всего.:',
+if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%m'))=1,'Всего за год:',
+if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%d'))=1,'Всего за мес.:',''))) as `user_id`,
+if(`user_id` is not null,group_concat(distinct concat_ws(' ',`site_user`.`person_surname`,concat(substring(`site_user`.`person_name`,1,1),'.',substring(`site_user`.`person_patronymic`,1,1),'.'))),'') as `name`,
+count(`request`.`id`) as `requests`,
+sum(`price_of_request`) as `price`,
+date_format(from_unixtime(`request`.`updated_at`),'%d') as `day`,
+date_format(from_unixtime(`request`.`updated_at`),'%m') as `month`,
+date_format(from_unixtime(`request`.`updated_at`),'%Y') as `year`,
+grouping(`user_id`) AS `grp_user_id`,
+grouping(date_format(from_unixtime(`request`.`updated_at`),'%d')) AS `grp_day`,
+grouping(date_format(from_unixtime(`request`.`updated_at`),'%m')) AS `grp_month`,
+grouping(date_format(from_unixtime(`request`.`updated_at`),'%Y')) AS `grp_year`
+from `request`
+left join `site_user` on `request`.`user_id`=`site_user`.`id`
+where `debug_flag`=0 and `repeated_flag`=0 and `response_success`=1 and `price_of_request` is not null
+group by `year`,`month`,`day`,`user_id` with rollup
+having `grp_user_id`=0 or `grp_day`=1
+order by 
+`grp_year`,
+`month` desc,
+`grp_month`,
+`grp_day`,
+`day` desc,
+`name`")->queryAll();
+        return $this->render('index',compact('items'));
     }
 
     /**
@@ -105,7 +132,7 @@ class AdminController extends Controller
     {
         $page_title = 'Пользователи';
         $empty_list_phrase='Список пользователей пуст';
-        $items=SiteUser::find()->all();
+        $items=SiteUser::find()->orderBy(['username'=>SORT_ASC])->all();
         return $this->render('SiteUserIndex',compact('items','page_title','empty_list_phrase'));
     }
 

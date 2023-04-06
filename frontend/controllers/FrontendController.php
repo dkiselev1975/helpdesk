@@ -2,14 +2,16 @@
 
 namespace frontend\controllers;
 use backend\controllers\GoodException;
+use common\models\Country;
 use common\models\Request;
 use common\models\SiteUser;
-use common\models\DislocationRequestFrom;
+use common\models\RequestForm;
 use ErrorException;
 use frontend\models\ContactForm;
 use SoapClient;
 use SoapFault;
 use Yii;
+use yii\base\BaseObject;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -120,15 +122,18 @@ class FrontendController extends Controller
     {
         define('send_request',true) ;
         $user=SiteUser::findOne(['id'=>Yii::$app->user->id]);
-        $soap_request=new DislocationRequestFrom();
+        $soap_request=new RequestForm();
         if ($soap_request->load(Yii::$app->request->post()))
             {
             try
                 {
+                $country=Country::findOne($soap_request->country_id);
+
                 $request=new Request();
                 $request['wagon_number']=$soap_request->WagonNumber;
                 $request['user_id']=Yii::$app->user->id;
                 $request['country_id']=$soap_request->country_id;
+                $request['price_of_request']=$country['price_of_request'];
                 $request['user_email']=$user->email;/*email получателя результатов дислокации*/
                 $request['debug_flag']=(int)(!send_request);
                 if(!$soap_request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}
@@ -156,8 +161,8 @@ class FrontendController extends Controller
                         }
                 else
                     {
-                    $soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
-                    //$soap_response = (object)array('return' => (object)['Ответ' => 'Тестовый ответ','Успешно' => true,'ИДВагона' => 'a5c768dd-f1e2-44d7-8885-65be6b5ca834'],);
+                    //$soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
+                    $soap_response = (object)array('return' => (object)['Ответ' => 'Тестовый ответ','Успешно' => true,'ИДВагона' => 'a5c768dd-f1e2-44d7-8885-65be6b5ca834'],);
                     }
                 }
             /*Сервер не отвечает*/

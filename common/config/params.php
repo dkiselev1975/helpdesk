@@ -1,6 +1,7 @@
 <?php
 return [
     'app_name'=>['backend'=>'CMS | Сервис срочной дислокации','frontend'=>'Сервис срочной дислокации «Солид – товарные рынки»'],
+    'app_name_short'=>['backend'=>'CMS | Дислокация','frontend'=>'Дислокация «СТР»'],
     'company_name'=>'«Солид – товарные рынки»',
     'company_name_full'=>'АО «Солид – товарные рынки»',
     'sending_title'=>'Сервис срочной дислокации АО «Солид – товарные рынки»',
@@ -13,6 +14,9 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'user.passwordMinLength' => 8,
     'timeZone'=>'Europe/Moscow',
+    'currencyDecimalPlaces' => 2,
+    'currencyName' => 'pуб.',
+    'currencyShortName' => 'p.',
     'regexp'=>
         [
             'date_format'=>'/^\d{2}\.\d{2}\.\d{4}\s\d{2}\:\d{2}$/',
@@ -85,6 +89,7 @@ return [
                         ],
                     'login_is_already_used'=>'Данное имя пользователя уже занято',/*This username has already been taken.*/
                     'email_is_already_used'=>'Данный адрес электронной почты уже занят',/*This email address has already been taken.*/
+                    'unique_name'=>'Данное название уже используется',/*This email address has already been taken.*/
                     'validate_password'=>'Неправильное имя пользователя или пароль',/*'Incorrect username or password.'*/
                     'error_pages'=>[
                         'server_error'=>[
@@ -152,8 +157,8 @@ return [
             /*frontend/models/ContactForm.php*/
             'ContactForm'=>['verifyCode'=>'Код подтверждения'],/*Verification Code*/
 
-            /*frontend/models/DislocationRequestFrom.php*/
-            'DislocationRequestFrom'=>[
+            /*frontend/models/RequestForm.php*/
+            'RequestForm'=>[
                 'rules'=>['WagonNumber'=>[
                     'required'=>'Пожалуйста, заполните номер вагона',
                     'integer'=>'Номер вагона должен быть целым числом',

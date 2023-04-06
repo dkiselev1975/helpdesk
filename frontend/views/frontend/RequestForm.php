@@ -1,10 +1,10 @@
 <?php
 /** @var string $page_title */
-/** @var DislocationRequestFrom $soap_request */
+/** @var RequestForm $soap_request */
 
-use common\models\DislocationRequestFrom;
+use common\models\RequestForm;
 use yii\base\BaseObject;
 
 $this->title = $page_title;
-DislocationRequestFrom::RequestFormDraw($soap_request);
+RequestForm::RequestFormDraw($soap_request);
 ?>

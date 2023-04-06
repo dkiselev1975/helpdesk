@@ -28,7 +28,10 @@ AppAsset::register($this);
     <header>
         <nav id="w0" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <div class="container flex-nowrap px-2 px-sm-4">
-                <a class="navbar-brand" href="/"><?=\Yii::$app->params['app_name']['backend'];?></a>
+                <a class="navbar-brand" href="/">
+                    <div class="d-none d-sm-block"><?=\Yii::$app->params['app_name']['backend'];?></div>
+                    <div class="d-block d-sm-none"><?=\Yii::$app->params['app_name_short']['backend'];?></div>
+                </a>
                 <?php
                 if (Yii::$app->user->isGuest) {
                     echo Html::tag('div',Html::a(Yii::$app->params['messages']['navbar']['Login'],['/site/login'],['class' => ['btn btn-link login text-decoration-none text-nowrap']]),['class' => ['d-flex']]);
@@ -46,7 +49,7 @@ AppAsset::register($this);
     <main role="main" class="flex-grow-1">
         <div class="container-xxl d-flex px-0 h-100">
             <div class="justify-content-between col-12 row px-2 px-sm-4 m-0 flex-column flex-lg-row">
-                <div class="col-12 col-lg-2 col-xl-2 text-center text-sm-start bg-light p-3">
+                <div class="col-12 col-lg-2 text-center text-sm-start bg-light p-3">
                     <nav class="list-unstyled">
                         <?php
                         foreach (\Yii::$app->params['left_menu'] as $item)
@@ -57,8 +60,18 @@ AppAsset::register($this);
                         ?>
                     </nav>
                 </div>
-                <main class="col-12 col-lg-10 col-xl-2 body-content pt-4 px-0 px-sm-3 m-0 flex-grow-1">
-                    <h1 <?php if(isset($title_class)){?> class="<?=$title_class;?>"<?php }?>><?=Html::encode($this->title);?></h1>
+                <main class="col-12 col-lg-10 body-content pt-4 px-0 px-sm-3 m-0 flex-grow-1">
+                    <?php
+                    if(isset($title_class))
+                            {
+                            $title_class=implode(' ',["text-center","text-sm-start",$title_class]);
+                            }
+                    else
+                        {
+                            $title_class=implode(' ',["text-center","text-sm-start"]);
+                        }
+                    ?>
+                    <h1 class="<?=$title_class;?>"><?=Html::encode($this->title);?></h1>
                     <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs'] ?? []])?>
                     <?= Alert::widget() ?>
                     <?= $content ?>

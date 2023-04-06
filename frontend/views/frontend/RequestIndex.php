@@ -8,17 +8,19 @@ if(!empty($items)&&is_array($items))
 {
     ?><table class="table table-bordered table-striped data-table">
     <tr>
-        <th>Номер вагона</th>
+        <th class="p-1 p-sm-2">Номер вагона</th>
+        <th class="p-1 p-sm-2">Страна / Тариф (руб.)</th>
         <th class="d-none d-sm-table-cell p-1 p-sm-2">Статус запроса</th>
         <th class="d-none d-sm-table-cell p-1 p-sm-2">Выполнен</th>
     </tr>
     <?php
     foreach ($items as $item)
     {
-        //$tr_class=(!$item->status)?'text-danger':'';
+        $formatter = Yii::$app->formatter;
         ?>
         <tr>
             <td class="p-1 p-sm-2 text-center"><?=$item['wagon_number'];?></td>
+            <td class="p-1 p-sm-2 text-center"><?=($item['country_id']?$item->country->name:$formatter->asText(null))." / ".($item['price_of_request']?$formatter->asDecimal($item['price_of_request'],Yii::$app->params['currencyDecimalPlaces'])." р.":$formatter->asDecimal($item['price_of_request'],Yii::$app->params['currencyDecimalPlaces']));?></td>
             <td class="d-none d-sm-table-cell p-1 p-sm-2 text-center">
                 <?php if($item->repeated_flag)
                 {
