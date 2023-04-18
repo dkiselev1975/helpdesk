@@ -44,8 +44,7 @@ return [
         ],
     'defaultGoodExceptionLayout'=>'main',
     'DislocationSOAP'=>[
-        //'url'=>'http://185.200.240.207/solid/ws/ws1.1cws?wsdl',
-        'url'=>'http://server2.vagony.su/solid/ws/ws1.1cws?wsdl',
+        'url'=>'https://server2.vagony.su/solid/ws/ws1.1cws?wsdl',
     ],
     'messages'=>
         [
