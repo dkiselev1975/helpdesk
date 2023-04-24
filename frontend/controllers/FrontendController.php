@@ -71,16 +71,6 @@ class FrontendController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex():string
-    {
-        return $this->render('index');
-    }
-
-    /**
      * Logs out the current user.
      *
      * @return Response
@@ -88,7 +78,6 @@ class FrontendController extends Controller
     public function actionLogout():Response
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
@@ -116,7 +105,19 @@ class FrontendController extends Controller
     }
 
     /**
-     * @throws \backend\controllers\GoodException
+     * Displays homepage.
+     *
+     * @return string
+     * @throws GoodException
+     */
+    public function actionIndex():string
+    {
+        //return $this->render('index');
+        return self::actionRequest();
+    }
+
+    /**
+     * @throws GoodException
      */
     public function actionRequest():string
     {
@@ -128,7 +129,6 @@ class FrontendController extends Controller
             try
                 {
                 $country=Country::findOne($soap_request->country_id);
-
                 $request=new Request();
                 $request['wagon_number']=$soap_request->WagonNumber;
                 $request['user_id']=Yii::$app->user->id;
