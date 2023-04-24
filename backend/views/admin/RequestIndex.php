@@ -30,17 +30,19 @@ if(!empty($items)&&is_array($items))
             <td class="p-1 p-sm-2 text-center"><a href="site-user-edit-form/<?=$item->user->id;?>" title="<?=implode(', ',[implode(' ',[$item->user->person_surname,$item->user->person_name,$item->user->person_patronymic]),$item->user->company->name]);?>"><?=$item->user->username;?></a></td>
             <td class="d-none d-xl-table-cell p-1 p-sm-2 text-nowrap"><a href="mailto:<?= $item['user_email'];?>"><?=$item['user_email'];?></a></td>
             <td class="d-none d-sm-table-cell p-1 p-sm-2 text-center">
-                <?php if($item->repeated_flag)
+                <?php
+                $test_info=$item->debug_flag?' (Test)':'';
+                if($item->repeated_flag)
                     {
-                    ?><strong class="text-warning cursor-pointer" title="<?=$item->response_answer;?>">Повторный</strong><?php
+                    ?><strong class="text-warning cursor-pointer" title="<?=$item->response_answer;?>">Повторный<?=$test_info;?></strong><?php
                     }
                 elseif(!$item->response_success)
                     {
-                    ?><strong class="text-danger cursor-pointer" title="<?=$item->response_answer;?>">Ошибка</strong><?php
+                    ?><strong class="text-danger cursor-pointer" title="<?=$item->response_answer;?>">Ошибка<?=$test_info;?></strong><?php
                     }
                 else
                     {
-                    ?><span class="text-success cursor-default">Успешно</span><?php
+                    ?><span class="text-success cursor-default">Успешно<?=$test_info;?></span><?php
                     }
                 ?>
             </td>
