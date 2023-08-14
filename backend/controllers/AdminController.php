@@ -83,7 +83,7 @@ class AdminController extends Controller
     {
         $items=Yii::$app->db->createCommand("
 select
-if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%Y'))=1,'Всего.:',
+if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%Y'))=1,'Всего:',
 if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%m'))=1,'Всего за год:',
 if(grouping(date_format(from_unixtime(`request`.`updated_at`),'%d'))=1,'Всего за мес.:',''))) as `user_id`,
 if(`user_id` is not null,group_concat(distinct concat_ws(' ',`site_user`.`person_surname`,concat(substring(`site_user`.`person_name`,1,1),'.',substring(`site_user`.`person_patronymic`,1,1),'.'))),'') as `name`,
