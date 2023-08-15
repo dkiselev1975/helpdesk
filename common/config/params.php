@@ -1,10 +1,10 @@
 <?php
 return [
-    'app_name'=>['backend'=>'CMS | Сервис срочной дислокации','frontend'=>'Сервис срочной дислокации «Солид – товарные рынки»'],
-    'app_name_short'=>['backend'=>'CMS | Дислокация','frontend'=>'Дислокация «СТР»'],
+    'app_name'=>['backend'=>'CMS | Сервис Helpdesk','frontend'=>'Сервис Helpdesk «Солид – товарные рынки»'],
+    'app_name_short'=>['backend'=>'CMS | Helpdesk','frontend'=>'Helpdesk «СТР»'],
     'company_name'=>'«Солид – товарные рынки»',
     'company_name_full'=>'АО «Солид – товарные рынки»',
-    'sending_title'=>'Сервис срочной дислокации АО «Солид – товарные рынки»',
+    'sending_title'=>'Сервис Helpdesk АО «Солид – товарные рынки»',
     'adminEmail' => 'webmaster@solid-tr.ru',
 
     'supportEmail' => 'webmaster@solid-tr.ru',

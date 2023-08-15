@@ -4,9 +4,9 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=dislocation_request',
-            'username' => 'dislocation_request_user',
-            'password' => '4]FJ3vtIlK88kE3K',
+            'dsn' => 'mysql:host=localhost;dbname=helpdesk',
+            'username' => 'helpdesk_user',
+            'password' => '5C77#WQEmuz_O1OY',
             'charset' => 'utf8',
         ],
         'mailer' => [
