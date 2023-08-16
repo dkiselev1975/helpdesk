@@ -5,60 +5,52 @@
 /** @var object $users */
 
 $this->title = Yii::$app->params['app_name']['backend'];
-var_dump (count($users->users));
+?><p><strong>Count: </strong><?var_dump (count($users->users));?></p><?
 
 $level=0;
-$fields=array('name','jobtitle','login_name','first_name','middle_name','last_name','department');
+$fields=array('name','jobtitle','phone','department');
 
-function get_value(string $key,mixed $value,&$level)
+function get_value(string $key,mixed $value,&$level,string $class='d-flex flex-column')
     {
     $level++;
-    if($level<=1){$tag="td";}else{$tag="ul";}
-    echo "<".$tag.">";
     if(!is_object($value))
         {
-        if($tag==='td')
-            {
-            echo $key.": ".$value." [".$level."]";
-            }
-        else
-            {
-            ?><li><?=$key.": ".$value." [".$level."]";?></li><?
-            }
+        ?><div class="fw-normal"><?=$key.": ".$value." [".$level."]";?></div><?
         }
     else
         {
-        if($tag==='td')
-            {
-            echo $key." (is_obj)"." [".$level."]";
-            }
-        else
-            {
-            ?><li><?=$key." (is_obj)"." [".$level."]";?></li><?
-            }
+        ?><div class="<?=$class;?>"><?
+        echo $key." (is_obj)"." [".$level."]";
         foreach ($value as $k=>$v)
             {
-            get_value($k,$v,$level);
+            get_value($k,$v,$level,'fw-bold d-flex py-1 flex-column');
             }
+        ?></div><?
         }
-    echo "</".$tag.">";
     --$level;
     }
 
 if(count($users->users)>0)
     {
-    ?><table class="table table-bordered table-striped data-table"><?php
+    ?><div class="d-flex flex-column"><?php
     foreach ($users->users as $k=>$v)
         {
+        //var_dump(array_diff($v,$fields));
         $level=0;
-        ?><tr><?
+        ?><div class="d-flex flex-wrap flex-grow-1 fw-bolder border-bottom pb-2 bg-light"><?
             foreach($fields as $key)
                 {
-                get_value($key,$v->$key,$level);
+                if(property_exists($v,$key)){get_value($key,$v->$key,$level,"w-100 1 fw-bold d-flex flex-column pr-3");}
                 }
-        ?></tr><?
+        ?></div><?
+        ?><div class="flex-grow-1 fw-normal d-flex flex-column border-bottom pb-3"><?
+        foreach ($v as $second_key=>$second_value)
+            {
+            if(!in_array($second_key,$fields)){get_value($second_key,$v->$second_key,$level);}
+            }
+        ?></div><?
         }
-    ?></table><?php
+    ?></div><?php
     }
 
 
