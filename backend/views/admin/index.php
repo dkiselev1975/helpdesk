@@ -9,7 +9,39 @@ $this->title = Yii::$app->params['app_name']['backend'];
 
 class showTree
 {
-    private $fields=array('name','jobtitle','phone','department');
+    private array $fields=['name','jobtitle','phone','department'];
+    /*ID сотрудника*/
+    /*Описание*/
+    /*Дополнительные адреса эл. почты*/
+    /*В подчинении у*/
+    /*Автор заявки может просматривать*/
+    /*Назначенные роли*/
+
+    private array $translate=[
+    "email_id"=>"Основной адрес эл. почты",
+    "is_vipuser"=>"VIP-пользователь",
+    "cost_per_hour"=>"Стоимость в час (RUB)",
+    "department"=>[
+        "site"=>["name"=>"Название отдела"]
+    ],
+    "first_name"=>"Имя",
+    "jobtitle"=> "Должность",
+    "mobile"=>"Моб. телефон",
+    "last_name"=>"Фамилия",
+    "sms_mail_id"=>'Адрес SMS-почты',
+    "middle_name"=>"Отчество",
+    "login_name"=> "Регистрационное имя",
+    "phone"=>"Телефон",
+    "domain"=>[
+        "name"=>"Имя домена",
+        ],
+    "name"=>"Имя/название",
+    "user_udf_fields"=>[
+        "udf_pick_303"=>"Компания",
+        "udf_sline_302"=>"Рабочее место",
+        "udf_sline_306"=>"Имя компьютера",
+    ],
+  ];
     private array $classes=
     [
         'primary'=>
@@ -69,6 +101,23 @@ class showTree
             ?><div class="<?=$class;?> ps-<?=$level?>" title="level: <?=$level;?>"><?=$key.": ".(is_null($value)?'<span class="text-secondary">Нет данных</span>':$value);?></div><?
         }
     }
+
+    function add_translate($data)
+        {
+        foreach ($data as $k=>$v)
+            {
+            if(is_object($v))
+                {
+                $this->add_translate($v);
+                }
+            else
+                {
+                $data->{"test"}='asdsa';
+                }
+            }
+        ?><pre><?var_dump($data);?></pre><?
+        }
+
     function makeTree($data)
     {
         if(count($data)>0)
@@ -104,6 +153,7 @@ class showTree
 }
 
 $tree=new showTree();
+$tree->add_translate($users->users);
 $tree->makeTree($users->users);
 
 ?><pre><?php var_dump($users->users);?></pre><?php
