@@ -10,60 +10,88 @@ $this->title = Yii::$app->params['app_name']['backend'];
 $level=0;
 $fields=array('name','jobtitle','phone','department');
 
-function get_value(string $key,mixed $value,&$level)
+function get_value(string $key,mixed $value,string $section,int &$level)
     {
     $classes=array(
-        0=>
+        'primary'=>
             [
-                'is_object'=>'main_object d-flex flex-wrap w-100',
-                'is_scalar_value'=>'main_value fw-normal col-12 col-sm-4',
-                'object_title'=>'object_title fw-bold w-100 border-bottom-1 bg-light'
+                0=>
+                    [
+                        'is_object'=>'main_object d-flex flex-wrap',
+                        'object_title'=>'object_title fw-bold bg-light',
+                        'is_scalar_value'=>'main_value fw-normal col-auto px-2 fw-bold',
+
+                    ],
+                1=>
+                    [
+                        'is_object'=>'secondary_object d-flex flex-wrap',
+                        'object_title'=>'object_title fw-bold',
+                        'is_scalar_value'=>'secondary_value fw-normal',
+                    ],
             ],
-        1=>
+        'secondary'=>
             [
-                'is_object'=>'secondary_object d-flex flex-wrap w-100',
-                'is_scalar_value'=>'secondary_value fw-normal d-none',
-                'object_title'=>'object_title fw-bold w-100 border-bottom-1'
+                0=>
+                    [
+                        'is_object'=>'main_object d-flex flex-wrap',
+                        'object_title'=>'object_title fw-bold bg-light',
+                        'is_scalar_value'=>'main_value fw-normal col-12 col-sm-4 w-100',
+
+                    ],
+                1=>
+                    [
+                        'is_object'=>'secondary_object d-flex flex-wrap',
+                        'object_title'=>'object_title fw-bold',
+                        'is_scalar_value'=>'secondary_value fw-normal',
+                    ],
             ],
     );
     if(is_object($value))
         {
-        $class=$classes[(int)((bool)$level)]['is_object'];
+        $class=$classes[$section][(int)((bool)$level)]['is_object'];
         ?><div class="<?=$class;?> ps-<?=$level?>"><?
-        ?><div class="<?=$classes[(int)((bool)$level)]['object_title']?>"><?=$key." (is_obj)"." [".$level."]";?></div><?
+        ?><div class="<?=$classes[$section][(int)((bool)$level)]['object_title']?>" title="(is_obj),level: <?=$level;?>"><?=$key.":";?></div><?
         foreach ($value as $k=>$v)
             {
             $level++;
-            get_value($k,$v,$level);
+            get_value($k,$v,$section,$level);
             --$level;
             }
         ?></div><?
         }
     else
         {
-        $class=$classes[(int)((bool)$level)]['is_scalar_value'];
-        ?><div class="<?=$class;?> ps-<?=$level?>"><?=$key.": ".$value." [".$level."]";?></div><?
+        $class=$classes[$section][(int)((bool)$level)]['is_scalar_value'];
+        ?><div class="<?=$class;?> ps-<?=$level?>" title="level: <?=$level;?>"><?=$key.": ".(is_null($value)?'<span class="text-secondary">Нет данных</span>':$value);?></div><?
         }
     }
 
 if(count($users->users)>0)
     {
-    ?><div class="tree_container"><?php
+    ?><div class="tree_container border-light"><?php
     foreach ($users->users as $k=>$v)
         {
-        //var_dump(array_diff($v,$fields));
-        $level=0;
-        ?><div class="main_fields_container w-100 fw-bolder d-flex flex-wrap border-bottom pb-2 bg-light"><?
-            foreach($fields as $key)
+        ?><div class="item_container border p-2 my-4"><?
+            //var_dump(array_diff($v,$fields));
+            $level=0;
+            ?><div class="primary_fields_container w-100 fw-bolder d-flex flex-wrap pb-2 bg-light"><?
+                foreach($fields as $key)
+                    {
+                    if(property_exists($v,$key))
+                        {
+                        get_value($key,$v->$key,'primary',$level);
+                        }
+                    }
+            ?></div><?
+            ?><div class="secondary_fields_container w-100 fw-normal d-flex flex-wrap pb-3 border-top"><?
+            foreach ($v as $second_key=>$second_value)
                 {
-                if(property_exists($v,$key)){get_value($key,$v->$key,$level);}
+                if(!in_array($second_key,$fields))
+                    {
+                    get_value($second_key,$v->$second_key,'secondary',$level);
+                    }
                 }
-        ?></div><?
-        ?><div class="secondary_fields_container w-100 fw-normal d-flex flex-wrap border-bottom pb-3"><?
-        foreach ($v as $second_key=>$second_value)
-            {
-            if(!in_array($second_key,$fields)){get_value($second_key,$v->$second_key,$level);}
-            }
+            ?></div><?
         ?></div><?
         }
     ?></div><?php
