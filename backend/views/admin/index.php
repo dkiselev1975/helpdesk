@@ -43,10 +43,21 @@ class showTree
         "udf_pick_303"=>"Компания",
         "udf_sline_302"=>"Рабочее место",
         "udf_sline_306"=>"Имя компьютера",
-    ],
+        ],
+    "created_by"=>[
+            "name"=>"Кем создано",
+            "department"=>
+                [
+                "site"=>["name"=>"Подразделение"]
+                ]
+            ]
   ];
     private array $classes=
     [
+        'general_container'=>'tree_container border-light',
+        'primary_header_box'=>'item_container border p-2 my-4',
+        'primary_container'=>'primary_fields_container w-100 fw-bolder d-flex flex-wrap pb-2 bg-light',
+        'secondary_container'=>'secondary_fields_container w-100 fw-normal d-flex flex-wrap pb-3 border-top',
         'primary'=>
             [
                 0=>
@@ -54,7 +65,6 @@ class showTree
                         'is_object'=>'main_object d-flex flex-wrap',
                         'object_title'=>'object_title fw-bold bg-light',
                         'is_scalar_value'=>'main_value fw-normal col-auto px-2 fw-bold',
-
                     ],
                 1=>
                     [
@@ -74,19 +84,24 @@ class showTree
                     ],
                 1=>
                     [
-                        'is_object'=>'secondary_object d-flex flex-wrap',
-                        'object_title'=>'object_title fw-bold bg-secondary',
+                        'is_object'=>'secondary_object d-flex flex-wrap w-100',
+                        'object_title'=>'object_title fw-bold bg-secondary w-100',
                         'is_scalar_value'=>'secondary_value fw-normal',
                     ],
             ],
     ];
 
-    private function get_empty_titles(mixed $translate)
+    private function getEmptyValueText():string
+    {
+    return '<span class="text-secondary">Нет данных</span>';
+    }
+
+    private function get_empty_titles(mixed $translate):string
         {
         //var_dump($translate);
         static $title=[];
         if(is_string($translate)){
-            $title[0]=$translate.": ".'<span class="text-secondary">Нет данных</span>';
+            $title[0]=$translate.": ".$this->getEmptyValueText();
             }
         else
             {
@@ -96,31 +111,37 @@ class showTree
                         $this->get_empty_titles($translate_title);
                     }
                     else{
-                        $title[]=$translate_title.": ".'<span class="text-secondary">Нет данных</span>';
+                        $title[]=$translate_title.": ".$this->getEmptyValueText();
                     }
                 }
             }
         return implode(' ',$title);
         }
 
-    private function get_value(string $key,mixed $value,string $section,$translate)
+    private function get_value(string $key,mixed $value,string $section,$translate,bool $flat=true)
     {
         static $level=0;
         if(is_array($value))
         {
+        if(!$flat)
+            {
             $class=$this->classes[$section][(int)((bool)$level)]['is_object'];
-            ?><div class="<?=$class;?> ps-<?=$level?>"><?
+            if(!$flat){$class.=$class." ps-".$level;}
+            ?><div class="<?=$class;?>"><?
             ?><div class="<?=$this->classes[$section][(int)((bool)$level)]['object_title']?>" title="(is_obj),level: <?=$level;?>"><?=$key.":";?></div><?
+            }
             foreach ($value as $k=>$v)
             {
                 $level++;
                 if(isset($translate[$k])){$this->get_value($k,$v,$section,$translate[$k]);}
                 --$level;
             }
+        if(!$flat)
+            {
             ?></div><?
+            }
         }
-        else
-        {
+        else{
             //var_dump($translate);
             if(is_null($value))
                 {
@@ -132,7 +153,8 @@ class showTree
                 }
             //if(is_string($translate)){$title=$translate;}else{var_dump($translate,$value);echo gettype($translate);}
             $class=$this->classes[$section][(int)((bool)$level)]['is_scalar_value'];
-            ?><div class="<?=$class;?> ps-<?=$level?>" title="level: <?=$level."(".$key.")";?>"><?=$title;?></div><?
+            if(!$flat){$class.=$class." ps-".$level;}
+            ?><div class="<?=$class;?>" title="level: <?=$level."(".$key.")";?>"><?=$title;?></div><?
         }
     }
 
@@ -140,12 +162,12 @@ class showTree
     {
         if(count($data)>0)
         {
-            ?><div class="tree_container border-light"><?php
+            ?><div class="<?=$this->classes['general_container'];?>"><?php
             foreach ($data as $value)
             {
-                ?><div class="item_container border p-2 my-4"><?
+                ?><div class="<?=$this->classes['primary_header_box'];?>"><?
                 //var_dump(array_diff($v,$this->fields));
-                ?><div class="primary_fields_container w-100 fw-bolder d-flex flex-wrap pb-2 bg-light"><?
+                ?><div class="<?=$this->classes['primary_container'];?>"><?
                 foreach($this->fields as $key)
                 {
                     if(
@@ -158,7 +180,7 @@ class showTree
                     }
                 }
                 ?></div><?
-                ?><div class="secondary_fields_container w-100 fw-normal d-flex flex-wrap pb-3 border-top"><?
+                ?><div class="<?=$this->classes['secondary_container'];?>"><?
 
                 //var_dump($value);
                 foreach ($value as $key=>$second_value)
