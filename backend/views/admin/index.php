@@ -9,7 +9,7 @@ $this->title = Yii::$app->params['app_name']['backend'];
 
 class showTree
 {
-    private array $fields=['name','jobtitle','phone','department'];
+    private array $fields=['name','email_id','jobtitle','mobile','department'];
     /*ID сотрудника*/
     /*Описание*/
     /*Дополнительные адреса эл. почты*/
@@ -27,12 +27,12 @@ class showTree
             "name"=>"Название отдела"
             ]
     ],
-    "first_name"=>"Имя",
+    //"first_name"=>"Имя",
     "jobtitle"=> "Должность",
     "mobile"=>"Моб. телефон",
-    "last_name"=>"Фамилия",
+    //"last_name"=>"Фамилия",
     "sms_mail_id"=>'Адрес SMS-почты',
-    "middle_name"=>"Отчество",
+    //"middle_name"=>"Отчество",
     "login_name"=> "Регистрационное имя",
     "phone"=>"Телефон",
     "domain"=>[
@@ -44,49 +44,51 @@ class showTree
         "udf_sline_302"=>"Рабочее место",
         "udf_sline_306"=>"Имя компьютера",
         ],
-    "created_by"=>[
+    /*"created_by"=>[
             "name"=>"Кем создано",
             "department"=>
                 [
-                "site"=>["name"=>"Подразделение"]
+                "name"=>"Подразделение",
+                "site"=>["name"=>"Комната"]
                 ]
-            ]
+            ]*/
   ];
     private array $classes=
     [
         'general_container'=>'tree_container border-light',
         'primary_header_box'=>'item_container border p-2 my-4',
-        'primary_container'=>'primary_fields_container w-100 fw-bolder d-flex flex-wrap pb-2 bg-light',
-        'secondary_container'=>'secondary_fields_container w-100 fw-normal d-flex flex-wrap pb-3 border-top',
+
+        'primary_container'=>'primary_fields_container w-100 fw-bolder d-flex flex-wrap pb-2 bg-light justify-content-center',
         'primary'=>
             [
                 0=>
                     [
-                        'is_object'=>'main_object d-flex flex-wrap',
-                        'object_title'=>'object_title fw-bold bg-light',
-                        'is_scalar_value'=>'main_value fw-normal col-auto px-2 fw-bold',
+                        //'is_object'=>'main_object d-flex flex-wrap',
+                        //'object_title'=>'object_title fw-bold bg-light',
+                        'is_scalar_value'=>'main_value px-2 fw-bold col-12 col-sm-6 text-center',
                     ],
                 1=>
                     [
-                        'is_object'=>'secondary_object d-flex flex-wrap',
-                        'object_title'=>'object_title fw-bold',
-                        'is_scalar_value'=>'secondary_value fw-normal',
+                        //'is_object'=>'secondary_object d-flex flex-wrap',
+                        //'object_title'=>'object_title fw-bold',
+                        'is_scalar_value'=>'secondary_value fw-normal px-2 col-12 col-sm-6 text-center fw-bold',
                     ],
             ],
+        'secondary_container'=>'secondary_fields_container w-100 fw-normal d-flex flex-wrap pb-3 border-top',
         'secondary'=>
             [
                 0=>
                     [
-                        'is_object'=>'main_object d-flex flex-wrap',
-                        'object_title'=>'object_title',
-                        'is_scalar_value'=>'main_value fw-normal col-12 col-sm-4 w-100',
+                        //'is_object'=>'main_object d-flex flex-wrap',
+                        //'object_title'=>'object_title',
+                        'is_scalar_value'=>'main_value fw-normal col-12 col-sm-4 p-2',
 
                     ],
                 1=>
                     [
-                        'is_object'=>'secondary_object d-flex flex-wrap w-100',
-                        'object_title'=>'object_title fw-bold bg-secondary w-100',
-                        'is_scalar_value'=>'secondary_value fw-normal',
+                        //'is_object'=>'secondary_object d-flex flex-wrap w-100',
+                        //'object_title'=>'object_title fw-bold bg-secondary w-100',
+                        'is_scalar_value'=>'secondary_value fw-normal col-12 col-sm-4 p-2',
                     ],
             ],
     ];
@@ -96,15 +98,16 @@ class showTree
     return '<span class="text-secondary">Нет данных</span>';
     }
 
-    private function get_empty_titles(mixed $translate):string
+    private function get_empty_titles(mixed $translate,bool $init=false):string
         {
-        //var_dump($translate);
         static $title=[];
+        if($init){$title=[];}
         if(is_string($translate)){
             $title[0]=$translate.": ".$this->getEmptyValueText();
             }
         else
             {
+                $title=[];
                 foreach ($translate as $translate_title)
                 {
                     if(is_array($translate_title)){
@@ -145,10 +148,14 @@ class showTree
             //var_dump($translate);
             if(is_null($value))
                 {
-                $title=$this->get_empty_titles($translate);
+                $title=$this->get_empty_titles($translate,true);
                 }
             else
                 {
+                if(is_bool($value))
+                    {
+                        $value=($value)?'Да':'Нет';
+                    }
                 $title=$translate.": ".$value;
                 }
             //if(is_string($translate)){$title=$translate;}else{var_dump($translate,$value);echo gettype($translate);}
