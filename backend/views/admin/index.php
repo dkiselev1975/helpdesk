@@ -102,21 +102,14 @@ class showTree
         {
         static $title=[];
         if($init){$title=[];}
-        if(is_string($translate)){
-            $title[0]=$translate.": ".$this->getEmptyValueText();
-            }
-        else
-            {
-                $title=[];
-                foreach ($translate as $translate_title)
+        if(is_array($translate)){
+            foreach ($translate as $value)
                 {
-                    if(is_array($translate_title)){
-                        $this->get_empty_titles($translate_title);
-                    }
-                    else{
-                        $title[]=$translate_title.": ".$this->getEmptyValueText();
-                    }
+                    $this->get_empty_titles($value);
                 }
+            }
+            else{
+                $title[]=$translate.": ".$this->getEmptyValueText();
             }
         return implode(' ',$title);
         }
