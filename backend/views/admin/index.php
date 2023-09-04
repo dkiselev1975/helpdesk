@@ -9,7 +9,7 @@ $this->title = Yii::$app->params['app_name']['backend'];
 
 class showTree
 {
-    private array $fields=['name','email_id','jobtitle','mobile','department'];
+    private static array $fields=['name','email_id','jobtitle','mobile','department'];
     /*ID сотрудника*/
     /*Описание*/
     /*Дополнительные адреса эл. почты*/
@@ -17,7 +17,7 @@ class showTree
     /*Автор заявки может просматривать*/
     /*Назначенные роли*/
 
-    private array $translate=[
+    private static array $translate=[
     "email_id"=>"Основной адрес эл. почты",
     "is_vipuser"=>"VIP-пользователь",
     "cost_per_hour"=>"Стоимость в час (RUB)",
@@ -53,7 +53,7 @@ class showTree
                 ]
             ]*/
   ];
-    private array $classes=
+    private static array $classes=
     [
         'general_container'=>'tree_container border-light',
         'primary_header_box'=>'item_container border p-2 my-4',
@@ -93,43 +93,43 @@ class showTree
             ],
     ];
 
-    private function getEmptyValueText():string
+    private static function getEmptyValueText():string
     {
     return '<span class="text-secondary">Нет данных</span>';
     }
 
-    private function getEmptyTitles(mixed $translate, bool $init=false):string
+    private static function getEmptyTitles(mixed $translate, bool $init=false):string
         {
         static $title=[];
         if($init){$title=[];}
         if(is_array($translate)){
             foreach ($translate as $value)
                 {
-                    $this->getEmptyTitles($value);
+                    self::getEmptyTitles($value);
                 }
             }
             else{
-                $title[]=$translate.": ".$this->getEmptyValueText();
+                $title[]=$translate.": ".self::getEmptyValueText();
             }
         return implode(' ',$title);
         }
 
-    private function getValue(string $key, mixed $value, string $section, $translate, bool $flat=true)
+    private static function getValue(string $key, mixed $value, string $section, $translate, bool $flat=true)
     {
         static $level=0;
         if(is_array($value))
         {
         if(!$flat)
             {
-            $class=$this->classes[$section][(int)((bool)$level)]['is_object'];
+            $class=self::$classes[$section][(int)((bool)$level)]['is_object'];
             if(!$flat){$class.=$class." ps-".$level;}
             ?><div class="<?=$class;?>"><?
-            ?><div class="<?=$this->classes[$section][(int)((bool)$level)]['object_title']?>" title="(is_obj),level: <?=$level;?>"><?=$key.":";?></div><?
+            ?><div class="<?=self::$classes[$section][(int)((bool)$level)]['object_title']?>" title="(is_obj),level: <?=$level;?>"><?=$key.":";?></div><?
             }
             foreach ($value as $k=>$v)
             {
                 $level++;
-                if(isset($translate[$k])){$this->getValue($k,$v,$section,$translate[$k]);}
+                if(isset($translate[$k])){self::getValue($k,$v,$section,$translate[$k]);}
                 --$level;
             }
         if(!$flat)
@@ -141,7 +141,7 @@ class showTree
             //var_dump($translate);
             if(is_null($value))
                 {
-                $title=$this->getEmptyTitles($translate,true);
+                $title=self::getEmptyTitles($translate,true);
                 }
             else
                 {
@@ -152,47 +152,47 @@ class showTree
                 $title=$translate.": ".$value;
                 }
             //if(is_string($translate)){$title=$translate;}else{var_dump($translate,$value);echo gettype($translate);}
-            $class=$this->classes[$section][(int)((bool)$level)]['is_scalar_value'];
+            $class=self::$classes[$section][(int)((bool)$level)]['is_scalar_value'];
             if(!$flat){$class.=$class." ps-".$level;}
             ?><div class="<?=$class;?>" title="level: <?=$level." (".$key.")";?>"><?=$title;?></div><?
         }
     }
 
-    public function __construct($data)
+    public static function init($data)
     {
         if(count($data)>0)
         {
-            ?><div class="<?=$this->classes['general_container'];?>"><?php
+            ?><div class="<?=self::$classes['general_container'];?>"><?php
             foreach ($data as $value)
             {
-                ?><div class="<?=$this->classes['primary_header_box'];?>"><?
-                //var_dump(array_diff($v,$this->fields));
-                ?><div class="<?=$this->classes['primary_container'];?>"><?
-                foreach($this->fields as $key)
+                ?><div class="<?=self::$classes['primary_header_box'];?>"><?
+                //var_dump(array_diff($v,self::fields));
+                ?><div class="<?=self::$classes['primary_container'];?>"><?
+                foreach(self::$fields as $key)
                 {
                     if(
                         (array_key_exists($key,$value))//есть данные из полей-заголовков в данных
                         &&
-                        (array_key_exists($key,$this->translate))//есть перевод для поля заголовка
+                        (array_key_exists($key,self::$translate))//есть перевод для поля заголовка
                     )
                     {
-                        $this->getValue($key,$value[$key],'primary',$this->translate[$key]);
+                        self::getValue($key,$value[$key],'primary',self::$translate[$key]);
                     }
                 }
                 ?></div><?
-                ?><div class="<?=$this->classes['secondary_container'];?>"><?
+                ?><div class="<?=self::$classes['secondary_container'];?>"><?
 
                 //var_dump($value);
                 foreach ($value as $key=>$second_value)
                 {
 
                     if(
-                        (!in_array($key,$this->fields))//поле не выводилось в заголовок
+                        (!in_array($key,self::$fields))//поле не выводилось в заголовок
                         &&
-                        (array_key_exists($key,$this->translate))//есть перевод для поля
+                        (array_key_exists($key,self::$translate))//есть перевод для поля
                     )
                     {
-                        $this->getValue($key,$second_value,'secondary',$this->translate[$key]);
+                        self::getValue($key,$second_value,'secondary',self::$translate[$key]);
                     }
                 }
                 ?></div><?
@@ -229,5 +229,5 @@ $params=["input_data"=>urlencode(json_encode($input_data))];
 $context = stream_context_create($opts,$params);
 $data = json_decode(file_get_contents('https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)), false, $context),true);
 var_dump($data['list_info']);
-$tree=new showTree($data['users']);
+showTree::init($data['users']);
 ?>
