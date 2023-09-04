@@ -98,14 +98,14 @@ class showTree
     return '<span class="text-secondary">Нет данных</span>';
     }
 
-    private function get_empty_titles(mixed $translate,bool $init=false):string
+    private function getEmptyTitles(mixed $translate, bool $init=false):string
         {
         static $title=[];
         if($init){$title=[];}
         if(is_array($translate)){
             foreach ($translate as $value)
                 {
-                    $this->get_empty_titles($value);
+                    $this->getEmptyTitles($value);
                 }
             }
             else{
@@ -114,7 +114,7 @@ class showTree
         return implode(' ',$title);
         }
 
-    private function get_value(string $key,mixed $value,string $section,$translate,bool $flat=true)
+    private function getValue(string $key, mixed $value, string $section, $translate, bool $flat=true)
     {
         static $level=0;
         if(is_array($value))
@@ -129,7 +129,7 @@ class showTree
             foreach ($value as $k=>$v)
             {
                 $level++;
-                if(isset($translate[$k])){$this->get_value($k,$v,$section,$translate[$k]);}
+                if(isset($translate[$k])){$this->getValue($k,$v,$section,$translate[$k]);}
                 --$level;
             }
         if(!$flat)
@@ -141,7 +141,7 @@ class showTree
             //var_dump($translate);
             if(is_null($value))
                 {
-                $title=$this->get_empty_titles($translate,true);
+                $title=$this->getEmptyTitles($translate,true);
                 }
             else
                 {
@@ -154,11 +154,11 @@ class showTree
             //if(is_string($translate)){$title=$translate;}else{var_dump($translate,$value);echo gettype($translate);}
             $class=$this->classes[$section][(int)((bool)$level)]['is_scalar_value'];
             if(!$flat){$class.=$class." ps-".$level;}
-            ?><div class="<?=$class;?>" title="level: <?=$level."(".$key.")";?>"><?=$title;?></div><?
+            ?><div class="<?=$class;?>" title="level: <?=$level." (".$key.")";?>"><?=$title;?></div><?
         }
     }
 
-    public function makeTree($data)
+    public function __construct($data)
     {
         if(count($data)>0)
         {
@@ -176,7 +176,7 @@ class showTree
                         (array_key_exists($key,$this->translate))//есть перевод для поля заголовка
                     )
                     {
-                        $this->get_value($key,$value[$key],'primary',$this->translate[$key]);
+                        $this->getValue($key,$value[$key],'primary',$this->translate[$key]);
                     }
                 }
                 ?></div><?
@@ -192,7 +192,7 @@ class showTree
                         (array_key_exists($key,$this->translate))//есть перевод для поля
                     )
                     {
-                        $this->get_value($key,$second_value,'secondary',$this->translate[$key]);
+                        $this->getValue($key,$second_value,'secondary',$this->translate[$key]);
                     }
                 }
                 ?></div><?
@@ -203,9 +203,31 @@ class showTree
     }
 }
 
-$tree=new showTree();
-//$tree->add_translate($users->users);
-$tree->makeTree($users['users']);
+$input_data=
+    [
+        "list_info" => [
+            "sort_field"=> "name",
+            "start_index"=> 0,
+            "sort_order"=> "asc",
+            "row_count"=> "100",
+            "get_total_count"=> true,
+        ],
+        /*"fields_required"=> [
+            "name",
+        ],*/
+    ];
 
-?><pre><?php var_dump($users['users']);?></pre><?php
+
+$opts = [
+    'http'=>[
+        "method"=>"GET",
+        "header"=>"authtoken:E4661F58-E35B-48CA-BA1C-1C19C385AC69\r\n"."Content-Type:application/json; charset=UTF-8"
+    ],
+];
+
+$params=["input_data"=>urlencode(json_encode($input_data))];
+$context = stream_context_create($opts,$params);
+$data = json_decode(file_get_contents('https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)), false, $context),true);
+var_dump($data['list_info']);
+$tree=new showTree($data['users']);
 ?>
