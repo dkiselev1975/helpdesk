@@ -4,8 +4,9 @@
 /** @var string $empty_list_phrase */
 /** @var array $data */
 
+use backend\controllers\GoodException;
+
 $this->title = Yii::$app->params['app_name']['backend'];
-?><p><strong>Count: </strong><?var_dump (count($data['users']));?></p><?
 
 class showTree
 {
@@ -158,7 +159,7 @@ class showTree
         }
     }
 
-    public static function init($data)
+    public static function init(array $data)
     {
         if(count($data)>0)
         {
@@ -203,8 +204,8 @@ class showTree
     }
 }
 
-?><?
-?><pre><?var_dump($data['list_info']);?></pre><?
-?><pre><?var_dump($data['users'][0]);?></pre><?
-showTree::init($data['users']);
+/**/?><!--<pre><?/*var_dump($data['list_info']);*/?></pre><?/*
+*/?><pre><?/*var_dump($data['users'][0]);*/?></pre>--><?
+?><p><strong>Count: </strong><?var_dump (count($data));?></p><?
+showTree::init($data);
 ?>
