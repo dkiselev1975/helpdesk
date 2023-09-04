@@ -2,10 +2,10 @@
 /** @var yii\web\View $this */
 /** @var array $items */
 /** @var string $empty_list_phrase */
-/** @var object $users */
+/** @var array $data */
 
 $this->title = Yii::$app->params['app_name']['backend'];
-?><p><strong>Count: </strong><?var_dump (count($users['users']));?></p><?
+?><p><strong>Count: </strong><?var_dump (count($data['users']));?></p><?
 
 class showTree
 {
@@ -203,31 +203,8 @@ class showTree
     }
 }
 
-$input_data=
-    [
-        "list_info" => [
-            "sort_field"=> "name",
-            "start_index"=> 0,
-            "sort_order"=> "asc",
-            "row_count"=> "100",
-            "get_total_count"=> true,
-        ],
-        /*"fields_required"=> [
-            "name",
-        ],*/
-    ];
-
-
-$opts = [
-    'http'=>[
-        "method"=>"GET",
-        "header"=>"authtoken:E4661F58-E35B-48CA-BA1C-1C19C385AC69\r\n"."Content-Type:application/json; charset=UTF-8"
-    ],
-];
-
-$params=["input_data"=>urlencode(json_encode($input_data))];
-$context = stream_context_create($opts,$params);
-$data = json_decode(file_get_contents('https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)), false, $context),true);
-var_dump($data['list_info']);
+?><?
+?><pre><?var_dump($data['list_info']);?></pre><?
+?><pre><?var_dump($data['users'][0]);?></pre><?
 showTree::init($data['users']);
 ?>
