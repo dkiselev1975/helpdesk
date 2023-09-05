@@ -12,10 +12,12 @@ use SoapClient;
 use SoapFault;
 use Yii;
 use yii\base\BaseObject;
+use yii\captcha\CaptchaAction;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\ErrorAction;
 use yii\web\Response;
 
 /**
@@ -61,10 +63,10 @@ class FrontendController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => ErrorAction::class,
             ],
             'captcha' => [
-                'class' => \yii\captcha\CaptchaAction::class,
+                'class' => CaptchaAction::class,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];

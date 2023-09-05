@@ -8,6 +8,7 @@ use yii\base\ErrorException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ErrorAction;
 use yii\web\Response;
 
 /**
@@ -55,7 +56,7 @@ class AdminController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => ErrorAction::class,
             ],
         ];
     }
@@ -66,19 +67,26 @@ class AdminController extends Controller
     private function getData(int $start_index=1):array
     {
         $max_per_page=100;
-        $input_data=
+        /*$input_data=
             [
                 "list_info" => [
-                    "sort_field"=> "name",
-                    "start_index"=> $start_index,
-                    "sort_order"=> "asc",
-                    "row_count"=> $max_per_page,
+                    "sort_field"=>"name",
+                    "start_index"=>$start_index,
+                    "sort_order"=>"asc",
+                    "row_count"=>$max_per_page,
                     "get_total_count"=> true,
                 ],
-                /*"fields_required"=> [
-                    "name",
-                ],*/
-            ];
+            ];*/
+        $input_data=[
+            "list_info"=>[
+                "sort_field"=>"id",
+                "start_index"=>$start_index,
+                "sort_order"=>"asc",
+                "row_count"=>$max_per_page,
+                "get_total_count"=>true,
+            ],
+            "fields_required"=>["id","name"]
+        ];
 
         $options = [
             'http'=>[
@@ -90,29 +98,28 @@ class AdminController extends Controller
         $context = stream_context_create($options);
 
         if($start_index<1){throw new GoodException('Ошибка загрузки данных из helpdesk','Индекс начального элемента не должен быть меньше 1.');}
-        try {
-            $loaded_data = json_decode(file_get_contents(
-                'https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)),
-                false,
-                $context),
-                true);
-        }
 
-        catch (ErrorException $error){
-            throw new GoodException('Ошибка загрузки данных из helpdesk',$error->getMessage());
-        }
+        $file=@file_get_contents(
+            'https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)),
+            false,
+            $context);
+        if($file===false)
+            {
+            throw new GoodException('Ошибка загрузки данных из helpdesk',error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
+            }
+        $loaded_data = json_decode($file,true);
 
         $total_count=$loaded_data['list_info']['total_count'];
         //$page_records=$loaded_data['list_info']['page']*$loaded_data['list_info']['row_count'];
         //var_dump($loaded_data['users']);
         $data=array_merge($data,$loaded_data['users']);
         $start_index+=$loaded_data['list_info']['row_count'];
-        ?><p>****</p><?
+        /**/?><!--<p>****</p>--><?/*
         echo "total_count:".$total_count."<br>";
         echo "count(data):".count($data)."<br>";
         echo "loaded_data['list_info']['page']:".$loaded_data['list_info']['page']."<br>";
         echo "loaded_data['list_info']['row_count']:".$loaded_data['list_info']['row_count']."<br>";
-        echo "start_index:".$start_index."<br>";
+        echo "start_index:".$start_index."<br>";*/
         if ($total_count>=$start_index)
             {
             $this->getData($start_index);
@@ -126,7 +133,7 @@ class AdminController extends Controller
      * @return string
      * @throws GoodException
      */
-    public function actionIndex()
+    public function actionIndex():string
     {
 
         /*$obj = json_decode($json);

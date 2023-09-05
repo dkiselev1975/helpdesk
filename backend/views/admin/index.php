@@ -10,7 +10,7 @@ $this->title = Yii::$app->params['app_name']['backend'];
 
 class showTree
 {
-    private static array $fields=['name','email_id','jobtitle','mobile','department'];
+    private static array $fields=['id','name','email_id','jobtitle','mobile','department'];
     /*ID сотрудника*/
     /*Описание*/
     /*Дополнительные адреса эл. почты*/
@@ -19,6 +19,7 @@ class showTree
     /*Назначенные роли*/
 
     private static array $translate=[
+    "id"=>"id",
     "email_id"=>"Основной адрес эл. почты",
     "is_vipuser"=>"VIP-пользователь",
     "cost_per_hour"=>"Стоимость в час (RUB)",
