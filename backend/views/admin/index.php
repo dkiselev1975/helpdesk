@@ -2,7 +2,7 @@
 /** @var yii\web\View $this */
 /** @var array $items */
 /** @var string $empty_list_phrase */
-/** @var array $data */
+/** @var array $users_data */
 
 use backend\controllers\GoodException;
 
@@ -46,6 +46,7 @@ class showTree
         "udf_sline_302"=>"Рабочее место",
         "udf_sline_306"=>"Имя компьютера",
         ],
+    "secondary_emailids"=>["Дополнительные адреса эл. почты"],
     /*"created_by"=>[
             "name"=>"Кем создано",
             "department"=>
@@ -204,9 +205,8 @@ class showTree
         }
     }
 }
-
-/**/?><!--<pre><?/*var_dump($data['list_info']);*/?></pre><?/*
-*/?><pre><?/*var_dump($data['users'][0]);*/?></pre>--><?
-?><p><strong>Count: </strong><?var_dump (count($data));?></p><?
-showTree::init($data);
+/*?><!--<pre><?/*var_dump($data['list_info']);*/?><!--</pre>--><?
+?><pre><?var_dump($users_data[0]);?></pre><?
+?><p><strong>Count: </strong><?var_dump (count($users_data));?></p><?
+showTree::init($users_data);
 ?>
