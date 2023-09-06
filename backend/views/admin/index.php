@@ -205,8 +205,7 @@ class showTree
         }
     }
 }
-/*?><!--<pre><?/*var_dump($data['list_info']);*/?><!--</pre>--><?
-?><pre><?var_dump($users_data[0]);?></pre><?
-?><p><strong>Count: </strong><?var_dump (count($users_data));?></p><?
+Yii::debug($users_data[0]);
+?><p><strong>Всего пользователей: </strong><?=count($users_data);?></p><?
 showTree::init($users_data);
 ?>

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use Codeception\Util\Debug;
 use common\models\SiteUser;
 use Yii;
 use yii\base\ErrorException;
@@ -64,7 +65,7 @@ class AdminController extends Controller
     /**
      * @throws GoodException
      */
-    private function getUserIds(int $start_index=1):array
+    private function getUsersData(int $start_index=1):array
     {
         $input_data=[
             "list_info"=>[
@@ -77,40 +78,54 @@ class AdminController extends Controller
             "fields_required"=>["id","name"]
         ];
         /*echo "start_index_start:".$start_index."<br>";*/
-        ?><pre><?var_dump($input_data);?></pre><?
-        $options = [
+        ?><pre><?/*var_dump($input_data);*/?></pre><?
+        static $users_data=[];
+        $connection_options = [
             'http'=>[
                 "method"=>"GET",
                 "header"=>"authtoken:E4661F58-E35B-48CA-BA1C-1C19C385AC69\r\n"."Content-Type:application/json; charset=UTF-8"
             ],
         ];
-        static $data=[];
-        //if($start_index<1){throw new GoodException('Ошибка загрузки данных из helpdesk','Индекс начального элемента не должен быть меньше 1.');}
         $file=@file_get_contents(
             'https://hq-helpdesk:8080/api/v3/users?input_data='.urlencode(json_encode($input_data)),
             false,
-            stream_context_create($options));
+            stream_context_create($connection_options));
         if($file===false)
             {
-            throw new GoodException('Ошибка загрузки данных из helpdesk',error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
+            throw new GoodException('Ошибка загрузки данных',error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
             }
-        $loaded_data = json_decode($file,true);
-
-        $data=array_merge($data,$loaded_data['users']);
-        //$start_index+=$loaded_data['list_info']['row_count'];
+        $loaded_user_ids = json_decode($file,true);
+        /**/?><!--<pre><?/*var_dump($loaded_user_ids_data);*/?></pre>--><?
+        foreach ($loaded_user_ids['users'] as $user_id_data)
+        {
+            $file=@file_get_contents(
+                'https://hq-helpdesk:8080/api/v3/users/'.$user_id_data['id'],
+                false,
+                stream_context_create($connection_options));
+            if($file===false)
+            {
+                throw new GoodException('Ошибка загрузки информации о пользователе',"user_id: ".$user_id_data['id']."\n".error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
+            }
+            Yii::debug(json_decode($file,true));
+            $users_data[]=json_decode($file,true)['user'];
+            /*echo $user['id']."|".$user['name']."<br>";*/
+            /**/?><!--<pre><?/*var_dump($user_data);*/?></pre>--><?
+        }
+        //$start_index+=$loaded_user_ids_data['list_info']['row_count'];
         /**/?><!--<p>****</p>--><?/*
         echo "total_count:".$total_count."<br>";
         echo "count(data):".count($data)."<br>";
-        echo "loaded_data['list_info']['page']:".$loaded_data['list_info']['page']."<br>";
-        echo "loaded_data['list_info']['row_count']:".$loaded_data['list_info']['row_count']."<br>";
+        echo "loaded_data['list_info']['page']:".$loaded_user_ids_data['list_info']['page']."<br>";
+        echo "loaded_data['list_info']['row_count']:".$loaded_user_ids_data['list_info']['row_count']."<br>";
         echo "start_index:".$start_index."<br>";*/
         //if ($total_count>=$start_index)
-        if ($loaded_data['list_info']['has_more_rows'])
+        if($loaded_user_ids['list_info']['has_more_rows'])
             {
-            $start_index=$loaded_data['list_info']['page']*$loaded_data['list_info']['row_count']+1;
-            $this->getUserIds($start_index);
+            $start_index=$loaded_user_ids['list_info']['page']*$loaded_user_ids['list_info']['row_count']+1;
+            $this->getUsersData($start_index);
             }
-        return $data;
+        ?><pre><?/*var_dump($users_data);*/?></pre><?
+        return $users_data;
     }
 
     /**
@@ -123,29 +138,7 @@ class AdminController extends Controller
     {
         try
             {
-            $users_list=$this->getUserIds();
-            $users_data=[];
-            foreach ($users_list as $user)
-                {
-                $options = [
-                    'http'=>[
-                        "method"=>"GET",
-                        "header"=>"authtoken:E4661F58-E35B-48CA-BA1C-1C19C385AC69\r\n"."Content-Type:application/json; charset=UTF-8"
-                    ],
-                ];
-                $file=@file_get_contents(
-                    'https://hq-helpdesk:8080/api/v3/users/'.$user['id'],
-                    false,
-                    stream_context_create($options));
-                if($file===false)
-                {
-                    throw new GoodException('Ошибка загрузки данных из helpdesk',error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
-                }
-                $users_data[]=json_decode($file,true)['user'];
-                /*echo $user['id']."|".$user['name']."<br>";*/
-                /**/?><!--<pre><?/*var_dump($user_data);*/?></pre>--><?
-                }
-            //if(!is_array($data)){throw new GoodException('Ошибка загрузки данных из helpdesk','Данные не являются массивом');}
+            $users_data=$this->getUsersData();
             }
         catch (GoodException $exception)
             {
