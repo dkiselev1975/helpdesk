@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     public $js = [
         //js переопределяющий yii.confirm
         //'js/yii.confirm.overrides.js',
+        'js/usersDataLoading.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

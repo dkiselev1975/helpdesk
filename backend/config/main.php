@@ -53,6 +53,7 @@ return [
                 'admin/logout'=>'admin/logout',
                 ''=>'admin/index',
                 'index'=>'admin/index',
+                'apiGetUsersData'=>'admin/api-get-users-data',
 
                 'site-user-index' =>'admin/site-user-index',
                 'site-user-edit-form' => 'admin/site-user-edit-form',

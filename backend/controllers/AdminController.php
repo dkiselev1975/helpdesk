@@ -2,7 +2,6 @@
 
 namespace backend\controllers;
 
-use Codeception\Util\Debug;
 use common\models\SiteUser;
 use Yii;
 use yii\base\ErrorException;
@@ -35,6 +34,7 @@ class AdminController extends Controller
                             'site-user-index',
                             'site-user-edit-form',
                             'site-user-delete',
+                            'api-get-users-data'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -63,6 +63,25 @@ class AdminController extends Controller
     }
 
     /**
+     * Makes HTML code for api users data
+     *
+     * @throws GoodException
+     */
+    public function actionApiGetUsersData():string
+    {
+        try
+        {
+            $users_data=[];
+            $users_data=$this->getUsersData();
+        }
+        catch (GoodException $exception)
+        {
+            throw $exception;
+        }
+        return $this->renderpartial('ApiGetUsersData',compact('users_data'));
+    }
+
+    /**
      * @throws GoodException
      */
     private function getUsersData(int $start_index=1):array
@@ -77,8 +96,6 @@ class AdminController extends Controller
             ],
             "fields_required"=>["id","name"]
         ];
-        /*echo "start_index_start:".$start_index."<br>";*/
-        ?><pre><?/*var_dump($input_data);*/?></pre><?
         static $users_data=[];
         $connection_options = [
             'http'=>[
@@ -95,7 +112,6 @@ class AdminController extends Controller
             throw new GoodException('Ошибка загрузки данных',error_get_last()['message'],buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
             }
         $loaded_user_ids = json_decode($file,true);
-        /**/?><!--<pre><?/*var_dump($loaded_user_ids_data);*/?></pre>--><?
         foreach ($loaded_user_ids['users'] as $user_id_data)
         {
             $file=@file_get_contents(
@@ -108,23 +124,12 @@ class AdminController extends Controller
             }
             Yii::debug(json_decode($file,true));
             $users_data[]=json_decode($file,true)['user'];
-            /*echo $user['id']."|".$user['name']."<br>";*/
-            /**/?><!--<pre><?/*var_dump($user_data);*/?></pre>--><?
         }
-        //$start_index+=$loaded_user_ids_data['list_info']['row_count'];
-        /**/?><!--<p>****</p>--><?/*
-        echo "total_count:".$total_count."<br>";
-        echo "count(data):".count($data)."<br>";
-        echo "loaded_data['list_info']['page']:".$loaded_user_ids_data['list_info']['page']."<br>";
-        echo "loaded_data['list_info']['row_count']:".$loaded_user_ids_data['list_info']['row_count']."<br>";
-        echo "start_index:".$start_index."<br>";*/
-        //if ($total_count>=$start_index)
         if($loaded_user_ids['list_info']['has_more_rows'])
             {
             $start_index=$loaded_user_ids['list_info']['page']*$loaded_user_ids['list_info']['row_count']+1;
             $this->getUsersData($start_index);
             }
-        ?><pre><?/*var_dump($users_data);*/?></pre><?
         return $users_data;
     }
 
@@ -136,20 +141,7 @@ class AdminController extends Controller
      */
     public function actionIndex():string
     {
-        try
-            {
-            $users_data=$this->getUsersData();
-            }
-        catch (GoodException $exception)
-            {
-            throw $exception;
-            }
-        /**/?><!--<pre><?/*var_dump($users_data);*/?></pre>--><?
-        /*echo count($users_list);*/
-        /**/?><!--<pre><?/*var_dump($users_list[0]);*/?></pre><?/*
-        */?><pre><?/*var_dump($users_list[count($users_list)-1]);*/?></pre>--><?
-        return $this->render('index',compact('users_data'));
-        //return "";
+        return $this->render('index');
     }
 
     /**
