@@ -69,6 +69,7 @@ class AdminController extends Controller
      */
     public function actionApiGetUsersData():string
     {
+        $page_title = implode(' ',['Пользователи системы',Yii::$app->params['api_system_name']]);
         try
         {
             $users_data=[];
@@ -78,7 +79,14 @@ class AdminController extends Controller
         {
             throw $exception;
         }
-        return $this->renderpartial('ApiGetUsersData',compact('users_data'));
+        if(Yii::$app->request->isAjax)
+            {
+                return $this->renderpartial('ApiGetUsersData',compact('users_data','page_title'));
+            }
+        else
+            {
+            return $this->render('ApiGetUsersData',compact('users_data','page_title'));
+            }
     }
 
     /**
@@ -141,7 +149,8 @@ class AdminController extends Controller
      */
     public function actionIndex():string
     {
-        return $this->render('index');
+        $page_title = implode(' ',['Пользователи системы',Yii::$app->params['api_system_name']]);
+        return $this->render('index',compact('page_title'));
     }
 
     /**

@@ -31,9 +31,7 @@ class SiteController extends Controller
                         'allow' => true,/*роль не указывать*/
                     ],
                     [
-                        'actions' => [
-                            'login'
-                        ],
+                        'actions' => ['login'],
                         'allow' => true,
                         'roles'=> ['?']
                     ],
