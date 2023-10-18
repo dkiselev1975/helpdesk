@@ -10,6 +10,8 @@ use common\components\getData;
 
 use Yii;
 use yii\base\ErrorException;
+use yii\base\Exception;
+use yii\base\InvalidArgumentException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -179,7 +181,10 @@ class AdminController extends Controller
                     return $this->render('SiteUserEditForm', compact('item', 'page_title'));
                 }
             } else {
-                $item['status'] =SiteUser::STATUS_ACTIVE;
+                $item['status'] = SiteUser::STATUS_ACTIVE;
+                $password = Yii::$app->security->generateRandomString(12);
+                $item->setPassword($password);
+                $item->generateAuthKey();
                 if ($item->load(Yii::$app->request->post())) {
                     if (!$item->validate()) {
                         throw new ErrorException('Ошибка валидации', 0);
@@ -195,11 +200,11 @@ class AdminController extends Controller
                 }
             }
         }
-        catch (ErrorException $error)
+        catch (Exception | InvalidArgumentException | ErrorException $error)
         {
             $page_title = $error->getMessage();
             $errors=$item->getErrors();
-            return $this->render('SiteUserEditForm',compact('errors','page_title'));
+            throw new GoodException('Ошибка создания пользователя',$error->getMessage());
         }
     }
 

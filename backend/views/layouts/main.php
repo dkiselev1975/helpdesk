@@ -8,6 +8,7 @@ use backend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -58,6 +59,7 @@ AppAsset::register($this);
                             <?php
                         }
                         ?>
+                        <li class="fw-bold mb-2"><?=  yii\helpers\BaseHtml::a('Схема рабочих мест',Url::to('@web/docs/work_places_numbers.pdf'),['target'=>'_blank']);?></li>
                     </nav>
                 </div>
                 <main class="col-12 col-lg-10 body-content pt-4 px-0 px-sm-3 m-0 flex-grow-1">
