@@ -44,6 +44,7 @@ return [
             ]
         ],
     'defaultGoodExceptionLayout'=>'main',
+    'defaultGoodExceptionAjaxLayout'=>'ajax',
     'DislocationSOAP'=>[
         'url'=>'https://server2.vagony.su/solid/ws/ws1.1cws?wsdl',
     ],

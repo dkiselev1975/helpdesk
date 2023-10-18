@@ -77,8 +77,7 @@ return [
                 'site/reset-password'=>'site/reset-password',
                 'site/verify-email'=>'site/verify-email',
 
-                'request'=>'frontend/request',
-                'request_index'=>'frontend/request-index',
+                'apiGetUsersData'=>'frontend/api-get-users-data',
             ],
         ],
 

@@ -12,7 +12,16 @@ $buttons_class='btn btn-lg btn-primary col-12 col-sm-auto m-2';
 
 if(!preg_match('/^Ошибка/',$name)){$name='Ошибка: '.$name;}
 $this->title = $name;
-$layout=$layout??Yii::$app->params['defaultGoodExceptionLayout'];
+if(Yii::$app->request->isAjax)
+    {
+    $layout=Yii::$app->params['defaultGoodExceptionAjaxLayout'];
+    }
+else
+    {
+    $layout=$layout??Yii::$app->params['defaultGoodExceptionLayout'];
+    }
+
+
 ?>
 
 <?php $this->beginContent('@app/../backend/views/layouts/'.$layout.'.php',['title_class'=>'text-danger']); ?>

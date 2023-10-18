@@ -1,15 +1,14 @@
 <?php
 
 namespace frontend\controllers;
-use backend\controllers\GoodException;
+use common\components\GoodException;
+use common\components\getData;
 use common\models\Country;
 use common\models\Request;
 use common\models\SiteUser;
 use common\models\RequestForm;
 use ErrorException;
 use frontend\models\ContactForm;
-use SoapClient;
-use SoapFault;
 use Yii;
 use yii\base\BaseObject;
 use yii\captcha\CaptchaAction;
@@ -39,8 +38,8 @@ class FrontendController extends Controller
                         'actions' => [
                             'index',
                             'logout',
-                            'request',
                             'request-index',
+                            'api-get-users-data'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -107,6 +106,16 @@ class FrontendController extends Controller
     }
 
     /**
+     * Makes HTML code for api users data
+     *
+     * @throws GoodException
+     */
+    public function actionApiGetUsersData():string
+    {
+        return getData::ApiGetUsersData($this);
+    }
+
+     /**
      * Displays homepage.
      *
      * @return string
@@ -114,136 +123,8 @@ class FrontendController extends Controller
      */
     public function actionIndex():string
     {
-        //return $this->render('index');
-        return self::actionRequest();
+        $page_title = implode(' ',['Пользователи системы',Yii::$app->params['api_system_name']]);
+        return $this->render('index',compact('page_title'));
     }
 
-    /**
-     * @throws GoodException
-     */
-    public function actionRequest():string
-    {
-        define('send_request',true) ;
-        $user=SiteUser::findOne(['id'=>Yii::$app->user->id]);
-        $soap_request=new RequestForm();
-        if ($soap_request->load(Yii::$app->request->post()))
-            {
-            try
-                {
-                $country=Country::findOne($soap_request->country_id);
-                $request=new Request();
-                $request['wagon_number']=$soap_request->WagonNumber;
-                $request['user_id']=Yii::$app->user->id;
-                $request['country_id']=$soap_request->country_id;
-                $request['price_of_request']=$country['price_of_request'];
-                $request['user_email']=$user->email;/*email получателя результатов дислокации*/
-                $request['debug_flag']=(int)(!send_request);
-                if(!$soap_request->validate()){throw new GoodException('Неправильные параметры запроса дислокации');}
-                if(send_request)
-                    {
-                    $client = new SoapClient(Yii::$app->params['DislocationSOAP']['url'],
-                        [
-                            'login' => 'solid-tr.ru',
-                            'password' => 'solid',
-                        ]);
-
-                    $soap_response=$client->ArmingDismountingOfWagonsThreeParameters(
-                            [
-                                'Authentication' =>
-                                    [
-                                        'Login' => 'solid-tr.ru',
-                                        'Password' => 'solid'
-                                    ],
-                                'DataArmingDisarmingThreeParameters' =>
-                                    [
-                                        'Status' => 'Постановка', 'WagonNumber' => $soap_request->WagonNumber, 'TrackingType' => 'Срочный', 'Mail' => $user->email
-                                    ]
-                            ]
-                            );
-                        }
-                else
-                    {
-                    //$soap_response=(object)array('return'=>(object)['Успешно'=>false,'Ответ'=>'this carriage/container is already added']);
-                    $soap_response = (object)array('return' => (object)['Ответ' => 'Тестовый ответ','Успешно' => true,'ИДВагона' => 'a5c768dd-f1e2-44d7-8885-65be6b5ca834'],);
-                    }
-                }
-            /*Сервер не отвечает*/
-            catch (SoapFault $error)
-                    {
-                    $errors[]='<strong>SoapFault: </strong>'.Html::encode(trim($error->getMessage()));
-                    $request['repeated_flag']=null;
-                    $request['response_success']=0;
-                    $request['response_answer']=$error->getMessage();
-                    try
-                        {
-                        //$request['response_success']='test';
-                        $request->save();
-                        }
-                    catch (ErrorException $error)
-                        {
-                        $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
-                        Yii::error(strip_tags($log_message));
-                        }
-                    throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";\n",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
-                    }
-
-            /*Обработка ответа сервера*/
-            $request['repeated_flag']=match ($soap_response->return->Ответ)
-            {
-                'this carriage/container is already added','Вагон уже стоит на слежении!'=>true,
-                default=>false,
-            };
-
-            if((!$soap_response->return->Успешно)||$request['repeated_flag']){
-                $message=($request['repeated_flag'])?implode(' ',['Вагон',$soap_request->WagonNumber,'уже был поставлен на дислокацию']):$soap_response->return->Ответ;
-                $errors[]=trim('<strong>'."Ответ сервера дислокации: ".'</strong>'.$message,'.!');
-                $request['response_success']=(int)$soap_response->return->Успешно;
-                $request['response_answer']=$soap_response->return->Ответ;
-                try
-                    {
-                    //$request['response_success']='test';
-                    $request->save();
-                    }
-                catch (ErrorException $error)
-                    {
-                    $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
-                    Yii::error(strip_tags($log_message));
-                    }
-                throw new GoodException('Ошибка постановки запроса на дислокацию',implode(";<br>",$errors).".",buttons: [['title'=>'Вернуться','href'=> Yii::$app->request->referrer]]);
-                }
-            $page_title="SOAP запрос";
-            $result=implode("\n",['Ваш запрос срочной дислокации вагона <strong>№'.$soap_request->WagonNumber.'</strong> успешно отправлен.','Пожалуйста, ожидайте результат по адресу Вашей электронной почты ('.$user->email.').']);
-            $messages[]=$result;
-            $request['response_success']=(int)$soap_response->return->Успешно;
-            $request['response_answer']=$soap_response->return->Ответ;
-            try
-                {
-                //$request['response_success']='test';
-                $request->save();
-                }
-            catch (ErrorException $error)
-                {
-                $log_message=$errors[]='<strong>'.'Ошибка записи информации о запросе: '.'</strong>'.$error->getMessage();
-                Yii::error(strip_tags($log_message));
-                }
-            $message="<p>".implode("</p>\n<p>",$messages)."</p>";
-            $error=(!empty($errors))?'<p class="text-danger">'.implode('\n',$errors).'.</p>':null;
-            return $this->render('RequestResult',compact('page_title','message','error'));
-            }
-        else
-            {
-            $page_title="Запрос срочной дислокации вагона";
-            return $this->render('RequestForm',compact('page_title','soap_request'));
-            }
-    }
-
-    public function actionRequestIndex():string
-    {
-        $page_title='Мои запросы';
-        $empty_list_phrase='Список запросов пуст';
-        //$user=SiteUser::findOne(Yii::$app->user->id);
-        /*$items=$user->getCompany()->orderBy(['id'=>SORT_DESC])->all();*/
-        $items=Request::find()->where(['user_id'=>Yii::$app->user->id])->orderBy(['updated_at'=>SORT_DESC])->all();;
-        return $this->render('RequestIndex',compact('page_title','empty_list_phrase','items'));
-    }
 }

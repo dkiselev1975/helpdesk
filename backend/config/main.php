@@ -64,13 +64,7 @@ return [
                 'company-edit-form' =>'admin/company-edit-form',
                 'company-edit-form/<id:\d+>' => 'admin/company-edit-form',
                 'company-delete/<id:\d+>' => 'admin/company-delete',
-
-                'country-index' =>'admin/country-index',
-                'country-edit-form' =>'admin/country-edit-form',
-                'country-edit-form/<id:\d+>' => 'admin/country-edit-form',
-                'country-delete/<id:\d+>' => 'admin/country-delete',
-
-                'request-index'=>'admin/request-index',
+                'admin-user-create'=>'admin/admin-user-create'
             ],
         ],
 

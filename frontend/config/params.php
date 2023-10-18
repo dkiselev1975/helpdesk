@@ -6,8 +6,8 @@
 return [
     'left_menu'=>
         [
-            ['label' => 'Запрос', 'url' => 'index', 'class' =>'fw-bold mb-2'],
+            ['label' => 'Начальная', 'url' => 'index', 'class' =>'fw-bold mb-2'],
             //['label' => 'Запрос', 'url' => 'request', 'class' =>'fw-bold mb-2'],
-            ['label' => 'Мои запросы', 'url' => 'request_index', 'class' =>'fw-bold mb-2'],
+            //['label' => 'Мои запросы', 'url' => 'request_index', 'class' =>'fw-bold mb-2'],
         ],
 ];

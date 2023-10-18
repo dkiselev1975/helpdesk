@@ -1,5 +1,7 @@
 <?php
 return [
+    'name'=>'Сервис Helpdesk АО «Солид – товарные рынки»',
+    'language'=>'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -13,7 +15,6 @@ return [
             'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
         ],
-
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
@@ -23,6 +24,4 @@ return [
             'useFileTransport' => false,
         ],
     ],
-    'language'=>'ru-RU',
-    'name'=>'Сервис срочной дислокации'
 ];
