@@ -49,10 +49,11 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                'site/login'=>'site/login',
-                'admin/logout'=>'admin/logout',
                 ''=>'admin/index',
                 'index'=>'admin/index',
+                'site/login'=>'site/login',
+                'admin/logout'=>'admin/logout',
+
                 'apiGetUsersData'=>'admin/api-get-users-data',
 
                 'site-user-index' =>'admin/site-user-index',

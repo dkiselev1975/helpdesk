@@ -1,1 +1,1 @@
-../../../backend/web/js/usersDataLoading.js
+../../../common/components/usersDataLoading.js

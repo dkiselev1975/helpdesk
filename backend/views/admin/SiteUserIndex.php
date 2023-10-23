@@ -36,8 +36,8 @@ if(!empty($items)&&is_array($items))
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item->company->name??'<span class="text-danger fw-bold">Не указана<span>';?></td>
             <td class="d-none d-lg-table-cell p-1 p-sm-2 text-center"><?=$item['status']==User::STATUS_ACTIVE?'Да':'Нет';?></td>
             <td class="d-none d-xl-table-cell p-1 p-sm-2 text-center"><?=implode('<br>',[$item['created_at'],$item['updated_at']]);?></td>
-            <td class="p-1 p-sm-2 text-center"><?= Html::a('<i class="fas fa-edit"></i>', '/site-user-edit-form/'.$item['id'], ['class'=>'btn btn-secondary']); ?></td>
-            <td class="p-1 p-sm-2 text-center"><?= Html::a('<i class="fas fa-trash"></i>', '/site-user-delete/'.$item['id'], ['data-confirm'=>"Удалить запись?", 'class'=>'btn btn-danger']); ?></td>
+            <td class="p-1 p-sm-2 text-center"><?= Html::a('<i class="fas fa-edit"></i>', 'site-user-edit-form/'.$item['id'], ['class'=>'btn btn-secondary']); ?></td>
+            <td class="p-1 p-sm-2 text-center"><?= Html::a('<i class="fas fa-trash"></i>', 'site-user-delete/'.$item['id'], ['data-confirm'=>"Удалить запись?", 'class'=>'btn btn-danger']); ?></td>
         </tr>
         <?php
     }

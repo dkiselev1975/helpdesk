@@ -66,18 +66,19 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                'site/login'=>'site/login',
-                'admin/logout'=>'frontend/logout','frontend/logout'=>'frontend/logout',
                 ''=>'frontend/index',
                 'index'=>'frontend/index',
+                'site/login'=>'site/login',
+                'admin/logout'=>'frontend/logout',/*because admin template is used */
+                'frontend/logout'=>'frontend/logout',
+
+                'apiGetUsersData'=>'frontend/api-get-users-data',
 
                 'site/signup'=>'site/signup',
                 'site/request-password-reset'=>'site/request-password-reset',
                 'site/resend-verification-email'=>'site/resend-verification-email',
                 'site/reset-password'=>'site/reset-password',
                 'site/verify-email'=>'site/verify-email',
-
-                'apiGetUsersData'=>'frontend/api-get-users-data',
             ],
         ],
 

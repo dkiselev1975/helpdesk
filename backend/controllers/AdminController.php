@@ -14,6 +14,7 @@ use yii\base\Exception;
 use yii\base\InvalidArgumentException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\Response;
@@ -159,7 +160,7 @@ class AdminController extends Controller
      */
     public function actionSiteUserEditForm():?string
     {
-        $redirect_url='/site-user-index';
+        $redirect_url=Url::to(['site-user-index']);
         $item=new SiteUser();
         try {
             if ($id = Yii::$app->getRequest()->GET('id')) {
@@ -216,7 +217,7 @@ class AdminController extends Controller
      */
     public function actionCompanyEditForm():?string
     {
-        $redirect_url='/company-index';
+        $redirect_url=Url::to(['company-index']);
         $item=new Company();
         try {
             if ($id = Yii::$app->getRequest()->GET('id')) {
@@ -269,7 +270,7 @@ class AdminController extends Controller
      */
     public function actionSiteUserDelete():void
     {
-        $redirect_url='/site-user-index';
+        $redirect_url=Url::to(['site-user-index']);
         $id=Yii::$app->getRequest()->GET('id');
         $model=new SiteUser();
         if(!($item=$model->find()->andWhere(['id'=>$id])->one())){throw new GoodException('Пользователь сайта не найден');}
@@ -283,7 +284,7 @@ class AdminController extends Controller
      */
     public function actionCompanyDelete():void
     {
-        $redirect_url='/company-index';
+        $redirect_url=Url::to(['company-index']);
         $id=Yii::$app->getRequest()->GET('id');
         $model=new Company();
         if(!($item=$model->find()->andWhere(['id'=>$id])->one())){throw new GoodException('Компания не найдена');}
