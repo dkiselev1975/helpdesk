@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 /**
  * Login form
@@ -97,9 +98,9 @@ class LoginForm extends Model
                 if($password_resend_reset)
                     {?>
                     <div class="my-1 mx-0" style="color:#999;">
-                        <?= Yii::$app->params['messages']['login']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['forgot_password'][1], ['site/request-password-reset']) ?>.
+                        <?= Yii::$app->params['messages']['login']['texts']['forgot_password'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['forgot_password'][1], Url::to(['site/request-password-reset'])) ?>.
                         <br>
-                        <?= Yii::$app->params['messages']['login']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['resend'][1], ['site/resend-verification-email']) ?>
+                        <?= Yii::$app->params['messages']['login']['texts']['resend'][0] ?> <?= Html::a(Yii::$app->params['messages']['login']['texts']['resend'][1], Url::to(['site/resend-verification-email'])) ?>
                     </div>
                     <?php
                     }
@@ -110,7 +111,7 @@ class LoginForm extends Model
                     </div>
                     <?php
                     if($signup){
-                        ?><?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], ['/site/signup'], ['class'=>'btn btn-secondary m-2 px-4']) ?>
+                        ?><?= Html::a(Yii::$app->params['messages']['login']['texts']['signup'][0], Url::to(['site/signup']), ['class'=>'btn btn-secondary m-2 px-4']) ?>
                     <?php }?>
                 </div>
                 <?php ActiveForm::end(); ?>

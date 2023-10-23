@@ -27,7 +27,7 @@ class SiteController extends Controller
                     /*см. 'errorHandler' в ./config/main.php*/
                     /*адрес 'site/error'*/
                     [
-                        'actions'=>['error'],
+                        'actions'=>['error','test'],
                         'allow' => true,/*роль не указывать*/
                     ],
                     [
@@ -53,12 +53,12 @@ class SiteController extends Controller
         ];
     }
 
+
     /**
      * Login action.
      *
      * @return string|Response
      */
-
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
