@@ -4,6 +4,8 @@
 ];*/
 
 return [
+    'app_name'=>'Сервис Helpdesk «Солид – товарные рынки»',
+    'app_name_short'=>'Helpdesk «СТР»',
     'left_menu'=>
         [
             ['label' => 'Начальная', 'url' => 'index', 'class' =>'fw-bold mb-2'],

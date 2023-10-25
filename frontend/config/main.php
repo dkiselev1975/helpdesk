@@ -1,6 +1,9 @@
 <?php
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
+    require __DIR__ . '/../../common/config/regexp.php',
+    require __DIR__ . '/../../common/config/date_formats.php',
+    require __DIR__ . '/../../common/config/messages.php',
     require __DIR__ . '/../../common/config/params-local.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'

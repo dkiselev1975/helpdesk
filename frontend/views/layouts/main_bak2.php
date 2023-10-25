@@ -16,7 +16,7 @@ AppAsset::register($this);
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>" class="h-100">
     <head>
-        <title><?= $this->title?Html::encode(implode(" | ",array(Yii::$app->params['app_name']['backend'],$this->title))):Html::encode(Yii::$app->params['app_name']['backend'])?></title>
+        <title><?= $this->title?Html::encode(implode(" | ",array(Yii::$app->params['app_name'],$this->title))):Html::encode(Yii::$app->params['app_name'])?></title>
         <?= Html::csrfMetaTags() ?>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,7 +28,7 @@ AppAsset::register($this);
     <header>
         <nav id="w0" class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <div class="container flex-nowrap px-2 px-sm-4">
-                <a class="navbar-brand" href="/"><?=\Yii::$app->params['app_name']['backend'];?></a>
+                <a class="navbar-brand" href="/"><?=\Yii::$app->params['app_name'];?></a>
                 <?php
                 if (Yii::$app->user->isGuest) {
                     echo Html::tag('div',Html::a(Yii::$app->params['messages']['navbar']['Login'],['/site/login'],['class' => ['btn btn-link login text-decoration-none text-nowrap']]),['class' => ['d-flex']]);

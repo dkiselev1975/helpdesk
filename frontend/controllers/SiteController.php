@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use backend\controllers\GoodException;
+use common\components\GoodException;
 use common\models\SiteLoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;

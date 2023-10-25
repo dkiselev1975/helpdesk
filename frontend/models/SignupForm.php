@@ -1,7 +1,7 @@
 <?php
 
 namespace frontend\models;
-use backend\controllers\GoodException;
+use common\components\GoodException;
 use common\models\User;
 use ErrorException;
 use Yii;

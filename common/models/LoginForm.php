@@ -87,7 +87,7 @@ class LoginForm extends Model
     <div class="site-login align-items-center d-flex pb-5">
         <div class="d-flex flex-grow-1 justify-content-center">
             <div class="col-12 col-lg-5">
-                <h1 class="text-center pb-4"><?= Yii::$app->params['app_name']['frontend'] ?></h1>
+                <h1 class="text-center pb-4"><?= Yii::$app->params['app_name'] ?></h1>
                 <h2 class="text-center mb-4 border-bottom pb-4 fs-4"><?= Html::encode($title) ?></h2>
                 <p><?=Yii::$app->params['messages']['login']['sub_title'].':';?></p>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>

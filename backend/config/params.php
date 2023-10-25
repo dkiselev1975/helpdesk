@@ -1,5 +1,7 @@
 <?php
 return [
+    'app_name'=>'CMS | Сервис Helpdesk',
+    'app_name_short'=>'CMS | Helpdesk',
     'left_menu'=>
         [
             ['label' => 'Начальная', 'url' => 'backend/index', 'class' =>'fw-bold mb-2'],
