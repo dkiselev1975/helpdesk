@@ -13,6 +13,7 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
@@ -110,7 +111,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', Yii::$app->params['messages']['actionSignup']['success'].'.');
             //return $this->goHome();
-            return $this->response->redirect('/site/login');
+            return $this->response->redirect(Url::to(['site/login']));
         }
 
         return $this->render('signup', [

@@ -35,9 +35,9 @@ AppAsset::register($this);
                 </a>
                 <?php
                 if (Yii::$app->user->isGuest) {
-                    echo Html::tag('div',Html::a(Yii::$app->params['messages']['navbar']['Login'],Url::To(['site/login']),['class' => ['btn btn-link login text-decoration-none text-nowrap']]),['class' => ['d-flex']]);
+                    echo Html::tag('div',Html::a(Yii::$app->params['messages']['navbar']['Login'],Url::to(['site/login']),['class' => ['btn btn-link login text-decoration-none text-nowrap']]),['class' => ['d-flex']]);
                 } else {
-                    echo Html::beginForm(Url::To(['admin/logout']), 'post', ['class' => 'd-flex'])
+                    echo Html::beginForm(Url::to(['admin/logout']), 'post', ['class' => 'd-flex'])
                         . Html::submitButton(
                             Yii::$app->params['messages']['navbar']['Logout'].' (' . Yii::$app->user->identity->username . ')',
                             ['class' => 'btn btn-link logout text-decoration-none text-nowrap']
