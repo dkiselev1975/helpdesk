@@ -84,6 +84,13 @@ return [
                 'site/verify-email'=>'site/verify-email',
             ],
         ],
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => '/',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+        ],
 
     ],
     'params' => $params,

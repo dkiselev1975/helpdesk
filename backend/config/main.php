@@ -69,9 +69,16 @@ return [
                 'company-edit-form/<id:\d+>' => 'admin/company-edit-form',
                 'company-delete/<id:\d+>' => 'admin/company-delete',
                 'admin-user-create'=>'admin/admin-user-create',
+                'verify-email'=>'admin/index'
             ],
         ],
-
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => '/',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+        ],
     ],
     'params' => $params,
 ];

@@ -35,7 +35,7 @@ class AdminUser extends User
             ['email', 'required', 'message' =>  Yii::$app->params['messages']['errors']['rules']['email']['required']."."],
             ['email', 'email', 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
             ['email', 'string', 'max' => 255,'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['255smb']],
-            ['email','trim'],
+            ['email', 'trim'],
             ['email', 'unique', 'targetClass' => '\common\models\AdminUser', 'message' => Yii::$app->params['messages']['errors']['email_is_already_used']."."],
         ];
     }

@@ -13,14 +13,15 @@
  */
 class Yii {
     /**
-     * @var \yii\web\Application|\yii\console\Application|__Application
+     * @var yii\web\Application|yii\console\Application|__Application
      */
-    public static $app;
+    public static \yii\console\Application|__Application|\yii\web\Application $app;
 }
 
 /**
  * @property yii\rbac\DbManager $authManager 
- * @property \yii\web\User|__WebUser $user
+ * @property yii\web\User|__WebUser $user
+ * @property yii\web\urlManager $urlManagerFrontend
  * 
  */
 class __Application {

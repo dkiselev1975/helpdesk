@@ -8,7 +8,10 @@ use common\models\SiteUser;
 use common\models\Company;
 use common\components\getData;
 
+use common\models\User;
+use frontend\models\SignupForm;
 use Yii;
+use yii\base\BaseObject;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
@@ -158,55 +161,89 @@ class AdminController extends Controller
      *
      * @throws GoodException
      */
-    public function actionSiteUserEditForm():?string
+    public function actionSiteUserEditForm():string|response|bool
     {
+        $form=new SignupForm();
         $redirect_url=Url::to(['site-user-index']);
-        $item=new SiteUser();
-        try {
+        try
+            {
             if ($id = Yii::$app->getRequest()->GET('id')) {
+                // Редактирование и сохранение данных о пользователе
+                Yii::Debug('Редактирование и сохранение данных о пользователе');
                 $item = SiteUser::find()->andWhere(['id' => $id])->one();
                 if(empty($item)){throw new GoodException('Пользователь сайта не найден');}
-                //Yii::Warning(Yii::$app->request->post());
-                if ($item->load(Yii::$app->request->post())) {
-                    if (!$item->validate()) {
+                Yii::Warning(Yii::$app->request->post());
+                if ($item->load(Yii::$app->request->post())){
+                    //данные пришли из формы - сохранение
+                    Yii::Debug('Редактирование и сохранение данных о пользователе');
+                    if (!$item->validate())
+                        {
                         throw new ErrorException('Ошибка валидации', 0);
-                    }
-                    if (!$item->save()) {
+                        }
+                    if (!$item->save())
+                        {
                         throw new ErrorException('Ошибка сохранения в БД', 1);
+                        }
+                    return $this->response->redirect($redirect_url);
                     }
-
-                    $this->redirect($redirect_url);
-                    return null;
-                } else {
+                else
+                    {
                     $page_title = 'Изменение пользователя сайта';
-                    return $this->render('SiteUserEditForm', compact('item', 'page_title'));
+                    Yii::Debug('Изменение пользователя сайта');
+                    return $this->render('SiteUserEditForm', ['model'=>$item, 'page_title'=>$page_title]);
+                    }
                 }
-            } else {
-                $item['status'] = SiteUser::STATUS_ACTIVE;
-                $password = Yii::$app->security->generateRandomString(12);
-                $item->setPassword($password);
-                $item->generateAuthKey();
-                if ($item->load(Yii::$app->request->post())) {
-                    if (!$item->validate()) {
-                        throw new ErrorException('Ошибка валидации', 0);
+            else
+                {
+                $page_title = 'Добавить пользователя сайта';
+                //Сохраненние данных нового пользователя
+                if ($form->load(Yii::$app->request->post()))
+                    {
+                    Yii::Warning(Yii::$app->request->post());
+                    /*$item=new SiteUser();
+                    $item['status'] = SiteUser::STATUS_ACTIVE;
+                    $item->setPassword($form->password);
+                    $item->generateAuthKey();*/
+                    //POST-запрос
+
+                    if ($form->load(Yii::$app->request->post()) && $form->signup()) {
+                        return $this->response->redirect($redirect_url);
+                        }
+                    else
+                        {
+                        return $this->render('SiteUserEditForm', ['model' => $form,'page_title'=>$page_title]);
+                        }
                     }
-                    if (!$item->save()) {
-                        throw new ErrorException('Ошибка сохранения в БД', 1);
+                else
+                    {
+                    //Форма нового пользователя
+                    Yii::Debug(Yii::$app->urlManagerFrontend->createAbsoluteUrl(['site/verify-email']));
+                    Yii::Debug('Форма нового пользователя');
+
+                    $form->username='test';
+                    $form->person_name='Тест';
+                    $form->person_patronymic='Тестович';
+                    $form->person_surname='Тестов';
+                    $form->email='tahoe99@mail.ru';
+                    $form->password=Yii::$app->security->generateRandomString(12);
+                    $form->phone_office='+7 (495) 543-91-31+196';
+                    $form->phone_mobile='+7 (916) 688-58-84';
+                    $form->company_id='';
+                    $form->status='';
+                    $form->note='';
+
+                    return $this->render('SiteUserEditForm', ['model'=>$form, 'page_title'=>$page_title]);
                     }
-                    $this->redirect($redirect_url);
-                    return null;
-                } else {
-                    $page_title = 'Добавить пользователя сайта';
-                    return $this->render('SiteUserEditForm', compact('item', 'page_title'));
                 }
             }
-        }
         catch (Exception | InvalidArgumentException | ErrorException $error)
-        {
-            $page_title = $error->getMessage();
-            $errors=$item->getErrors();
+            {
+            /*$page_title = $error->getMessage();
+            $errors=$item->getErrors();*/
+            Yii::Error('Ошибка создания пользователя');
             throw new GoodException('Ошибка создания пользователя',$error->getMessage());
-        }
+            }
+        return false;
     }
 
     /**

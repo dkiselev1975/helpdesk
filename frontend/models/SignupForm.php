@@ -1,8 +1,8 @@
 <?php
 
 namespace frontend\models;
+use Codeception\Util\Debug;
 use common\components\GoodException;
-use common\models\User;
 use ErrorException;
 use Yii;
 use common\models\SiteUser;
@@ -13,6 +13,10 @@ use yii\base\Model;
  */
 class SignupForm extends Model
 {
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
+
     public $username;
     /**/
     public $person_name;
@@ -24,10 +28,12 @@ class SignupForm extends Model
     public $phone_office;
     public $phone_mobile;
     public $company_id;
+    public $status;
+    public $note;
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules():array
     {
         return [
             ['username', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['username']['required']."."],
@@ -75,21 +81,28 @@ class SignupForm extends Model
 
             ['company_id','required', 'message'=>Yii::$app->params['messages']['errors']['rules']['company_id']['required']],
             ['company_id','integer'],
+
+            //['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE],'message'=>Yii::$app->params['messages']['errors']['rules']['status']['value']],
+
+            ['note', 'string', 'length' => [0,65535],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['64kb']],
+            ['note','trim'],
         ];
     }
 
     /**
      * Signs user up.
      *
-     * @return bool whether the creating new account was successful and email was sent
+     * @return bool |null whether the creating new account was successful and email was sent
      * @throws GoodException
      */
-    public function signup(): ?bool
+    public function signup($send__verification_email=true): bool|null
     {
         if (!$this->validate()) {
             return null;
-        }
-        
+            }
+
         $user = new SiteUser();
         $user->username = $this->username;
 
@@ -101,11 +114,16 @@ class SignupForm extends Model
 
         $user->phone_office = $this->phone_office;
         $user->phone_mobile = $this->phone_mobile;
-        $user->company_id = $this->company_id;
+        $user->company_id = (int)$this->company_id;
+        $user->status = (int)$this->status;
+        $user->note = $this->note;
 
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
+
+        if($send__verification_email){
+            $user->generateEmailVerificationToken();
+        }
 
         try {
             if(!$user->validate()){
@@ -114,17 +132,21 @@ class SignupForm extends Model
                 $errors_messages=array();
                 array_walk_recursive($errors,function ($item) use (&$errors_messages){$errors_messages[]=trim($item,'.');});
                 throw new GoodException(
-                    name:'Ошибка валидации',
+                    name:Yii::$app->params['messages']['errors']['validation']['validation_error'],
                     message:implode(";\n",$errors_messages).".",
-                    buttons: array(['href'=>Yii::$app->request->referrer,'title'=>'Вернуться']),
+                    buttons: array(['href'=>Yii::$app->request->referrer,'title'=>Yii::$app->params['messages']['signup']['buttons']['back']]),
                     layout:'blank');
                 }
-            if(!$user->save()){throw new GoodException('Ошибка сохранения в БД',layout:'blank');};
-            if(!$this->sendEmail($user)){throw new GoodException('Ошибка отправки письма для подтверждения',layout:'blank');};
-            Yii::debug('Registered....');
+            if(!$user->save()){throw new GoodException(Yii::$app->params['messages']['errors']['db']['saving_error'],layout:'blank');};
+
+            if(($send__verification_email)&&(!$this->sendEmail($user,$this->password)))
+                {
+                throw new GoodException(Yii::$app->params['messages']['errors']['sending']['confirmation'],layout:'blank');
+                }
+            Yii::debug(Yii::$app->params['messages']['signup']['debug']['registered'].': '.$user->username);
             return true;
             }
-        catch (ErrorException $exception)
+        catch (ErrorException|GoodException $exception)
             {
                 throw new GoodException($exception->getMessage());
             }
@@ -135,13 +157,14 @@ class SignupForm extends Model
      * @param SiteUser $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+    protected function sendEmail(SiteUser $user,$password=null):bool
     {
+        $send_verification_link=($user->status===$this::STATUS_INACTIVE);
         return Yii::$app
             ->mailer
             ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
+                ['html' => 'emailVerify_SiteUser-html', 'text' => 'emailVerify_SiteUser-text'],
+                compact(['user','password','send_verification_link'])
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' '.Yii::$app->params['messages']['emails']['robot']])
             ->setTo($this->email)
