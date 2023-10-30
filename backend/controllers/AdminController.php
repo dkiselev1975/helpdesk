@@ -243,7 +243,6 @@ class AdminController extends Controller
             Yii::Error('Ошибка создания пользователя');
             throw new GoodException('Ошибка создания пользователя',$error->getMessage());
             }
-        return false;
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
 namespace frontend\models;
-use Codeception\Util\Debug;
 use common\components\GoodException;
+use common\components\UserRules;
 use ErrorException;
 use Yii;
 use common\models\SiteUser;
@@ -30,65 +30,18 @@ class SignupForm extends Model
     public $company_id;
     public $status;
     public $note;
-    /**
-     * {@inheritdoc}
-     */
+
+    public function behaviors()
+    {
+        return
+            [
+                'myBehavior2' => UserRules::class,
+            ];
+    }
+
     public function rules():array
     {
-        return [
-            ['username', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['username']['required']."."],
-            ['username', 'unique', 'targetClass' => '\common\models\SiteUser', 'message' => Yii::$app->params['messages']['errors']['login_is_already_used']."."],
-            ['username', 'string', 'length' => [2, 45],
-                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
-                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['45smb'],
-            ],
-            ['username','trim'],
-
-            ['person_name', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['person_name']['required']."."],
-            ['person_name','string', 'length' => [2, 45],
-                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
-                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['45smb']
-            ],
-            ['person_name','trim'],
-
-            ['person_patronymic','string', 'length' => [2, 45],
-                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
-                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['45smb']
-            ],
-            ['person_patronymic','trim'],
-
-            ['person_surname', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['person_surname']['required']."."],
-            ['person_surname','string', 'length' => [2, 45],
-                'tooShort'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooShort']['2smb'],
-                'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['45smb']
-            ],
-            ['person_surname','trim'],
-
-            ['email', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['email']['required']."."],
-            ['email', 'email', 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
-            ['email', 'string', 'max' => 255,'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['255smb']],
-            ['email','trim'],
-            ['email', 'unique', 'targetClass' => '\common\models\SiteUser', 'message' => Yii::$app->params['messages']['errors']['email_is_already_used']."."],
-
-            ['password', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['password']['required']."."],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['password','trim'],
-
-            ['phone_mobile','match','pattern'=> Yii::$app->params['regexp']['phone_mobile'], 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
-            ['phone_mobile','trim'],
-            ['phone_office','match','pattern'=> Yii::$app->params['regexp']['phone_office'], 'message' => Yii::$app->params['messages']['errors']['rules']['format']],
-            ['phone_office','trim'],
-
-            ['company_id','required', 'message'=>Yii::$app->params['messages']['errors']['rules']['company_id']['required']],
-            ['company_id','integer'],
-
-            //['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE],'message'=>Yii::$app->params['messages']['errors']['rules']['status']['value']],
-
-            ['note', 'string', 'length' => [0,65535],'tooLong'=>Yii::$app->params['messages']['errors']['rules']['sizes']['tooLong']['64kb']],
-            ['note','trim'],
-        ];
+        return $this->getBehavior('myBehavior2')->myRules(true);
     }
 
     /**
