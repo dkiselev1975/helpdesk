@@ -2,12 +2,11 @@
 
 namespace common\models;
 use common\components\UserRules;
-
-use Yii;
-use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * SiteUser model
+ * @mixin UserRules
  *
  * @property string $phone_office
  * @property string $phone_mobile
@@ -21,9 +20,10 @@ class SiteUser extends User
     use DataRecord;
 
     /**
-     * @var mixed|null
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public function getCompany(): \yii\db\ActiveQuery
+    public function getCompany(): ActiveQuery
     {
         return $this->hasOne(Company::class,['id'=>'company_id']);
     }
@@ -33,18 +33,18 @@ class SiteUser extends User
         return '{{%site_user}}';
     }
 
-    public function behaviors()
+    public function behaviors():array
     {
     return
         [
-            TimestampBehavior::class,
-            'myBehavior2' => UserRules::class,
+            ...parent::behaviors(),
+            UserRules::class,
         ];
     }
 
     public function rules():array
     {
-    return $this->getBehavior('myBehavior2')->myRules(false);
+    return $this->UserRules(false);
     }
 
 }

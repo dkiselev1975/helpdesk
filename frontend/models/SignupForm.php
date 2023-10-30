@@ -10,13 +10,10 @@ use yii\base\Model;
 
 /**
  * Signup form
+ * @mixin UserRules
  */
 class SignupForm extends Model
 {
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
-
     public $username;
     /**/
     public $person_name;
@@ -31,17 +28,18 @@ class SignupForm extends Model
     public $status;
     public $note;
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return
             [
-                'myBehavior2' => UserRules::class,
+                ...parent::behaviors(),
+                UserRules::class,
             ];
     }
 
     public function rules():array
     {
-        return $this->getBehavior('myBehavior2')->myRules(true);
+        return $this->UserRules(true);
     }
 
     /**
@@ -90,7 +88,7 @@ class SignupForm extends Model
                     buttons: array(['href'=>Yii::$app->request->referrer,'title'=>Yii::$app->params['messages']['signup']['buttons']['back']]),
                     layout:'blank');
                 }
-            if(!$user->save()){throw new GoodException(Yii::$app->params['messages']['errors']['db']['saving_error'],layout:'blank');};
+            if(!$user->save()){throw new GoodException(Yii::$app->params['messages']['errors']['db']['saving_error'],layout:'blank');}
 
             if(($send__verification_email)&&(!$this->sendEmail($user,$this->password)))
                 {
@@ -112,7 +110,7 @@ class SignupForm extends Model
      */
     protected function sendEmail(SiteUser $user,$password=null):bool
     {
-        $send_verification_link=($user->status===$this::STATUS_INACTIVE);
+        $send_verification_link=($user->status===SiteUser::STATUS_INACTIVE);
         return Yii::$app
             ->mailer
             ->compose(

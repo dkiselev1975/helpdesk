@@ -7,16 +7,12 @@ use common\models\User;
 
 class UserRules extends Behavior
 {
-    /**
-     * @var string
-     */
-    public string $test='';
 
     /**
      * @param false $get_password
      * @return array
      */
-    public function myRules($get_password=false):array
+    public function UserRules($get_password=false):array
     {
         $main_rules=[
             ['username', 'required', 'message' => Yii::$app->params['messages']['errors']['rules']['username']['required']."."],
@@ -65,7 +61,6 @@ class UserRules extends Behavior
             ['note','trim'],
         ];
 
-
         /*SiteUser*/
         $status_full=[
             //['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
@@ -76,7 +71,7 @@ class UserRules extends Behavior
         /*SignupForm form*/
         $status_short=[
             //['status','required','message'=>Yii::$app->params['messages']['errors']['rules']['status']['required']],
-            ['status', 'default', 'value' => User::STATUS_ACTIVE],
+            ['status', 'default', 'value' => User::STATUS_INACTIVE],
             ['status', 'in', 'range' => [User::STATUS_ACTIVE, User::STATUS_INACTIVE],'message'=>Yii::$app->params['messages']['errors']['rules']['status']['value']],
         ];
 
@@ -94,7 +89,7 @@ class UserRules extends Behavior
         {
             $result=array_merge($main_rules,$status_full);
         }
-        Yii::Debug($result);
+        //Yii::Debug($result);
         return $result;
     }
 }
